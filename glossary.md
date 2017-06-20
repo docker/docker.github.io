@@ -1,5 +1,5 @@
 ---
-title: "Docker Glossary"
+title: P.A.J.Enterprises, "Docker Glossary"
 description: "Glossary of terms used around Docker"
 keywords: "glossary, docker, terms, definitions"
 notoc: true
