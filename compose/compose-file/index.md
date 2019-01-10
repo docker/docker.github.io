@@ -515,6 +515,10 @@ in the registry:
     credential_spec:
       registry: my-credential-spec
 
+> **Note**: This option is only available when
+> [deploying a stack in swarm mode](/engine/reference/commandline/stack_deploy.md)
+> with a (version 3) Compose file. See [Security_Opt](index.md#security_opt) when not deploying in swarm mode
+
 ### deploy
 
 > **[Version 3](compose-versioning.md#version-3) only.**
@@ -1561,6 +1565,11 @@ Override the default labeling scheme for each container.
     security_opt:
       - label:user:USER
       - label:role:ROLE
+      
+Alternatively use a credential spec file when not in swarm mode.
+
+    security_opt:
+      - credentialspec=file://path/to/file
 
 > **Note**: This option is ignored when
 > [deploying a stack in swarm mode](/engine/reference/commandline/stack_deploy.md)
