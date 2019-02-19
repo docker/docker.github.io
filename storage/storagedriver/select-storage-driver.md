@@ -76,7 +76,7 @@ the Docker edition you use.
 
 In addition, Docker does not recommend any configuration that requires you to
 disable security features of your operating system, such as the need to disable
-`selinux` if you use the `overlay` or `overlay2` driver on CentOS.
+`selinux` if you use the `overlay2` driver on CentOS.
 
 ### Docker Engine - Enterprise and Docker Enterprise
 

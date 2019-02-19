@@ -1,6 +1,6 @@
 ---
 description: Learn the technologies that support storage drivers.
-keywords: container, storage, driver, AUFS, btfs, devicemapper,zvfs
+keywords: container, storage, driver, AUFS, btfs, devicemapper,overlay2,overlay,overlayfs
 title: About storage drivers
 redirect_from:
 - /en/latest/terms/layer/
@@ -9,14 +9,15 @@ redirect_from:
 - /storage/storagedriver/imagesandcontainers/
 ---
 
+Storage drivers create data in the writable layer of your container. The files won't 
+be persisted after the container is deleted, and both read and write speeds are low.
+
+Docker recommends Overlay2 for the storage driver.
+
 To use storage drivers effectively, it's important to know how Docker builds and
 stores images, and how these images are used by containers. You can use this
 information to make informed choices about the best way to persist data from
 your applications and avoid performance problems along the way.
-
-Storage drivers allow you to create data in the writable layer of your container.
-The files won't be persisted after the container is deleted, and both read and
-write speeds are low.
 
 [Learn how to use volumes](../volumes.md) to persist data and improve performance.
 
@@ -292,8 +293,8 @@ layer. This means that the writable layer is as small as possible.
 
 When an existing file in a container is modified, the storage driver performs a
 copy-on-write operation. The specifics steps involved depend on the specific
-storage driver. For the `aufs`, `overlay`, and `overlay2` drivers, the 
-copy-on-write operation follows this rough sequence:
+storage driver. For the `aufs` and `overlay2` drivers, the copy-on-write operation 
+follows this rough sequence:
 
 *  Search through the image layers for the file to update. The process starts
    at the newest layer and works down to the base layer one layer at a time.
