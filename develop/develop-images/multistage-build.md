@@ -150,6 +150,36 @@ COPY --from=builder /go/src/github.com/alexellis/href-counter/app .
 CMD ["./app"]  
 ```
 
+By naming your build stages, you can also use inheritance. Let's say you define three stages named `base`, `child1` and `child2`:
+
+```conf
+FROM busybox AS base
+ENV BASE=1
+
+FROM base AS child1
+ENV CHILD=1
+ENV CHILD1=1
+
+FROM base AS child2
+ENV CHILD=2
+ENV CHILD2=1
+```
+
+The environment variables will be set as follows:
+
+|  | base | child1 | child2 |
+|-|-|-|-|
+| BASE | 1 | 1 | 1 |
+| CHILD | _(not set)_ | 1 | 2 |
+| CHILD1 | _(not set)_ | 1 | _(not set)_ |
+| CHILD2 | _(not set)_ | _(not set)_ | 1 |
+
+This pattern can be useful in a number of scenarios. If you want to provide a development build with a preloaded test runner and a production build that avoids unnecessary dependencies, you could put the shared logic and dependencies of both images in a base stage. Assuming your production build's stage name is `prod`, you could then build your production image by doing:
+
+```bash
+$ docker build --target prod -t my-component .
+```
+
 ## Stop at a specific build stage
 
 When you build your image, you don't necessarily need to build the entire
