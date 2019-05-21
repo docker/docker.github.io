@@ -228,6 +228,7 @@ Edit `docker-compose.yml` in your project directory to add a [bind mount](/engin
 The new `volumes` key mounts the project directory (current directory) on the
 host to `/code` inside the container, allowing you to modify the code on the
 fly, without having to rebuild the image.
+(At this point you may want to remove `ADD . /code` from the created Dockerfile)
 
 ## Step 6: Re-build and run the app with Compose
 
