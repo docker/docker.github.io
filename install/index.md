@@ -25,8 +25,6 @@ apps. Docker CE has three types of update channels, **stable**, **test**, and **
 * **Test** gives pre-releases that are ready for testing before general availability.
 * **Nightly** gives you latest builds of work in progress for the next major release.
 
-For more information about Docker CE, see
-[Docker Community Edition](https://www.docker.com/community-edition/){: target="_blank" class="_" }.
 
 ## Releases
 
