@@ -33,7 +33,7 @@ Hub](https://hub.docker.com/?overlay=onboarding){:
   - At least 4GB of RAM.
 
 >  **Note**: If your system does not meet the requirements to run Docker Desktop for
-> Windows, you can install [Docker Toolbox](/toolbox/overview.md), which uses
+> Windows, you can install [Docker Toolbox](/toolbox/overview/), which uses
 > Oracle Virtual Box instead of Hyper-V.
 
 * **What the Docker Desktop for Windows install includes**: The installation provides
