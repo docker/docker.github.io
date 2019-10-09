@@ -209,7 +209,7 @@ join your new swarm as a worker:
 ```shell
 $ docker-machine ssh myvm2 "docker swarm join \
 --token <token> \
-<ip>:2377"
+<myvm1 ip>:2377"
 
 This node joined a swarm as a worker.
 ```
