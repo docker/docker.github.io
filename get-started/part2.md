@@ -150,10 +150,15 @@ you have.
 We are ready to build the app. Make sure you are still at the top level of your
 new directory. Here's what `ls` should show:
 
+Linux
 ```shell
 $ ls
 Dockerfile		app.py			requirements.txt
 ```
+
+Windows Explorer
+
+![Windows folder structure](/images/get_started_part2_folder_structure.JPG)
 
 Now run the build command. This creates a Docker image, which we're going to
 name using the `--tag` option. Use `-t` if you want to use the shorter option.
