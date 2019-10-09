@@ -357,6 +357,11 @@ docker stack deploy -c docker-compose.yml getstartedlab
 
 And that's it, the app is deployed on a swarm cluster!
 
+> **Note**: If your connection to virtual machines is refused, replace
+> try https://github.com/boot2docker/boot2docker/releases/tag/v18.06.1-ce
+> iso release.
+> **Note**: If your ports assignment in docker-compose.yml = 4000:80.
+> try http://myvm1:4000
 > **Note**: If your image is stored on a private registry instead of Docker Hub,
 > you need to be logged in using `docker login <your-registry>` and then you
 > need to add the `--with-registry-auth` flag to the above command. For example:
