@@ -483,6 +483,18 @@ containers, or select **Switch to Linux containers** to use Linux containers
 
 ![Windows-Linux container types switch](images/docker-menu-switch.png){:width="300px"}
 
+You can also switch between Windows or Linux containers from the command line. There is an option to toggle between the Windows or Linux engines or you can specify the engine you wish to select. This requires providing a full path to the `DockerCli.exe`, which you can alias for less typing as `dockercli`.
+
+```powershell
+Set-Alias dockercli 'C:\Program Files\Docker\Docker\DockerCli.exe'
+```
+
+```powershell
+& 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchDaemon # Toggles between engines the same as the Docker Desktop menu option
+& 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchLinuxEngine # Toggles explicitly to the Linux container engine
+& 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchWindowsEngine # Toggles explicitly to the Windows container engine
+```
+
 For more information on Windows containers, refer to the following documentation:
 
 - Microsoft documentation on [Windows containers](https://docs.microsoft.com/en-us/virtualization/windowscontainers/about/index).
