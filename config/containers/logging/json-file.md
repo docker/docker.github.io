@@ -63,7 +63,7 @@ The `json-file` logging driver supports the following logging options:
 | `labels`    | Applies when starting the Docker daemon. A comma-separated list of logging-related labels this daemon accepts. Used for advanced [log tag options](log_tags.md).                                          | `--log-opt labels=production_status,geo` |
 | `env`       | Applies when starting the Docker daemon. A comma-separated list of logging-related environment variables this daemon accepts. Used for advanced [log tag options](log_tags.md).                           | `--log-opt env=os,customer`              |
 | `env-regex` | Similar to and compatible with `env`. A regular expression to match logging-related environment variables. Used for advanced [log tag options](log_tags.md).                                                  | `--log-opt env-regex=^(os|customer).`    |
-| `compress`  | Toggles compression for rotated logs. Default is `disabled`. | `--log-opt compress=true` |
+| `compress`  | Toggles compression for rotated logs. Default is `false` (disabled). | `--log-opt compress=true` |
 
 
 ### Examples
