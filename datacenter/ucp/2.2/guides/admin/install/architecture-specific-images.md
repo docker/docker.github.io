@@ -5,7 +5,7 @@ keywords: UCP, Docker Enterprise, image, IBM z, Windows
 ---
 
 Docker Universal Control Plane deploys images for a number of different
-hardware architectures, including IBM z systems. Some architectures require
+hardware architectures, including IBM z Systems. Some architectures require
 pulling images that have specific tags or names indicating the target
 architecture.
 
