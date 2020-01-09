@@ -470,6 +470,11 @@ ln -s $etc/docker-machine.zsh-completion /usr/local/share/zsh/site-functions/_do
 ln -s $etc/docker-compose.zsh-completion /usr/local/share/zsh/site-functions/_docker-compose
 ```
 
+### Fish
+
+Fish shell completion is available [here](https://github.com/docker/cli/blob/master/contrib/completion/fish/docker.fish).
+
+
 ## Give feedback and get help
 
 To get help from the community, review current user topics, join or start a
