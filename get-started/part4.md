@@ -50,16 +50,18 @@ Swarm never creates individual containers like we did in the previous step of th
     If all goes well, Swarm will report creating all your stack objects with no complaints:
 
     ```shell
-    Creating network demo_default
-    Creating service demo_bb-app
+    Waiting for the stack to be stable and running...
+    bb-app: Ready           [pod status: 1/1 ready, 0/1 pending, 0/1 failed]
+
+    Stack demo is stable and running
     ```
 
     Notice that in addition to your service, Swarm also creates a Docker network by default to isolate the containers deployed as part of your stack.
 
-2.  Make sure everything worked by listing your service:
+2.  Make sure everything worked by showing information about your service:
 
     ```shell
-    docker service ls
+    docker stack services demo
     ```
 
     If all has gone well, your service will report with 1/1 of its replicas created:
