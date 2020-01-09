@@ -98,8 +98,15 @@ Now that we have some source code and a Dockerfile, it's time to build our first
     ```script
     docker container rm --force bb
     ```
+The notation for associating a local image with a repository on a registry is
+`username/repository:tag`. The tag is optional, but recommended, since it is
+the mechanism that registries use to give Docker images a version. Give the
+repository and tag meaningful names for the context, such as
+`get-started:part2`. This puts the image in the `get-started` repository and
+tags it as `part2`.
 
 ## Conclusion
+
 
 At this point, we've performed a simple containerization of an application, and confirmed that our app runs successfully in its container. The next step will be to write the Kubernetes yaml that describes how to run and manage these containers on Kubernetes which we'll study in Part 3 of this tutorial, or to write the stack file that will let us do the same on Docker Swarm, which we discuss in Part 4. 
 
