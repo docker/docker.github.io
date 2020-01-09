@@ -93,6 +93,12 @@ from the repository.
         {{ download-url-base }}/docker-ce.repo
     ```
 
+3.  Enable the **stable** repository using this command:
+
+    ```bash
+    $ sudo dnf config-manager --set-enabled docker-ce-stable
+    ```
+
 > **Optional**: Enable the **nightly** or **test** repositories.
 >
 > These repositories are included in the `docker.repo` file above but are disabled
