@@ -35,11 +35,11 @@ A `docker-compose.yml` looks like this:
       web:
         build: .
         ports:
-        - "5000:5000"
+        - 5000:5000
         volumes:
         - .:/code
         - logvolume01:/var/log
-        links:
+        depends_on:
         - redis
       redis:
         image: redis
