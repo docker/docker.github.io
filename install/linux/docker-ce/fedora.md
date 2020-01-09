@@ -28,6 +28,7 @@ To install Docker, you need the 64-bit version of one of these Fedora versions:
 - 30
 - 31
 
+
 ### Uninstall old versions
 
 Older versions of Docker were called `docker` or `docker-engine`. If these are
@@ -92,6 +93,47 @@ from the repository.
         --add-repo \
         {{ download-url-base }}/docker-ce.repo
     ```
+
+### Fedora 30 *Temporary* Additional Steps:
+
+1. Edit the docker-ce.repo file and make reflect Fedora 29 
+
+```bash
+$ sudo vi /etc/yum.repos.d/docker-ce.repo
+```
+
+2. Modify the docker-ce-stable stable entry to the following e.g:
+
+```bash
+  [docker-ce-stable]
+  name=Docker CE Stable - $basearch
+  baseurl=https://download.docker.com/linux/fedora/29/$basearch/stable
+  enabled=1
+  gpgcheck=1
+  gpgkey=https://download.docker.com/linux/fedora/gpg
+```
+
+3. Refresh Cache and Update
+
+```bash
+$ sudo dnf clean all
+$ sudo dnf update
+```
+
+4. Proceed with installation
+
+
+```bash
+... e.g 
+$ sudo dnf install docker-ce docker-ce-cli containerd.io
+$ sudo service docker start
+$ sudo systemctl enable docker
+$ sudo usermod -aG $USERNAME docker
+...
+```
+
+
+
 
 > **Optional**: Enable the **nightly** or **test** repositories.
 >
