@@ -60,6 +60,12 @@ To create the `docker` group and add your user:
     $ newgrp docker 
     ```
 
+    To update an existing shell without logging out, it may be possible to use `newgrp`.
+
+    ```bash
+    $ newgrp docker
+    ```
+
 4.  Verify that you can run `docker` commands without `sudo`.
 
     ```bash
