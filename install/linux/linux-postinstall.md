@@ -173,7 +173,7 @@ Configuring Docker to accept remote connections can be done with the `docker.ser
     ```none
     [Service]
     ExecStart=
-    ExecStart=/usr/bin/dockerd -H fd:// -H tcp://127.0.0.1:2375
+    ExecStart=/usr/bin/dockerd -H unix:// -H tcp://127.0.0.1:2375
     ```
 
 3. Save the file.
