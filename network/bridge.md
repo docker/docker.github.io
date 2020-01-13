@@ -45,7 +45,7 @@ network.**
   outside world needs access to the web front-end (perhaps on port 80), but only
   the back-end itself needs access to the database host and port. Using a
   user-defined bridge, only the web port needs to be opened, and the database
-  application doesn't need any ports open, since the web front-end can reach it
+  application doesn't need any ports open, since the web back-end can reach it
   over the user-defined bridge.
 
   If you run the same application stack on the default bridge network, you need
