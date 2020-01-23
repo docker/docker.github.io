@@ -14,7 +14,7 @@ and [Docker Compose](/compose/install/) installed on your
 platform of choice: Linux, Mac or Windows.
 
 For this sample, we create a sample .NET Core Web Application using the
-`microsoft/dotnet:2.1-sdk` Docker image. After that, we create a `Dockerfile`,
+`mcr.microsoft.com/dotnet/core/sdk:3.1` Docker image. After that, we create a `Dockerfile`,
 configure this app to use our SQL Server database, and then create a
 `docker-compose.yml` that defines the behavior of all of these components.
 
@@ -29,12 +29,12 @@ configure this app to use our SQL Server database, and then create a
     [Docker Desktop for Mac](/docker-for-mac/#/file-sharing), you
     need to set up file sharing for the volume that you need to map.
 
-1.  Within your directory, use the `dotnet:2.1-sdk` Docker image to generate a
+1.  Within your directory, use the `mcr.microsoft.com/dotnet/core/sdk:3.1` Docker image to generate a
     sample web application within the container under the `/app` directory and
     into your host machine in the working directory:
 
     ```bash
-    $ docker run -v ${PWD}:/app --workdir /app microsoft/dotnet:2.1-sdk dotnet new mvc --auth Individual
+    $ docker run --rm -v ${PWD}:/app --workdir /app mcr.microsoft.com/dotnet/core/sdk:3.1 dotnet new mvc --auth Individual
     ```
 
     > **Note**: If running in Docker Desktop for Windows, make sure to use Powershell
@@ -42,12 +42,15 @@ configure this app to use our SQL Server database, and then create a
 
 1.  Create a `Dockerfile` within your app directory and add the following content:
 
-    ```conf
-    FROM microsoft/dotnet:2.1-sdk
+    ```dockerfile
+    FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+    RUN dotnet tool install --global dotnet-ef
+    ENV PATH "~/.dotnet/tools/:$PATH"
     COPY . /app
     WORKDIR /app
-    RUN ["dotnet", "restore"]
-    RUN ["dotnet", "build"]
+    RUN dotnet restore
+    RUN dotnet build
+    RUN dotnet ef migrations add InitialCreate
     EXPOSE 80/tcp
     RUN chmod +x ./entrypoint.sh
     CMD /bin/bash ./entrypoint.sh
@@ -70,7 +73,7 @@ configure this app to use our SQL Server database, and then create a
     #!/bin/bash
 
     set -e
-    run_cmd="dotnet run --server.urls http://*:80"
+    run_cmd="dotnet run --no-launch-profile"
 
     until dotnet ef database update; do
     >&2 echo "SQL Server is starting up"
@@ -99,6 +102,8 @@ configure this app to use our SQL Server database, and then create a
     services:
         web:
             build: .
+            environment:
+                ASPNETCORE_URLS: "http://+:80"
             ports:
                 - "8000:80"
             depends_on:
@@ -117,7 +122,7 @@ configure this app to use our SQL Server database, and then create a
     > version. Be sure to choose a verison that is compatible with your system.
 
 1.  Go to `Startup.cs` and locate the function called `ConfigureServices` (Hint:
-    it should be under line 42). Replace the entire function to use the following
+    it should be under line 28). Replace the entire function to use the following
     code (watch out for the brackets!).
 
     > **Note**: Make sure to update the `Password` field in the `connection`
@@ -136,15 +141,10 @@ configure this app to use our SQL Server database, and then create a
         services.AddDbContext<ApplicationDbContext>(
             options => options.UseSqlServer(connection));
 
-        services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
-
-        services.AddMvc();
-
-        // Add application services.
-        services.AddTransient<IEmailSender, AuthMessageSender>();
-        services.AddTransient<ISmsSender, AuthMessageSender>();
+        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+        services.AddControllersWithViews();
+        services.AddRazorPages();
     }
     [...]
     ```
@@ -152,18 +152,21 @@ configure this app to use our SQL Server database, and then create a
 1.  Go to `app.csproj`. You see a line like:
 
     ```
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
     ```
 
-    The generated project uses sqlite by default. To use SQL Server, add this line to
+    The generated project uses SQLite by default. To use SQL Server, add this line to
     `app.csproj`:
 
     ```
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
     ```
 
-    The Sqlite dependency was at version 1.1.2 at the time of this writing. Use the same
+    The Sqlite dependency was at version 3.1.0 at the time of this writing. Use the same
     version for the SQL Server dependency.
+
+1. Delete the Data/Migrations folder in the project. This is leftover from project creation
+   when the project was configured to use SQLite and it will not be compatible with SQL Server.
 
 1.  Ready! You can now run the `docker-compose build` command.
 
@@ -173,8 +176,8 @@ configure this app to use our SQL Server database, and then create a
 
 1.  Make sure you allocate at least 2GB of memory to Docker Engine. Here is how
     to do it on
-    [Docker Desktop for Mac](/docker-for-mac/#/advanced) and
-    [Docker Desktop for Windows](/docker-for-windows/#/advanced).
+    [Docker Desktop for Mac](/docker-for-mac/#advanced) and
+    [Docker Desktop for Windows](/docker-for-windows/#advanced).
     This is necessary to run the SQL Server on Linux container.
 
 1.  Run the `docker-compose up` command. After a few seconds, you should be able
