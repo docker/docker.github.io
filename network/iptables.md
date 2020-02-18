@@ -15,11 +15,15 @@ manipulate this table manually. If you need to add rules which load before
 Docker's rules, add them to the `DOCKER-USER` chain. These rules are loaded
 before any rules Docker creates automatically.
 
+### Add a DOCKER-USER filter chain to allow persistent rules 
+This can be useful if you need to pre-populate `iptables` rules that need to be in place before 
+Docker runs. The following example illustrates how rules can be added to the `DOCKER-USER` chain
+
 ### Restrict connections to the Docker daemon
 
 By default, all external source IPs are allowed to connect to the Docker daemon.
 To allow only a specific IP or network to access the containers, insert a
-negated rule at the top of the DOCKER filter chain. For example, the following
+negated rule at the top of the `DOCKER-USER` filter chain. For example, the following
 rule restricts external access to all IP addresses except 192.168.1.1:
 
 ```bash
@@ -50,6 +54,50 @@ the source and destination. For instance, if the Docker daemon listens on both
 topic. See the [Netfilter.org HOWTO](https://www.netfilter.org/documentation/HOWTO/NAT-HOWTO.html)
 for a lot more information.
 
+### Filtering container traffic
+The following example provides a set of filters and uses those filters for container and host traffic: 
+
+```
+# WAN = eth0 ; LAN = eth1
+
+# Reset counters
+:DOCKER-USER - [0:0]
+
+# Flush
+-F DOCKER-USER
+
+# Filters :
+## Activate established connexions
+-A DOCKER-USER -i eth0 -m conntrack --ctstate RELATED,ESTABLISHED -j RETURN
+
+## Allow all on https/http
+-A DOCKER-USER -i eth0 -p tcp -m tcp -m conntrack --ctorigdstport 80 -j RETURN
+-A DOCKER-USER -i eth0 -p tcp -m tcp -m conntrack --ctorigdstport 443 -j RETURN
+
+## Allow 8080 from ip
+-A DOCKER-USER -i eth0 -p tcp -m tcp -m conntrack --ctorigdstport 8080 -s 10.11.11.0/24 -j RETURN
+-A DOCKER-USER -i eth0 -p tcp -m tcp -m conntrack --ctorigdstport 8080 -s 10.22.22.0/24 -j RETURN
+
+# Block all external
+-A DOCKER-USER -i eth0 -j DROP
+-A DOCKER-USER -j RETURN
+
+COMMIT
+```
+> **Note**: `--ctorigdstport` matches the destination port on the packet that initiated the connection, 
+	not the destination port on the packet being filtered. Therefore, responses to requests from Docker 
+	to other servers have `SPT=80`, and match `--ctorigdstport 80`.
+	
+	For tighter control, all rules allowing the connection should have `--ctdir` added to specifically 
+	express their meaning, as shown in the following example:
+	
+	-A DOCKER-USER -s 1.2.3.4/32 -i eth0 -p tcp -m conntrack --ctorigdstport 80 --ctdir ORIGINAL -j ACCEPT
+
+Load these rules with:
+	
+	```bash
+	$ iptables-restore -n /etc/iptables.conf
+	```
 
 ## Prevent Docker from manipulating iptables
 
@@ -59,4 +107,5 @@ For system integrators who wish to build the Docker runtime into other applicati
 
 ## Next steps
 
-- Read [Docker Reference Architecture: Designing Scalable, Portable Docker Container Networks](https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks)
+- Read [Docker Reference Architecture: Designing Scalable, Portable Docker Container Networks]
+(https://success.docker.com/Architecture/Docker_Reference_Architecture%3A_Designing_Scalable%2C_Portable_Docker_Container_Networks)
