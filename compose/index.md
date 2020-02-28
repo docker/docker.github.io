@@ -30,7 +30,7 @@ so they can be run together in an isolated environment.
 
 A `docker-compose.yml` looks like this:
 
-    version: '3'
+    version: "3.7"
     services:
       web:
         build: .
@@ -38,13 +38,18 @@ A `docker-compose.yml` looks like this:
         - "5000:5000"
         volumes:
         - .:/code
-        - logvolume01:/var/log
-        links:
-        - redis
-      redis:
-        image: redis
+        - data-volume:/var/lib/db
+      db:
+        image: db
+        volumes:
+          - data-volume:/var/lib/db
+      backup:
+        image: backup-service
+        volumes:
+          - data-volume:/var/lib/backup/data
+
     volumes:
-      logvolume01: {}
+      data-volume:
 
 For more information about the Compose file, see the
 [Compose file reference](compose-file/index.md).
