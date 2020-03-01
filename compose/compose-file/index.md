@@ -1560,16 +1560,26 @@ ports:
 
 ### restart
 
+Docker provides options to restart the containers automatically in case they fail or exit.
+`restart` parameter can be considered as the compose-file version of --restart option available
+with `docker run` command.
+Docker provides restart policies to control whether your containers start automatically when they exit, 
+or when Docker restarts. Restart policies ensure that linked containers are started in the correct order.
+Docker recommends that you use restart policies, and avoid using process managers to start containers.
+
+With this parameter, four values can be used as stated under.
 `no` is the default restart policy, and it does not restart a container under
 any circumstance. When `always` is specified, the container always restarts. The
 `on-failure` policy restarts a container if the exit code indicates an
-on-failure error.
+on-failure error. `unless-stopped` policy is similar to `always`, however, it doesn't restart
+a manually stopped container.
 
     restart: "no"
     restart: always
     restart: on-failure
     restart: unless-stopped
 
+It is recommended to use `restart_policy` option with `deploy` instead of this parameter.
 > **Note**: This option is ignored when
 > [deploying a stack in swarm mode](/engine/reference/commandline/stack_deploy.md)
 > with a (version 3) Compose file. Use [restart_policy](#restart_policy) instead.
