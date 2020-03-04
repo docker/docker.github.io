@@ -159,8 +159,8 @@ backup, include the `docker-compose.admin.yml` as well.
 
 ## Extending services
 
-> **Note**: The `extends` keyword is supported in earlier Compose file formats
-up to Compose file version 2.1 (see [extends in
+> **Note**: The `extends` keyword is supported in Compose file formats
+up to Compose file version 2.x (see [extends in
 v1](/compose/compose-file/compose-file-v1.md#extends) and [extends in
 v2](/compose/compose-file/compose-file-v2.md#extends)), but is not supported in
 Compose version 3.x. See the [Version 3
@@ -169,7 +169,9 @@ and removed, along with information on [how to
 upgrade](/compose/compose-file/compose-versioning.md#upgrading). See
 [moby/moby#31101](https://github.com/moby/moby/issues/31101) to follow the
 discussion thread on possibility of adding support for `extends` in some form in
-future versions.
+future versions. If you don't need Docker Swarm support, the latest Compose file 
+version in the 2.x branch supports all the lastest docker-compose CLI features
+that 3.x does. Both 2.x and 3.x branches are being maintained.
 
 Docker Compose's `extends` keyword enables sharing of common configurations
 among different files, or even different projects entirely. Extending services
