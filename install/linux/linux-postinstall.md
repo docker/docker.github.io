@@ -59,6 +59,19 @@ To create the `docker` group and add your user:
     ```bash 
     $ newgrp docker 
     ```
+    
+3.1 In case if you have attempted to run docker before as non-root, you might need to adjust permissions for /var/run/docker.sock file, otherwise you would get error like:
+
+    ```none
+    Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post
+    http://%2Fvar%2Frun%2Fdocker.sock/v1.39/images/create?fromImage=tensorflow%2Fserving&tag=latest: dial unix /var/run/docker.sock:
+    connect: permission denied
+    ```
+One option for adjusting permissions is to run this:
+    ```
+    $ sudo chgrp docker /var/run/docker.sock
+    ```
+This way you are granting read/write permissions to the docker group instead of root group which is set by default.
 
 4.  Verify that you can run `docker` commands without `sudo`.
 
