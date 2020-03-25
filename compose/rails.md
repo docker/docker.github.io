@@ -13,13 +13,21 @@ a Rails/PostgreSQL app. Before starting, [install Compose](install.md).
 Start by setting up the files needed to build the app. The app will run inside a Docker container containing its dependencies. Defining dependencies is done using a file called `Dockerfile`. To begin with, the 
 Dockerfile consists of:
 
-    FROM ruby:2.5
-    RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+    FROM ruby:2.6
+    RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+        echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+    RUN apt-get update -qq && apt-get install -y nodejs yarn postgresql-client
     RUN mkdir /myapp
     WORKDIR /myapp
+
+    COPY package.json /myapp/package.json
+    COPY yarn.lock /myapp/yarn.lock
+    RUN yarn install
+
     COPY Gemfile /myapp/Gemfile
     COPY Gemfile.lock /myapp/Gemfile.lock
     RUN bundle install
+
     COPY . /myapp
 
     # Add a script to be executed every time the container starts.
@@ -32,8 +40,8 @@ Dockerfile consists of:
     CMD ["rails", "server", "-b", "0.0.0.0"]
 
 That'll put your application code inside an image that builds a container
-with Ruby, Bundler and all your dependencies inside it. For more information on
-how to write Dockerfiles, see the [Docker user
+with Ruby, Bundler, Yarn and all your dependencies inside it. For more
+information on how to write Dockerfiles, see the [Docker user
 guide](/engine/tutorials/dockerimages.md#building-an-image-from-a-dockerfile)
 and the [Dockerfile reference](/engine/reference/builder.md).
 
@@ -41,11 +49,20 @@ Next, create a bootstrap `Gemfile` which just loads Rails. It'll be overwritten
 in a moment by `rails new`.
 
     source 'https://rubygems.org'
-    gem 'rails', '~>5'
+    gem 'rails', '~>6'
 
-Create an empty `Gemfile.lock` to build our `Dockerfile`.
+Now create an empty `package.json`.
 
-    touch Gemfile.lock
+    {
+      "name": "myapp",
+      "private": true,
+      "version": "0.1.0"
+    }
+
+Create an empty `Gemfile.lock` and `yarn.lock` to build our
+`Dockerfile`.
+
+    touch Gemfile.lock yarn.lock
 
 Next, provide an entrypoint script to fix a Rails-specific issue that
 prevents the server from restarting when a certain `server.pid` file pre-exists.
@@ -92,7 +109,7 @@ to link them together and expose the web app's port.
 With those files in place, you can now generate the Rails skeleton app
 using [docker-compose run](/compose/reference/run/):
 
-    docker-compose run web rails new . --force --no-deps --database=postgresql
+    docker-compose run --no-deps web rails new . --force --database=postgresql
 
 First, Compose builds the image for the `web` service using the
 `Dockerfile`. Then it runs `rails new` inside a new container, using that
@@ -102,26 +119,31 @@ List the files.
 
 ```bash
 $ ls -l
-total 64
--rw-r--r--   1 vmb  staff   222 Jun  7 12:05 Dockerfile
--rw-r--r--   1 vmb  staff  1738 Jun  7 12:09 Gemfile
--rw-r--r--   1 vmb  staff  4297 Jun  7 12:09 Gemfile.lock
--rw-r--r--   1 vmb  staff   374 Jun  7 12:09 README.md
--rw-r--r--   1 vmb  staff   227 Jun  7 12:09 Rakefile
-drwxr-xr-x  10 vmb  staff   340 Jun  7 12:09 app
-drwxr-xr-x   8 vmb  staff   272 Jun  7 12:09 bin
-drwxr-xr-x  14 vmb  staff   476 Jun  7 12:09 config
--rw-r--r--   1 vmb  staff   130 Jun  7 12:09 config.ru
-drwxr-xr-x   3 vmb  staff   102 Jun  7 12:09 db
--rw-r--r--   1 vmb  staff   211 Jun  7 12:06 docker-compose.yml
--rw-r--r--   1 vmb  staff   184 Jun  7 12:08 entrypoint.sh
-drwxr-xr-x   4 vmb  staff   136 Jun  7 12:09 lib
-drwxr-xr-x   3 vmb  staff   102 Jun  7 12:09 log
--rw-r--r--   1 vmb  staff    63 Jun  7 12:09 package.json
-drwxr-xr-x   9 vmb  staff   306 Jun  7 12:09 public
-drwxr-xr-x   9 vmb  staff   306 Jun  7 12:09 test
-drwxr-xr-x   4 vmb  staff   136 Jun  7 12:09 tmp
-drwxr-xr-x   3 vmb  staff   102 Jun  7 12:09 vendor
+total 704
+-rw-r--r--    1 vmb  staff     631 Nov  1 21:23 Dockerfile
+-rw-r--r--    1 vmb  staff    1971 Nov  1 21:24 Gemfile
+-rw-r--r--    1 vmb  staff    5501 Nov  1 21:24 Gemfile.lock
+-rw-r--r--    1 vmb  staff     374 Nov  1 21:24 README.md
+-rw-r--r--    1 vmb  staff     227 Nov  1 21:24 Rakefile
+drwxr-xr-x   11 vmb  staff     374 Nov  1 21:24 app
+-rw-r--r--    1 vmb  staff    1876 Nov  1 21:24 babel.config.js
+drwxr-xr-x   10 vmb  staff     340 Nov  1 21:24 bin
+drwxr-xr-x   18 vmb  staff     612 Nov  1 21:24 config
+-rw-r--r--    1 vmb  staff     130 Nov  1 21:24 config.ru
+drwxr-xr-x    3 vmb  staff     102 Nov  1 21:24 db
+-rw-r--r--    1 vmb  staff     305 Nov  1 21:23 docker-compose.yml
+-rw-r--r--    1 vmb  staff     202 Nov  1 21:23 entrypoint.sh
+drwxr-xr-x    4 vmb  staff     136 Nov  1 21:24 lib
+drwxr-xr-x    4 vmb  staff     136 Nov  1 21:24 log
+drwxr-xr-x  761 vmb  staff   25874 Nov  1 21:27 node_modules
+-rw-r--r--    1 vmb  staff     332 Nov  1 21:27 package.json
+-rw-r--r--    1 vmb  staff     224 Nov  1 21:24 postcss.config.js
+drwxr-xr-x    9 vmb  staff     306 Nov  1 21:24 public
+drwxr-xr-x    3 vmb  staff     102 Nov  1 21:24 storage
+drwxr-xr-x   12 vmb  staff     408 Nov  1 21:24 test
+drwxr-xr-x    6 vmb  staff     204 Nov  1 21:24 tmp
+drwxr-xr-x    3 vmb  staff     102 Nov  1 21:24 vendor
+-rw-r--r--    1 vmb  staff  310018 Nov  1 21:27 yarn.lock
 ```
 
 If you are running Docker on Linux, the files `rails new` created are owned by
@@ -135,9 +157,9 @@ sudo chown -R $USER:$USER .
 If you are running Docker on Mac or Windows, you should already have ownership
 of all files, including those generated by `rails new`.
 
-Now that you’ve got a new Gemfile, you need to build the image again. (This, and
-changes to the `Gemfile` or the Dockerfile, should be the only times you’ll need
-to rebuild.)
+Now that you’ve got a new `Gemfile` and `package.json`, you need to build the
+image again. (This, and changes to the `Gemfile`, `package.json`, or the
+Dockerfile, should be the only times you’ll need to rebuild.)
 
     docker-compose build
 
@@ -191,13 +213,13 @@ db_1   | 2018-03-21 20:18:37.772 UTC [1] LOG:  database system is ready to accep
 
 Finally, you need to create the database. In another terminal, run:
 
-    docker-compose run web rake db:create
+    docker-compose run web rails db:create
 
 Here is an example of the output from that command:
 
 ```none
 vmb at snapair in ~/sandbox/rails
-$ docker-compose run web rake db:create
+$ docker-compose run web rails db:create
 Starting rails_db_1 ... done
 Created database 'myapp_development'
 Created database 'myapp_test'
@@ -220,7 +242,7 @@ MACHINE_VM` returns the Docker host IP address, to which you can append the port
 
 To stop the application, run [docker-compose down](/compose/reference/down/) in
 your project directory. You can use the same terminal window in which you
-started the database, or another one where you have access to a command prompt.
+created the database, or another one where you have access to a command prompt.
 This is a clean way to stop the application.
 
 ```none
@@ -241,11 +263,14 @@ To restart the application run `docker-compose up` in the project directory.
 
 ### Rebuild the application
 
-If you make changes to the Gemfile or the Compose file to try out some different
-configurations, you need to rebuild. Some changes require only
-`docker-compose up --build`, but a full rebuild requires a re-run of
-`docker-compose run web bundle install` to sync changes in the `Gemfile.lock` to
-the host, followed by `docker-compose up --build`.
+If you make changes to the `Gemfile`, `package.json`, or the Compose file to try
+out some different configurations, you need to rebuild. Some changes require
+only `docker-compose up --build`, but a full rebuild requires a re-run of
+`bundle install` and `yarn install`, followed by the `build` command:
+
+    docker-compose run web bundle install
+    docker-compose run web yarn install
+    docker-compose up --build
 
 Here is an example of the first case, where a full rebuild is not necessary.
 Suppose you simply want to change the exposed port on the local host from `3000`
