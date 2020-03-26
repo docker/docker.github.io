@@ -39,6 +39,25 @@ versions:
 Docker Engine - Community is supported on `x86_64` (or `amd64`), `armhf`, `arm64`, `s390x`
 (IBM Z), and `ppc64le` (IBM Power) architectures.
 
+### Intermediate (non-LTS) Ubuntu versions
+
+Ubuntu intermediate (non-LTS) releases are [supported for 9 months](https://ubuntu.com/about/release-cycle){: target="_blank" class="_" },
+after which they reach end-of-life (EOL). The package repositories at download.docker.com
+may contain packages for older Ubuntu releases that reached EOL. These packages
+may be outdated, and do not receive updates (including security updates).
+
+For production use, we recommend installing the latest Ubuntu LTS version. If you
+are running a non-LTS version of Ubuntu, make sure to upgrade to the latest supported
+version. Be aware that Docker's release cycle may not align with Ubuntu releases,
+which means that packages for the latest Ubuntu release may not be available at
+the day of release. Before installing or upgrading, verify that Docker packages
+are available for your version of Ubuntu.
+
+When upgrading your Ubuntu version on a machine that already has Docker installed,
+the `apt` repository may need to be updated to match the upgraded Ubuntu version.
+Refer to the [update the repository after upgrading Ubuntu versions](#update-the-repository-after-upgrading-ubuntu-versions)
+section below for details.
+
 ### Uninstall old versions
 
 Older versions of Docker were called `docker`, `docker.io`, or `docker-engine`.
@@ -302,6 +321,40 @@ are added to it. You need to use `sudo` to run Docker commands.
 Continue to [Post-installation steps for Linux](/install/linux/linux-postinstall.md)
 to allow non-privileged users to run Docker commands and for other optional
 configuration steps.
+
+### Update the repository after upgrading Ubuntu versions
+
+When upgrading your version of Ubuntu, the URL of the package repository may have
+to be updated to match the Ubuntu version you have installed. Use the `apt-cache policy`
+command to find the repository that is currently configured. The example below
+shows that `apt` is configured to install packages for Ubuntu `disco` (19.04):
+
+```bash
+apt-cache policy | grep docker
+
+ 500 https://download.docker.com/linux/ubuntu disco/stable amd64 Packages
+     origin download.docker.com
+```
+
+If the Ubuntu version in the output does not match the version you have installed,
+the repository URL needs to be updated. To update the package repository to match
+your current version, either removing all lines containing `download.docker.com`
+in `/etc/apt/sources.list`, or use the `add-apt-repository --remove` command:
+
+```bash
+sudo add-apt-repository --remove "deb {{ download-url-base }} disco stable"
+```
+
+Verify that the repository was removed:
+
+```bash
+apt-cache policy | grep docker
+```
+
+After removing the old repository, continue with the steps outlined in [set up the
+repository](#set-up-the-repository) to configure the correct package repository
+for your Ubuntu version and to update or install the latest Docker release.
+
 
 #### Upgrade Docker Engine - Community
 
