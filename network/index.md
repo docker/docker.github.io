@@ -100,6 +100,7 @@ exist by default, and provide core networking functionality:
 Now that you understand the basics about Docker networks, deepen your
 understanding using the following tutorials:
 
+- [IPv6 with docker overview](/network/ipv6.md)
 - [Standalone networking tutorial](network-tutorial-standalone.md)
 - [Host networking tutorial](network-tutorial-host.md)
 - [Overlay networking tutorial](network-tutorial-overlay.md)

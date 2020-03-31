@@ -52,6 +52,8 @@ guides:
   section:
     - path: /network/
       title: Networking overview
+    - path: /network/ipv6/
+      title: IPv6 networking
     - path: /network/bridge/
       title: Use bridge networks
     - path: /network/overlay/
