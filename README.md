@@ -403,13 +403,13 @@ is archived into a version-specific branch like `v17.09`, by doing the following
     $ _scripts/fetch-upstream/resources.sh
     ```
 
-3.  Overwrite the `Dockerfile` with the `archive.Dockerfile` (use `cp` rather
+3.  Overwrite the `Dockerfile` with the `Dockerfile.archive` (use `cp` rather
     than `mv` so you don't inadvertently remove either file). Edit the resulting
     `Dockerfile` and set the `VER` build argument to the appropriate value, like
     `v17.09`.
 
     ```bash
-    $ mv archive.Dockerfile Dockerfile
+    $ mv Dockerfile.archive Dockerfile
     $ vi Dockerfile
 
       < edit the variable and save >

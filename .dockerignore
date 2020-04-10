@@ -11,7 +11,7 @@ tests
 _site
 CONTRIBUTING.md
 Dockerfile
-archive.Dockerfile
+Dockerfile.archive
 docker-compose.yml
 Gemfile
 Gemfile.lock

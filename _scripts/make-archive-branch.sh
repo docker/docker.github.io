@@ -75,7 +75,7 @@ fi
 git checkout -b v"$version" && echo "Created branch v$version and checked it out."
 
 # Replace the Dockerfile, set the version
-cat archive.Dockerfile |sed "s/vXX/v${version}/g" > Dockerfile
+cat Dockerfile.archive |sed "s/vXX/v${version}/g" > Dockerfile
 
 # Run _scripts/fetch_upstream_resources.sh once in local mode
 bash _scripts/fetch-upstream-resources.sh -l
