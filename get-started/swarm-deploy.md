@@ -9,8 +9,8 @@ redirect_from:
 ## Prerequisites
 
 - Download and install Docker Desktop as described in [Orientation and setup](/index.md).
-- Work through containerizing an application in [Part 2](part2.md).
-- Make sure that Swarm is enabled on your Docker Desktop by typing `docker system info`, and looking for a message `Swarm: active` (you might have to scroll up a little).
+- Work through containerizing an application in [Part 2: Build and run your image](part2.md).
+- Make sure that Swarm is enabled on your Docker Desktop by typing `docker system info`, and looking for a message `Swarm: active` (you might have to scroll up a little, or use grep to search for the string `docker system info | grep Swarm`).
 
   If Swarm isn't running, simply type `docker swarm init` in a shell prompt to set it up.
 
