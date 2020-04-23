@@ -9,11 +9,11 @@ networks, and volumes for a Docker application.
 
 The Compose file formats are now described in these references, specific to each version.
 
-| **Reference file**                                    | **What changed in this version** |
-|:------------------------------------------------------|:---------------------------------|
-| [Version 3](index.md) (most current, and recommended) | [Version 3 updates](#version-3)  |
-| [Version 2](compose-file-v2.md)                       | [Version 2 updates](#version-2)  |
-| [Version 1](compose-file-v1.md)                       | [Version 1 updates](#version-1)  |
+| **Reference file**                                                   | **What changed in this version** |
+|:---------------------------------------------------------------------|:---------------------------------|
+| [Version 3](index.md) (recommended for Swarm/Kubernetes stacks)      | [Version 3 updates](#version-3)  |
+| [Version 2](compose-file-v2.md) (recommended for docker-compose CLI) | [Version 2 updates](#version-2)  |
+| [Version 1](compose-file-v1.md)                                      | [Version 1 updates](#version-1)  |
 
 The topics below explain the differences among the versions, Docker Engine
 compatibility, and [how to upgrade](#upgrading).
@@ -41,16 +41,20 @@ For details on versions and how to upgrade, see
 
 ## Versioning
 
-There are currently three versions of the Compose file format:
+There are currently three major versions of the Compose file format:
 
 - Version 1, the legacy format. This is specified by
 omitting a `version` key at the root of the YAML.
 
-- Version 2.x. This is specified with a `version: '2'` or `version: '2.1'`, etc., entry at the root of the YAML.
+- Version 2.x, optimized for docker-compose CLI use with a single machine. 
+New features are still being added
+for development workflows, and some features only exist in 2.x versions.
+This is specified with a `version: '2'` or `version: '2.1'`, etc., entry at the root of the YAML.
 
-- Version 3.x, the latest and recommended version, designed to
-be cross-compatible between Compose and the Docker Engine's
-[swarm mode](/engine/swarm/index.md). This is specified with a `version: '3'` or `version: '3.1'`, etc., entry at the root of the YAML.
+- Version 3.x, the latest and recommended version if you desire to 
+be cross-compatible between docker-compose CLI and orchestrators including Docker Engine's
+[swarm mode](/engine/swarm/index.md) and Kubernetes (when used with Docker Desktop or Docker Enterprise.)
+This is specified with a `version: '3'` or `version: '3.1'`, etc., entry at the root of the YAML.
 
 > ### v2 and v3 Declaration
 >
