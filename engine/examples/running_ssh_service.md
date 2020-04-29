@@ -33,6 +33,8 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
+RUN /usr/bin/ssh-keygen -A
+
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 ```
@@ -81,6 +83,24 @@ above.
 If you need to pass`docker run -e ENV=value` values, you need to write a
 short script to do the same before you start `sshd -D` and then replace the
 `CMD` with that script.
+
+If you get the following error in the logs of the container (happens with Centos7):
+
+```bash
+Could not load host key: /etc/ssh/ssh_host_rsa_key
+Could not load host key: /etc/ssh/ssh_host_ecdsa_key
+Could not load host key: /etc/ssh/ssh_host_ed25519_key
+sshd: no hostkeys available -- exiting.
+```
+
+Simply add:
+
+```bash
+RUN /usr/bin/ssh-keygen -A
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+```
 
 ## Clean up
 
