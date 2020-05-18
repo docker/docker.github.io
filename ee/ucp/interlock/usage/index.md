@@ -51,7 +51,7 @@ Interlock detects when the service is available and publishes it. After tasks ar
 and the proxy service is updated, the application is available via `http://demo.local`.
 
 ```bash
-$> curl -s -H "Host: demo.local" http://127.0.0.1/ping
+$> curl -s -H "Host: demo.local" http://127.0.0.1:8080/ping
 {"instance":"c2f1afe673d4","version":"0.1",request_id":"7bcec438af14f8875ffc3deab9215bc5"}
 ```
 
