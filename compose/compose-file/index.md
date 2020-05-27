@@ -808,25 +808,8 @@ services:
           - spread: node.labels.zone
 ```
 
-#### replicas
 
-If the service is `replicated` (which is the default), specify the number of
-containers that should be running at any given time.
-
-```yaml
-version: "{{ site.compose_file_v3 }}"
-services:
-  worker:
-    image: dockersamples/examplevotingapp_worker
-    networks:
-      - frontend
-      - backend
-    deploy:
-      mode: replicated
-      replicas: 6
-```
-
-#### max_replicas_per_node
+##### max_replicas_per_node
 
 If the service is `replicated` (which is the default), [limit the number of replicas](/engine/reference/commandline/service_create.md#specify-maximum-replicas-per-node---replicas-max-per-node)
 that can run on an node at any time.
@@ -846,7 +829,27 @@ services:
     deploy:
       mode: replicated
       replicas: 6
+    placement:      
       max_replicas_per_node: 1
+```
+
+
+#### replicas
+
+If the service is `replicated` (which is the default), specify the number of
+containers that should be running at any given time.
+
+```yaml
+version: "{{ site.compose_file_v3 }}"
+services:
+  worker:
+    image: dockersamples/examplevotingapp_worker
+    networks:
+      - frontend
+      - backend
+    deploy:
+      mode: replicated
+      replicas: 6
 ```
 
 #### resources
