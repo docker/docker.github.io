@@ -37,6 +37,7 @@ Run popular software using Docker.
 | [PostgreSQL](/engine/examples/postgresql_service/) | Run a Dockerized PostgreSQL instance. |
 | [Rails + PostgreSQL](/compose/rails/) | Run a Dockerized Rails + PostgreSQL environment. |
 | [Riak](/engine/examples/running_riak_service/) | Run a Dockerized Riak instance. |
+| [Wordpress](compose/wordpress/) | Run a Dockerized Wordpress environment. |
 | [SSHd](/engine/examples/running_ssh_service/) | Run a Dockerized SSHd instance. |
 
 ## Library references
