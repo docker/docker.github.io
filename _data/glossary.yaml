@@ -340,11 +340,11 @@
 
   - A **host volume** lives on the Docker host's filesystem and can be accessed from within the container.
 
-  - A **named volume** is a volume which Docker manages where on disk the volume is created,
-    but it is given a name.
+  - A **named volume** is a volume for which Docker manages where on disk the volume is created,
+    and it is given a name.
 
-  - An **anonymous volume** is similar to a named volume, however, it can be difficult, to refer to
-    the same volume over time when it is an anonymous volumes. Docker handle where the files are stored.
+  - An **anonymous volume** is similar to a named volume; however, it can be difficult to refer to
+    the same volume over time when it is an anonymous volume. Docker handles where the files are stored.
 <a class="glossary" name="x86_64">x86_64</a>: |
   x86_64 (or x86-64) refers to a 64-bit instruction set invented by AMD as an
   extension of Intel's x86 architecture. AMD calls its x86_64 architecture,
