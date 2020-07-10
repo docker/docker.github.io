@@ -119,7 +119,7 @@ $ curl --unix-socket /var/run/docker.sock -X POST http:/v1.24/containers/1c6594f
 $ curl --unix-socket /var/run/docker.sock -X POST http:/v1.24/containers/1c6594faf5/wait
 {"StatusCode":0}
 
-$ curl --unix-socket /var/run/docker.sock "http:/v1.24/containers/1c6594faf5/logs?stdout=1"
+$ curl --unix-socket /var/run/docker.sock "http:/v1.24/containers/1c6594faf5/logs?stdout=1" --output -
 hello world
 ```
 
@@ -429,7 +429,7 @@ print container.logs()
 <div id="tab-containerlogs-curl" class="tab-pane fade" markdown="1">
 
 ```bash
-$ curl --unix-socket /var/run/docker.sock "http:/v1.24/containers/ca5f55cdb/logs?stdout=1"
+$ curl --unix-socket /var/run/docker.sock "http:/v1.24/containers/ca5f55cdb/logs?stdout=1" --output -
 Reticulating spline 1...
 Reticulating spline 2...
 Reticulating spline 3...
