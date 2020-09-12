@@ -14,7 +14,10 @@ Start by setting up the files needed to build the app. The app will run inside a
 Dockerfile consists of:
 
     FROM ruby:2.5
-    RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+    
+    # See ref on how to install nodejs on Debian: https://tecadmin.net/install-latest-nodejs-npm-on-debian/
+    RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
+        apt-get update -qq && apt-get install -y nodejs postgresql-client
     RUN mkdir /myapp
     WORKDIR /myapp
     COPY Gemfile /myapp/Gemfile
