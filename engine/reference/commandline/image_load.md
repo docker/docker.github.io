@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_image_load
-title: docker image load
+title: docker load / docker image load
 redirect_from:
   - /edge/engine/reference/commandline/image_load/
+  - /engine/reference/commandline/load/
 skip_read_time: true
 ---
 <!--

@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_top
-title: docker container top
+title: docker top / docker container top
 redirect_from:
   - /edge/engine/reference/commandline/container_top/
+  - /engine/reference/commandline/top/
 skip_read_time: true
 ---
 <!--

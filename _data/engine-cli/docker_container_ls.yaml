@@ -66,7 +66,7 @@ options:
   shorthand: q
   value_type: bool
   default_value: "false"
-  description: Only display numeric IDs
+  description: Only display container IDs
   deprecated: false
   experimental: false
   experimentalcli: false

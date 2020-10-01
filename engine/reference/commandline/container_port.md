@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_port
-title: docker container port
+title: docker port / docker container port
 redirect_from:
   - /edge/engine/reference/commandline/container_port/
+  - /engine/reference/commandline/port/
 skip_read_time: true
 ---
 <!--

@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_cp
-title: docker container cp
+title: docker cp / docker container cp
 redirect_from:
   - /edge/engine/reference/commandline/container_cp/
+  - /engine/reference/commandline/cp/
 skip_read_time: true
 ---
 <!--

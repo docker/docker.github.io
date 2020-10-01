@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_export
-title: docker container export
+title: docker export / docker container export
 redirect_from:
   - /edge/engine/reference/commandline/container_export/
+  - /engine/reference/commandline/export/
 skip_read_time: true
 ---
 <!--

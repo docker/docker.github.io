@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_ls
-title: docker container ls
+title: docker ps / docker container ls
 redirect_from:
   - /edge/engine/reference/commandline/container_ls/
+  - /engine/reference/commandline/ps/
 skip_read_time: true
 ---
 <!--

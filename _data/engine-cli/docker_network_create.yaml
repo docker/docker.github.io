@@ -85,7 +85,7 @@ options:
   swarm: false
 - option: config-from
   value_type: string
-  description: The network from which copying the configuration
+  description: The network from which to copy the configuration
   deprecated: false
   min_api_version: "1.30"
   experimental: false

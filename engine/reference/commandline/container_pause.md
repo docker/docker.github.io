@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_pause
-title: docker container pause
+title: docker pause / docker container pause
 redirect_from:
   - /edge/engine/reference/commandline/container_pause/
+  - /engine/reference/commandline/pause/
 skip_read_time: true
 ---
 <!--

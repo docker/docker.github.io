@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_image_save
-title: docker image save
+title: docker save / docker image save
 redirect_from:
   - /edge/engine/reference/commandline/image_save/
+  - /engine/reference/commandline/save/
 skip_read_time: true
 ---
 <!--

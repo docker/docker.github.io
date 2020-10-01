@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_unpause
-title: docker container unpause
+title: docker unpause / docker container unpause
 redirect_from:
   - /edge/engine/reference/commandline/container_unpause/
+  - /engine/reference/commandline/unpause/
 skip_read_time: true
 ---
 <!--

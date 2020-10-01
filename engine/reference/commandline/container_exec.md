@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_exec
-title: docker container exec
+title: docker exec / docker container exec
 redirect_from:
   - /edge/engine/reference/commandline/container_exec/
+  - /engine/reference/commandline/exec/
 skip_read_time: true
 ---
 <!--

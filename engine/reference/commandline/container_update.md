@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_update
-title: docker container update
+title: docker update / docker container update
 redirect_from:
   - /edge/engine/reference/commandline/container_update/
+  - /engine/reference/commandline/update/
 skip_read_time: true
 ---
 <!--

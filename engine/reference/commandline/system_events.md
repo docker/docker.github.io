@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_system_events
-title: docker system events
+title: docker events / docker system events
 redirect_from:
   - /edge/engine/reference/commandline/system_events/
+  - /engine/reference/commandline/events/
 skip_read_time: true
 ---
 <!--

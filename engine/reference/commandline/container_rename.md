@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_rename
-title: docker container rename
+title: docker rename / docker container rename
 redirect_from:
   - /edge/engine/reference/commandline/container_rename/
+  - /engine/reference/commandline/rename/
 skip_read_time: true
 ---
 <!--

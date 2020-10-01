@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_image_rm
-title: docker image rm
+title: docker rmi / docker image rm
 redirect_from:
   - /edge/engine/reference/commandline/image_rm/
+  - /engine/reference/commandline/rmi/
 skip_read_time: true
 ---
 <!--

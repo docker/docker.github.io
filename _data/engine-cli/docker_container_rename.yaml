@@ -1,9 +1,13 @@
 command: docker container rename
 short: Rename a container
-long: Rename a container
+long: The `docker rename` command renames a container.
 usage: docker container rename CONTAINER NEW_NAME
 pname: docker container
 plink: docker_container.yaml
+examples: |-
+  ```bash
+  $ docker rename my_container my_new_container
+  ```
 deprecated: false
 experimental: false
 experimentalcli: false

@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_attach
-title: docker container attach
+title: docker attach / docker container attach
 redirect_from:
   - /edge/engine/reference/commandline/container_attach/
+  - /engine/reference/commandline/attach/
 skip_read_time: true
 ---
 <!--

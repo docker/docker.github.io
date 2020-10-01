@@ -41,122 +41,51 @@ options:
   experimentalcli: false
   kubernetes: false
   swarm: false
-examples: |-
-  On a manager node:
-
-  ```bash
-  $ docker service ls
-
-  ID            NAME      MODE        REPLICAS    IMAGE
-  c8wgl7q4ndfd  frontend  replicated  5/5         nginx:alpine
-  dmu1ept4cxcf  redis     replicated  3/3         redis:3.0.6
-  iwe3278osahj  mongo     global      7/7         mongo:3.3
-  ```
-
-  The `REPLICAS` column shows both the *actual* and *desired* number of tasks for
-  the service.
-
-  ### Filtering
-
-  The filtering flag (`-f` or `--filter`) format is of "key=value". If there is more
-  than one filter, then pass multiple flags (e.g., `--filter "foo=bar" --filter "bif=baz"`)
-
-  The currently supported filters are:
-
-  * [id](service_ls.md#id)
-  * [label](service_ls.md#label)
-  * [mode](service_ls.md#mode)
-  * [name](service_ls.md#name)
-
-  #### id
-
-  The `id` filter matches all or part of a service's id.
-
-  ```bash
-  $ docker service ls -f "id=0bcjw"
-  ID            NAME   MODE        REPLICAS  IMAGE
-  0bcjwfh8ychr  redis  replicated  1/1       redis:3.0.6
-  ```
-
-  #### label
-
-  The `label` filter matches services based on the presence of a `label` alone or
-  a `label` and a value.
-
-  The following filter matches all services with a `project` label regardless of
-  its value:
-
-  ```bash
-  $ docker service ls --filter label=project
-  ID            NAME       MODE        REPLICAS  IMAGE
-  01sl1rp6nj5u  frontend2  replicated  1/1       nginx:alpine
-  36xvvwwauej0  frontend   replicated  5/5       nginx:alpine
-  74nzcxxjv6fq  backend    replicated  3/3       redis:3.0.6
-  ```
-
-  The following filter matches only services with the `project` label with the
-  `project-a` value.
-
-  ```bash
-  $ docker service ls --filter label=project=project-a
-  ID            NAME      MODE        REPLICAS  IMAGE
-  36xvvwwauej0  frontend  replicated  5/5       nginx:alpine
-  74nzcxxjv6fq  backend   replicated  3/3       redis:3.0.6
-  ```
-
-  #### mode
-
-  The `mode` filter matches on the mode (either `replicated` or `global`) of a service.
-
-  The following filter matches only `global` services.
-
-  ```bash
-  $ docker service ls --filter mode=global
-  ID                  NAME                MODE                REPLICAS            IMAGE
-  w7y0v2yrn620        top                 global              1/1                 busybox
-  ```
-
-  #### name
-
-  The `name` filter matches on all or part of a service's name.
-
-  The following filter matches services with a name containing `redis`.
-
-  ```bash
-  $ docker service ls --filter name=redis
-  ID            NAME   MODE        REPLICAS  IMAGE
-  0bcjwfh8ychr  redis  replicated  1/1       redis:3.0.6
-  ```
-
-  ### Formatting
-
-  The formatting options (`--format`) pretty-prints services output
-  using a Go template.
-
-  Valid placeholders for the Go template are listed below:
-
-  Placeholder | Description
-  ------------|------------------------------------------------------------------------------------------
-  `.ID`       | Service ID
-  `.Name`     | Service name
-  `.Mode`     | Service mode (replicated, global)
-  `.Replicas` | Service replicas
-  `.Image`    | Service image
-  `.Ports`    | Service ports published in ingress mode
-
-  When using the `--format` option, the `service ls` command will either
-  output the data exactly as the template declares or, when using the
-  `table` directive, includes column headers as well.
-
-  The following example uses a template without headers and outputs the
-  `ID`, `Mode`, and `Replicas` entries separated by a colon (`:`) for all services:
-
-  ```bash
-  $ docker service ls --format "{{.ID}}: {{.Mode}} {{.Replicas}}"
-
-  0zmvwuiu3vue: replicated 10/10
-  fm6uf97exkul: global 5/5
-  ```
+examples: "On a manager node:\n\n```bash\n$ docker service ls\n\nID            NAME
+  \     MODE            REPLICAS             IMAGE\nc8wgl7q4ndfd  frontend  replicated
+  \     5/5                  nginx:alpine\ndmu1ept4cxcf  redis     replicated      3/3
+  \                 redis:3.0.6\niwe3278osahj  mongo     global          7/7                  mongo:3.3\nhh08h9uu8uwr
+  \ job       replicated-job  1/1 (3/5 completed)  nginx:latest        \n```\n\nThe
+  `REPLICAS` column shows both the *actual* and *desired* number of tasks for\nthe
+  service. If the service is in `replicated-job` or `global-job`, it will\nadditionally
+  show the completion status of the job as completed tasks over\ntotal tasks the job
+  will execute.\n\n### Filtering\n\nThe filtering flag (`-f` or `--filter`) format
+  is of \"key=value\". If there is more\nthan one filter, then pass multiple flags
+  (e.g., `--filter \"foo=bar\" --filter \"bif=baz\"`)\n\nThe currently supported filters
+  are:\n\n* [id](service_ls.md#id)\n* [label](service_ls.md#label)\n* [mode](service_ls.md#mode)\n*
+  [name](service_ls.md#name)\n\n#### id\n\nThe `id` filter matches all or part of
+  a service's id.\n\n```bash\n$ docker service ls -f \"id=0bcjw\"\nID            NAME
+  \  MODE        REPLICAS  IMAGE\n0bcjwfh8ychr  redis  replicated  1/1       redis:3.0.6\n```\n\n####
+  label\n\nThe `label` filter matches services based on the presence of a `label`
+  alone or\na `label` and a value.\n\nThe following filter matches all services with
+  a `project` label regardless of\nits value:\n\n```bash\n$ docker service ls --filter
+  label=project\nID            NAME       MODE        REPLICAS  IMAGE\n01sl1rp6nj5u
+  \ frontend2  replicated  1/1       nginx:alpine\n36xvvwwauej0  frontend   replicated
+  \ 5/5       nginx:alpine\n74nzcxxjv6fq  backend    replicated  3/3       redis:3.0.6\n```\n\nThe
+  following filter matches only services with the `project` label with the\n`project-a`
+  value.\n\n```bash\n$ docker service ls --filter label=project=project-a\nID            NAME
+  \     MODE        REPLICAS  IMAGE\n36xvvwwauej0  frontend  replicated  5/5       nginx:alpine\n74nzcxxjv6fq
+  \ backend   replicated  3/3       redis:3.0.6\n```\n\n#### mode\n\nThe `mode` filter
+  matches on the mode (either `replicated` or `global`) of a service.\n\nThe following
+  filter matches only `global` services.\n\n```bash\n$ docker service ls --filter
+  mode=global\nID                  NAME                MODE                REPLICAS
+  \           IMAGE\nw7y0v2yrn620        top                 global              1/1
+  \                busybox\n```\n\n#### name\n\nThe `name` filter matches on all or
+  part of a service's name.\n\nThe following filter matches services with a name containing
+  `redis`.\n\n```bash\n$ docker service ls --filter name=redis\nID            NAME
+  \  MODE        REPLICAS  IMAGE\n0bcjwfh8ychr  redis  replicated  1/1       redis:3.0.6\n```\n\n###
+  Formatting\n\nThe formatting options (`--format`) pretty-prints services output\nusing
+  a Go template.\n\nValid placeholders for the Go template are listed below:\n\nPlaceholder
+  | Description\n------------|------------------------------------------------------------------------------------------\n`.ID`
+  \      | Service ID\n`.Name`     | Service name\n`.Mode`     | Service mode (replicated,
+  global)\n`.Replicas` | Service replicas\n`.Image`    | Service image\n`.Ports`    |
+  Service ports published in ingress mode\n\nWhen using the `--format` option, the
+  `service ls` command will either\noutput the data exactly as the template declares
+  or, when using the\n`table` directive, includes column headers as well.\n\nThe following
+  example uses a template without headers and outputs the\n`ID`, `Mode`, and `Replicas`
+  entries separated by a colon (`:`) for all services:\n\n```bash\n$ docker service
+  ls --format \"{{.ID}}: {{.Mode}} {{.Replicas}}\"\n\n0zmvwuiu3vue: replicated 10/10\nfm6uf97exkul:
+  global 5/5\n```"
 deprecated: false
 min_api_version: "1.24"
 experimental: false

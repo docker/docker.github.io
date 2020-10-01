@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_kill
-title: docker container kill
+title: docker kill / docker container kill
 redirect_from:
   - /edge/engine/reference/commandline/container_kill/
+  - /engine/reference/commandline/kill/
 skip_read_time: true
 ---
 <!--

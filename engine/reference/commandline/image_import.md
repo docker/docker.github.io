@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_image_import
-title: docker image import
+title: docker import / docker image import
 redirect_from:
   - /edge/engine/reference/commandline/image_import/
+  - /engine/reference/commandline/import/
 skip_read_time: true
 ---
 <!--

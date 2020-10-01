@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_stop
-title: docker container stop
+title: docker stop / docker container stop
 redirect_from:
   - /edge/engine/reference/commandline/container_stop/
+  - /engine/reference/commandline/stop/
 skip_read_time: true
 ---
 <!--

@@ -30,6 +30,14 @@ options:
   experimentalcli: false
   kubernetes: false
   swarm: false
+- option: os-version
+  value_type: string
+  description: Set operating system version
+  deprecated: false
+  experimental: false
+  experimentalcli: false
+  kubernetes: false
+  swarm: false
 - option: variant
   value_type: string
   description: Set architecture variant

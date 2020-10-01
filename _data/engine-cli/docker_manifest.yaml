@@ -56,6 +56,7 @@ long: |-
         --arch string               Set architecture
         --help                      Print usage
         --os string                 Set operating system
+        --os-version string         Set operating system version
         --os-features stringSlice   Set operating system feature
         --variant string            Set architecture variant
 
@@ -94,11 +95,13 @@ cname:
 - docker manifest create
 - docker manifest inspect
 - docker manifest push
+- docker manifest rm
 clink:
 - docker_manifest_annotate.yaml
 - docker_manifest_create.yaml
 - docker_manifest_inspect.yaml
 - docker_manifest_push.yaml
+- docker_manifest_rm.yaml
 examples: |-
   ### Inspect an image's manifest object
 

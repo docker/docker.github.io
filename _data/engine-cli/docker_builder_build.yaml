@@ -295,8 +295,7 @@ options:
   default_value: "false"
   description: Stream attaches to server to negotiate build context
   deprecated: false
-  min_api_version: "1.31"
-  experimental: true
+  experimental: false
   experimentalcli: false
   kubernetes: false
   swarm: false

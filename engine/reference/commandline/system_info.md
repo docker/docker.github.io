@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_system_info
-title: docker system info
+title: docker info / docker system info
 redirect_from:
   - /edge/engine/reference/commandline/system_info/
+  - /engine/reference/commandline/info/
 skip_read_time: true
 ---
 <!--

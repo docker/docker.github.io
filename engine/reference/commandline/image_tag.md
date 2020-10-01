@@ -1,9 +1,11 @@
 ---
 datafolder: engine-cli
 datafile: docker_image_tag
-title: docker image tag
+title: docker image tag / docker tag
 redirect_from:
   - /edge/engine/reference/commandline/image_tag/
+  - /edge/engine/reference/commandline/tag/
+  - /engine/reference/commandline/tag/
 skip_read_time: true
 ---
 <!--

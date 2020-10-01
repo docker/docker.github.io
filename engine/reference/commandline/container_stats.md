@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_stats
-title: docker container stats
+title: docker stats / docker container stats
 redirect_from:
   - /edge/engine/reference/commandline/container_stats/
+  - /engine/reference/commandline/stats/
 skip_read_time: true
 ---
 <!--

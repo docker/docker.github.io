@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_run
-title: docker container run
+title: docker run / docker container run
 redirect_from:
   - /edge/engine/reference/commandline/container_rm/
+  - /engine/reference/commandline/run/
 skip_read_time: true
 ---
 <!--

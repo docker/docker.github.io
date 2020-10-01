@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_image_pull
-title: docker image pull
+title: docker pull / docker image pull
 redirect_from:
   - /edge/engine/reference/commandline/image_pull/
+  - /engine/reference/commandline/pull/
 skip_read_time: true
 ---
 <!--

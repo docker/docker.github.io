@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_restart
-title: docker container restart
+title: docker restart / docker container restart
 redirect_from:
   - /edge/engine/reference/commandline/container_restart/
+  - /engine/reference/commandline/restart/
 skip_read_time: true
 ---
 <!--

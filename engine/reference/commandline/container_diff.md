@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_diff
-title: docker container diff
+title: docker diff / docker container diff
 redirect_from:
   - /edge/engine/reference/commandline/container_diff/
+  - /engine/reference/commandline/diff/
 skip_read_time: true
 ---
 <!--

@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_image_build
-title: docker image build
+title: docker build / docker image build
 redirect_from:
   - /edge/engine/reference/commandline/image_build/
+  - /engine/reference/commandline/build/
 skip_read_time: true
 ---
 <!--

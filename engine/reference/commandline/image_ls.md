@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_image_ls
-title: docker image ls
+title: docker images / docker image ls
 redirect_from:
   - /edge/engine/reference/commandline/image_ls/
+  - /engine/reference/commandline/images/
 skip_read_time: true
 ---
 <!--

@@ -15,10 +15,6 @@ options:
   experimentalcli: false
   kubernetes: false
   swarm: false
-examples: |-
-  ```bash
-  $ docker restart my_container
-  ```
 deprecated: false
 experimental: false
 experimentalcli: false

@@ -29,6 +29,24 @@ options:
   experimentalcli: false
   kubernetes: false
   swarm: false
+- option: cap-add
+  value_type: list
+  description: Add Linux capabilities
+  deprecated: false
+  min_api_version: "1.41"
+  experimental: false
+  experimentalcli: false
+  kubernetes: false
+  swarm: false
+- option: cap-drop
+  value_type: list
+  description: Drop Linux capabilities
+  deprecated: false
+  min_api_version: "1.41"
+  experimental: false
+  experimentalcli: false
+  kubernetes: false
+  swarm: false
 - option: config-add
   value_type: config
   description: Add or update a config file on a service
@@ -366,6 +384,16 @@ options:
   experimentalcli: false
   kubernetes: false
   swarm: false
+- option: limit-pids
+  value_type: int64
+  default_value: "0"
+  description: Limit maximum number of processes (default 0 = unlimited)
+  deprecated: false
+  min_api_version: "1.41"
+  experimental: false
+  experimentalcli: false
+  kubernetes: false
+  swarm: true
 - option: log-driver
   value_type: string
   description: Logging driver for service
@@ -378,6 +406,16 @@ options:
   value_type: list
   description: Logging driver options
   deprecated: false
+  experimental: false
+  experimentalcli: false
+  kubernetes: false
+  swarm: false
+- option: max-concurrent
+  value_type: uint
+  description: |
+    Number of job tasks to run concurrently (default equal to --replicas)
+  deprecated: false
+  min_api_version: "1.41"
   experimental: false
   experimentalcli: false
   kubernetes: false
@@ -693,6 +731,25 @@ options:
   experimentalcli: false
   kubernetes: false
   swarm: false
+- option: ulimit-add
+  value_type: ulimit
+  default_value: '[]'
+  description: Add or update a ulimit option
+  deprecated: false
+  min_api_version: "1.41"
+  experimental: false
+  experimentalcli: false
+  kubernetes: false
+  swarm: false
+- option: ulimit-rm
+  value_type: list
+  description: Remove a ulimit option
+  deprecated: false
+  min_api_version: "1.41"
+  experimental: false
+  experimentalcli: false
+  kubernetes: false
+  swarm: false
 - option: update-delay
   value_type: duration
   default_value: 0s
@@ -953,6 +1010,23 @@ examples: |-
 
   `service update` supports the same `--isolation` flag as `service create`
   See [`service create`](service_create.md) for the reference.
+
+  ### Updating Jobs
+
+  When a service is created as a job, by setting its mode to `replicated-job` or
+  to `global-job` when doing `service create`, options for updating it are
+  limited.
+
+  Updating a Job immediately stops any Tasks that are in progress. The operation
+  creates a new set of Tasks for the job and effectively resets its completion
+  status. If any Tasks were running before the update, they are stopped, and new
+  Tasks are created.
+
+  Jobs cannot be rolled out or rolled back. None of the flags for configuring
+  update or rollback settings are valid with job modes.
+
+  To run a job again with the same parameters that it was run previously, it can
+  be force updated with the `--force` flag.
 deprecated: false
 min_api_version: "1.24"
 experimental: false

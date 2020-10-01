@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_image_push
-title: docker image push
+title: docker push / docker image push
 redirect_from:
   - /edge/engine/reference/commandline/image_push/
+  - /engine/reference/commandline/push/
 skip_read_time: true
 ---
 <!--

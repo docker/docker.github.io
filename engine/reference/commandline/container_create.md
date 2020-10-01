@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_create
-title: docker container create
+title: docker create / docker container create
 redirect_from:
   - /edge/engine/reference/commandline/container_create/
+  - /engine/reference/commandline/create/
 skip_read_time: true
 ---
 <!--

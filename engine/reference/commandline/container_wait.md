@@ -1,9 +1,10 @@
 ---
 datafolder: engine-cli
 datafile: docker_container_wait
-title: docker container wait
+title: docker wait / docker container wait
 redirect_from:
   - /edge/engine/reference/commandline/container_wait/
+  - /engine/reference/commandline/wait/
 skip_read_time: true
 ---
 <!--
