@@ -24,7 +24,7 @@ docker_ce_version: "19.03"
 compose_version: "1.27.4"
 compose_file_v3: "3.8"
 compose_file_v2: "2.4"
-machine_version: "0.16.0"
+machine_version: "0.16.2"
 distribution_version: "2.7"
 
 collections:
