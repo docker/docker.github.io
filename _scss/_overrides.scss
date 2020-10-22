@@ -87,22 +87,59 @@
 /*
  * override google results +++++++++++++++++++++++++++++++++++++++++++++++++++++
  */
+a.gs-title,
+.gs-webResult.gs-result a.gs-title:link,
+.gs-webResult.gs-result a.gs-title:link b,
+.gs-webResult.gs-result a.gs-title:visited,
+.gs-webResult.gs-result a.gs-title:visited b,
+.gs-imageResult a.gs-title:link,
+.gs-imageResult a.gs-title:link b
+.gs-imageResult a.gs-title:visited,
+.gs-imageResult a.gs-title:visited b
+{
+  color: $primary-links !important;
+}
+
+.gsc-control-cse {
+  margin: 0;
+  padding: 0;
+}
+
+.gsc-control-cse,
+.gsc-control-cse .gsc-webResult.gsc-result,
+.gsc-results .gsc-imageResult {
+  border: none;
+}
+
+.gsc-results {
+  .gsc-result.gs-webResult {
+    padding: 20px 0;
+    a.gs-title {
+      color: #2089C4!important;
+      &:visited, &:visited b {
+        color: #F993A6!important;
+      }
+    }
+  }
+
+  .gsc-cursor-box {
+    padding: 20px 0;
+    .gsc-cursor-page {
+      border: 1px solid $body-text-night;
+      padding: 10px;
+      margin-right: 10px;
+    }
+  }
+}
+.gcsc-more-maybe-branding-root {
+  display: none;
+}
+
 .gs-webResult .gs-snippet, .gs-imageResult .gs-snippet, .gs-fileFormatType {
     color: #27343B!important;
     line-height: 23px!important;
 }
-.gsc-webResult .gsc-result {
-    padding: 20px 0 20px 20px!important;
-}
 
-a.gs-title {
-    color: #2089C4!important;
-    text-decoration: none;
-}
-
-.gs-webResult.gs-result a.gs-title:visited, .gs-webResult.gs-result a.gs-title:visited b, .gs-imageResult a.gs-title:visited, .gs-imageResult a.gs-title:visited b {
-    color: #F993A6!important;
-}
 .gs-webResult div.gs-visibleUrl, .gs-imageResult div.gs-visibleUrl {
     color: #82949E!important;
 }

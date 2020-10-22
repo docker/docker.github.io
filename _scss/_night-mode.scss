@@ -128,24 +128,41 @@ body.night {
     }
 
     /* for google results styles - forgive us css gods */
-    .gsc-control-cse .gsc-webResult.gsc-result, .gsc-results .gsc-imageResult {
-        border-color: #192837!important;
-        background-color: #192837!important;
+    a.gs-title,
+    .gs-webResult.gs-result a.gs-title:link,
+    .gs-webResult.gs-result a.gs-title:link b,
+    .gs-webResult.gs-result a.gs-title:visited,
+    .gs-webResult.gs-result a.gs-title:visited b,
+    .gs-imageResult a.gs-title:link,
+    .gs-imageResult a.gs-title:link b,
+    .gs-imageResult a.gs-title:visited,
+    .gs-imageResult a.gs-title:visited b
+    {
+      color: #a9e4ff !important;
     }
+
+    .gsc-tabsArea .gsc-tabHeader,
+    .gsc-control-cse,
+    .gsc-control-cse .gsc-webResult.gsc-result,
+    .gsc-results .gsc-imageResult
+    {
+        border: none;
+        background-color: #192837;
+    }
+    .gsc-results .gsc-cursor-box .gsc-cursor-page {
+        background-color: #192837;
+        border: 1px solid $body-text-night;
+    }
+
     .gsc-webResult.gsc-result:hover, .gsc-imageResult:hover {
         border-color: #25374a!important;
         background-color: #192837!important;
     }
-    a.gs-title {
-        color: #cccccc !important;
-        text-decoration: none;
-    }
+
     .gs-webResult .gs-snippet, .gs-imageResult .gs-snippet, .gs-fileFormatType {
         color: #a8b0b7!important;
     }
-    .gs-webResult.gs-result a.gs-title:link, .gs-webResult.gs-result a.gs-title:link b, .gs-imageResult a.gs-title:link, .gs-imageResult a.gs-title:link b {
-        color: #a9e4ff!important;
-    }
+
     .component {
         background: $bg-component-night;
         img {

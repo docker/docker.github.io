@@ -9,9 +9,9 @@ skip_read_time: true
 ---
 
 <style type='text/css'>
-#my-cse1 { all: initial !important; all: default !important; }
+#my-cse1 { all: initial !important; }
 #my-cse1 table, #my-cse1 table tr, #my-cse1 table tr th, #my-cse1 table tr td, .gs-bidi-start-align { border: 0 !important; padding: 0 !important; line-height: initial !important; margin: 0 !important; }
-.gs-snippet { margin-top: 0 !important; margin-bottom: 0 !important; padding: 0 !important; color: #999}
+.gs-snippet { margin-top: 0 !important; margin-bottom: 0 !important; padding: 0 !important;}
 .gs-webResult .gs-result .gs-no-results-result { padding: 10px !important; }
 .gs-per-result-labels { display: none !important; }
 .gsc-url-top, .gsc-thumbnail-inside, .gs-spelling { padding: 0 !important; }
