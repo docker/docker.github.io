@@ -18,6 +18,7 @@ quick access to a test container. Make the following substitutions:
 
 - With `RUN echo 'root:THEPASSWORDYOUCREATED' | chpasswd`, replace "THEPASSWORDYOUCREATED" with the password you've previously generated.
 - With `RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config`, use `without-password` instead of `prohibit-password` for Ubuntu 14.04.
+- With `RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config`, use `#PermitRootLogin` instead of `PermitRootLogin` for Ubuntu 18.04.
 
 ```dockerfile
 FROM ubuntu:20.04
