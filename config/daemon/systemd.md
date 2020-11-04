@@ -122,7 +122,7 @@ you need to add this configuration in the Docker systemd service file.
         
     If you have to use special characters in the proxy value they must be both URL encoded and escape the % signs with double %%.
     
-    ```
+    ```conf
     [Service]
     Environment="HTTP_PROXY=http://domain%%5Cuser:complex%%23pass@proxy.example.com:8080/"
     ```
@@ -205,7 +205,7 @@ you need to add this configuration in the Docker systemd service file.
     
     If you have to use special characters in the proxy value they must be both URL encoded and escape the % signs with double %%.
     
-    ```
+    ```conf
     [Service]
     Environment="HTTP_PROXY=http://domain%%5Cuser:complex%%23pass@proxy.example.com:8080/"
     ```
