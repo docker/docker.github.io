@@ -14,7 +14,7 @@ Start by setting up the files needed to build the app. The app will run inside a
 Dockerfile consists of:
 
     FROM ruby:2.5
-    RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+    RUN apt-get update -qq && apt-get install -y nodejs
     RUN mkdir /myapp
     WORKDIR /myapp
     COPY Gemfile /myapp/Gemfile
@@ -26,7 +26,6 @@ Dockerfile consists of:
     COPY entrypoint.sh /usr/bin/
     RUN chmod +x /usr/bin/entrypoint.sh
     ENTRYPOINT ["entrypoint.sh"]
-    EXPOSE 3000
 
     # Start the main process.
     CMD ["rails", "server", "-b", "0.0.0.0"]
@@ -73,13 +72,10 @@ version: "{{ site.compose_file_v3 }}"
 services:
   db:
     image: postgres
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/myapp
     ports:
