@@ -48,7 +48,7 @@ If you would like to use Docker as a non-root user, you should now consider
 adding your user to the "docker" group with something like:
 
 ```bash
-  sudo usermod -aG docker your-user
+  sudo usermod -aG docker $USER
 ```
 
 Remember to log out and back in for this to take effect!
