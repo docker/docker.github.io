@@ -1762,7 +1762,10 @@ the service's task containers.
 
 - `source`: The name of the secret as it exists in Docker.
 - `target`: The name of the file to be mounted in `/run/secrets/` in the
-  service's task containers. Defaults to `source` if not specified.
+  service's task containers. Defaults to `source` if not specified. In 
+  Docker 17.05 and earlier, secrets are always located within the 
+  `/run/secrets/` directory. Docker 17.06 and higher allow you to specify 
+  a custom location for a secret within the container
 - `uid` and `gid`: The numeric UID or GID that owns the file within
   `/run/secrets/` in the service's task containers. Both default to `0` if not
   specified.
