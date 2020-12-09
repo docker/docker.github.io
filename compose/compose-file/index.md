@@ -1262,7 +1262,7 @@ healthcheck:
 > The `start_period` option was added in file format 3.4.
 
 `test` must be either a string or a list. If it's a list, the first item must be
-either `NONE`, `CMD` or `CMD-SHELL`. If it's a string, it's equivalent to
+either `NONE` or `CMD`. If it's a string, it's equivalent to
 specifying `CMD-SHELL` followed by that string.
 
 ```yaml
