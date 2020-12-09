@@ -104,14 +104,14 @@ driver:
 * non-blocking delivery that stores log messages in an intermediate per-container
   ring buffer for consumption by driver
 
-The `non-blocking` message delivery mode prevents applications from blocking due
+The `non-blocking` message delivery mode _prevents blocking_ of applications due
 to logging back pressure. Applications are likely to fail in unexpected ways when
-STDERR or STDOUT streams block.
+STDERR or STDOUT streams are blocked.
 
 > **WARNING**
-> When the buffer is full and a new message is enqueued, the oldest message in
-> memory is dropped.  Dropping messages is often preferred to blocking the
-> log-writing process of an application.
+> In `non-blocking` mode, when the buffer is full and a new message is enqueued, 
+> the oldest message in memory is dropped. Dropping messages is often preferred 
+> to blocking the log-writing process of an application.
 {: .warning}
 
 The `mode` log option controls whether to use the `blocking` (default) or
