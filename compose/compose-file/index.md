@@ -2431,9 +2431,12 @@ network. Those options are driver-dependent - consult the driver's
 documentation for more information. Optional.
 
 ```yaml
-driver_opts:
-  foo: "bar"
-  baz: 1
+networks:
+  mynet1:
+    driver_opts:
+      foo: "bar"
+      baz: 1
+      encrypted: ""
 ```
 
 ### attachable
