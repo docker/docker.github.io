@@ -1645,7 +1645,11 @@ Expose ports.
 #### Short syntax
 
 Either specify both ports (`HOST:CONTAINER`), or just the container
-port (an ephemeral host port is chosen).
+port (an ephemeral host port is chosen).  
+Please be aware that when using ports which are not bound to the host 
+(i.e. `"80:80"` instead of `"127.0.0.1:80:80"`) these ports will be accessible from
+the outside. This also applies if you configured UFW to block this specific port,
+as Docker manages his own iptables rules. [Read more](/network/iptables.md)
 
 > **Note**
 >
