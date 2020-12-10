@@ -115,6 +115,11 @@ and `exec` operations. This option is not available on Windows where the CLI
 is required for the aforementioned operations.
 Supported: `true` or `1` to enable, `false` or `0` to disable.
 
+## COMPOSE\_COMPATIBILITY
+
+If set, Compose will attempt to convert keys in v3 files to their non-Swarm equivalent.
+Supported: `true` or `1` to enable, `false` or `0` to disable.
+
 ## Related information
 
 - [User guide](../index.md)
