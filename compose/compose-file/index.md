@@ -1634,6 +1634,8 @@ container and the host operating system the PID address space.  Containers
 launched with this flag can access and manipulate other
 containers in the bare-metal machine's namespace and vice versa.
 
+> **Note**: It is possible to join PID namespace of another service or container by using `pid: "service:name` or `pid: "container:name-or-hash"`
+
 ### ports
 
 Expose ports.
