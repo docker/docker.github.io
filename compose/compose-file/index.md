@@ -402,6 +402,18 @@ build:
   target: prod
 ```
 
+#### network
+
+> Added in [version 3.4](compose-versioning.md#version-34) file format
+
+Build the image inside the specified network, Docker doesn't resolve the project name for the build network, it should be specified explicitly `<networkName>` -> `<projectName>_<networkName>`
+
+```yaml
+build:
+  context: .
+  network: example_default
+```
+
 ### cap_add, cap_drop
 
 Add or drop container capabilities.
