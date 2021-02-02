@@ -39,6 +39,7 @@ Compose to set up and run WordPress. Before starting, make sure you have
     services:
        db:
          image: mysql:5.7
+         command: --disable-partition-engine-check
          volumes:
            - db_data:/var/lib/mysql
          restart: always
