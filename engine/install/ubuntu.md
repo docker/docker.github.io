@@ -86,9 +86,9 @@ from the repository.
     repository over HTTPS:
 
     ```bash
-    $ sudo apt-get update
+    $ sudo apt-get update && \
 
-    $ sudo apt-get install \
+      sudo apt-get install \
         apt-transport-https \
         ca-certificates \
         curl \
@@ -170,8 +170,8 @@ from the repository.
    Engine and containerd, or go to the next step to install a specific version:
 
     ```bash
-    $ sudo apt-get update
-    $ sudo apt-get install docker-ce docker-ce-cli containerd.io
+    $ sudo apt-get update && \
+      sudo apt-get install docker-ce docker-ce-cli containerd.io
     ```
 
     > Got multiple Docker repositories?
