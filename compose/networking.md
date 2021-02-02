@@ -172,8 +172,7 @@ Instead of (or as well as) specifying your own networks, you can also change the
 If you want your containers to join a pre-existing network, use the [`external` option](compose-file/compose-file-v2.md#network-configuration-reference):
 
     networks:
-      default:
-        external:
-          name: my-pre-existing-network
+      my-pre-existing-network:
+          external: true
 
 Instead of attempting to create a network called `[projectname]_default`, Compose looks for a network called `my-pre-existing-network` and connect your app's containers to it.
