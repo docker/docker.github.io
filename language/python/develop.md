@@ -22,7 +22,7 @@ Instead of downloading MySQL, installing, configuring, and then running the MySQ
 
 Before we run MySQL in a container, we'll create a couple of volumes that Docker can manage to store our persistent data and configuration. Let’s use the managed volumes feature that Docker provides instead of using bind mounts. You can read all about [Using volumes](../../storage/volumes.md) in our documentation.
 
-Let’s create our volumes now. We’ll create one for the data and one for configuration of MongoDB.
+Let’s create our volumes now. We’ll create one for the data and one for configuration of MySQL.
 
 ```shell
 $ docker volume create mysql
@@ -78,7 +78,7 @@ Okay, now that we have a running MySQL, let’s update the`app.py` to use MySQL 
 ```shell
 import mysql.connector
 import json
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -86,54 +86,72 @@ app = Flask(__name__)
 def hello_world():
   return 'Hello, Docker!'
 
-@app.route('/widgets')
+
+@app.route('/widgets', methods = ['POST', 'GET'])
 def get_widgets() :
   mydb = mysql.connector.connect(
-    host="mysqldb",
-    user="root",
-    password="p@ssw0rd1",
-    database="inventory"
-  )
+      host="mysqldb",
+      user="root",
+      password="",
+      database="inventory"
+    )
   cursor = mydb.cursor()
-
-
+  
+  # Inserts values into the database
+  if request.method == "POST":
+    new_widgets = request.form
+    query = """
+    INSERT INTO widgets (name, description)
+    VALUES (%s, %s)
+    """
+    cursor.execute(query, (new_widgets["name"], new_widgets["description"]))
+    mydb.commit()
+  
   cursor.execute("SELECT * FROM widgets")
+  results = cursor.fetchall() # Extract values stored in widgets table
 
-  row_headers=[x[0] for x in cursor.description] #this will extract row headers
+  row_headers=[x[0] for x in cursor.description] # This will extract row headers
 
-  results = cursor.fetchall()
   json_data=[]
   for result in results:
     json_data.append(dict(zip(row_headers,result)))
 
   cursor.close()
+  mydb.close()
 
   return json.dumps(json_data)
+
 
 @app.route('/db')
 def db_init():
   mydb = mysql.connector.connect(
     host="mysqldb",
     user="root",
-    password="p@ssw0rd1"
+    password=""
   )
   cursor = mydb.cursor()
 
+  # Creates database, resets if it already exists
   cursor.execute("DROP DATABASE IF EXISTS inventory")
   cursor.execute("CREATE DATABASE inventory")
+
   cursor.close()
+  mydb.close()
 
   mydb = mysql.connector.connect(
     host="mysqldb",
     user="root",
-    password="p@ssw0rd1",
+    password="",
     database="inventory"
   )
+
   cursor = mydb.cursor()
 
-  cursor.execute("DROP TABLE IF EXISTS widgets")
+  # Creates a table for widgets
   cursor.execute("CREATE TABLE widgets (name VARCHAR(255), description VARCHAR(255))")
+
   cursor.close()
+  mydb.close()
 
   return 'init database'
 
@@ -147,7 +165,7 @@ First, let’s add the `mysql-connector-python `module to our application using 
 
 ```shell
 $ pip3 install mysql-connector-python
-$ pip3 freeze -r requirements.txt
+$ pip3 freeze > requirements.txt
 ```
 
 Now we can build our image.
@@ -207,7 +225,7 @@ services:
   ports:
   - 3306:3306
   environment:
-  - MYSQL_ROOT_PASSWORD=p@ssw0rd1
+  - MYSQL_ALLOW_EMPTY_PASSWORD=true
   volumes:
   - mysql:/var/lib/mysql
   - mysql_config:/etc/mysql

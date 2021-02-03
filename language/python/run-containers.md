@@ -19,7 +19,7 @@ A container is a normal operating system process except that this process is iso
 To run an image inside of a container, we use the `docker run` command. The `docker run` command requires one parameter which is the name of the image. Let’s start our image and make sure it is running correctly. Run the following command in your terminal.
 
 ```shell
-$ docker run python-docker
+docker run python-docker
 ```
 
 After running this command, you’ll notice that you were not returned to the command prompt. This is because our application is a REST server and runs in a loop waiting for incoming requests without returning control back to the OS until we stop the container.
@@ -27,12 +27,12 @@ After running this command, you’ll notice that you were not returned to the co
 Let’s make a `GET` request to the server using the `curl` command.
 
 ```shell
-$ curl --request POST \
-  --url http://localhost:8000/test \
-  --header 'content-type: application/json' \
-  --data '{
-	"msg": "testing"
-}'
+curl http://localhost:8000/
+```
+
+Output:
+
+```shell
 curl: (7) Failed to connect to localhost port 8000: Connection refused
 ```
 
@@ -45,19 +45,19 @@ To publish a port for our container, we’ll use the `--publish flag` (`-p` for 
 Start the container and expose port 8000 to port 8000 on the host:
 
 ```shell
-$ docker run --publish 8000:8000 python-docker
+docker run --publish 8000:8000 python-docker
 ```
 
 Now, let’s rerun the curl command from above:
 
 ```shell
-$ curl --request POST \
-  --url http://localhost:8000/test \
-  --header 'content-type: application/json' \
-  --data '{
-	"msg": "testing"
-}'
-{"code":"success","payload":[{"msg":"testing","id":"dc0e2c2b-793d-433c-8645-b3a553ea26de","createDate":"2020-09-01T17:36:09.897Z"}]}
+curl http://localhost:5000/
+```
+
+Output:
+
+```shell
+Hello, Docker!
 ```
 
 Success! We were able to connect to the application running inside of our container on port 8000. Switch back to the terminal where your container is running and you should see the POST request logged to the console.
@@ -73,7 +73,12 @@ Press ctrl-c to stop the container.
 This is great so far, but our sample application is a web server and we don't have to be connected to the container. Docker can run your container in detached mode or in the background. To do this, we can use the `--detach` or `-d` for short. Docker starts your container the same as before but this time will “detach” from the container and return you to the terminal prompt.
 
 ```shell
-$ docker run -d -p 8000:8000 python-docker
+docker run -d -p 8000:8000 python-docker
+```
+
+Output:
+
+```shell
 ce02b3179f0f10085db9edfccd731101868f58631bdf918ca490ff6fd223a93b
 ```
 
@@ -82,13 +87,13 @@ Docker started our container in the background and printed the Container ID on t
 Again, let’s make sure that our container is running properly. Run the same curl command from above.
 
 ```shell
-$ curl --request POST \
-  --url http://localhost:8000/test \
-  --header 'content-type: application/json' \
-  --data '{
-	"msg": "testing"
-}'
-{"code":"success","payload":[{"msg":"testing","id":"dc0e2c2b-793d-433c-8645-b3a553ea26de","createDate":"2020-09-01T17:36:09.897Z"}]}
+curl http://localhost:8000/ 
+```
+
+Output:
+
+```shell
+Hello, Docker!
 ```
 
 ## List containers
@@ -96,7 +101,12 @@ $ curl --request POST \
 Since we ran our container in the background, how do we know if our container is running or what other containers are running on our machine? Well, we can run the `docker ps` command. Just like on Linux to see a list of processes on your machine, we would run the `ps` command. In the same spirit, we can run the `docker ps` command which displays a list of containers running on our machine.
 
 ```shell
-$ docker ps
+docker ps
+```
+
+Output:
+
+```shell
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 ce02b3179f0f        python-docker         "docker-entrypoint.s…"   6 minutes ago       Up 6 minutes        0.0.0.0:8000->8000/tcp   wonderful_kalam
 ```
@@ -106,14 +116,18 @@ The `docker ps` command provides a bunch of information about our running contai
 You are probably wondering where the name of our container is coming from. Since we didn’t provide a name for the container when we started it, Docker generated a random name. We’ll fix this in a minute, but first we need to stop the container. To stop the container, run the `docker stop` command which does just that, stops the container. You need to pass the name of the container or you can use the container ID.
 
 ```shell
-$ docker stop wonderful_kalam
-wonderful_kalam
+docker stop wonderful_kalam
 ```
 
 Now, rerun the `docker ps` command to see a list of running containers.
 
 ```shell
-$ docker ps
+docker ps
+```
+
+Output:
+
+```shell
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ```
 
@@ -122,7 +136,12 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 You can start, stop, and restart Docker containers. When we stop a container, it is not removed, but the status is changed to stopped and the process inside the container is stopped. When we ran the `docker ps` command in the previous ,module, the default output only shows running containers. When we pass the `--all` or `-a` for short, we see all containers on our machine, irrespective of their start or stop status.
 
 ```shell
-$ docker ps -a
+docker ps -a
+```
+
+Output:
+
+```shell
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES
 ce02b3179f0f        python-docker         "docker-entrypoint.s…"   16 minutes ago      Exited (0) 5 minutes ago                        wonderful_kalam
 ec45285c456d        python-docker         "docker-entrypoint.s…"   28 minutes ago      Exited (0) 20 minutes ago                       agitated_moser
@@ -134,13 +153,18 @@ You should now see several containers listed. These are containers that we start
 Let’s restart the container that we just stopped. Locate the name of the container we just stopped and replace the name of the container below in the restart command.
 
 ```shell
-$ docker restart wonderful_kalam
+docker restart wonderful_kalam
 ```
 
 Now list all the containers again using the `docker ps` command.
 
 ```shell
-$ docker ps --all
+docker ps --all
+```
+
+Output:
+
+```shell
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS                    NAMES
 ce02b3179f0f        python-docker         "docker-entrypoint.s…"   19 minutes ago      Up 8 seconds                0.0.0.0:8000->8000/tcp   wonderful_kalam
 ec45285c456d        python-docker         "docker-entrypoint.s…"   31 minutes ago      Exited (0) 23 minutes ago                            agitated_moser
@@ -152,14 +176,18 @@ Notice that the container we just restarted has been started in detached mode an
 Now, let’s stop and remove all of our containers and take a look at fixing the random naming issue. Stop the container we just started. Find the name of your running container and replace the name in the command below with the name of the container on your system.
 
 ```shell
-$ docker stop wonderful_kalam
-wonderful_kalam
+docker stop wonderful_kalam
 ```
 
 Now that all of our containers are stopped, let’s remove them. When you remove a container, it is no longer running, nor it is in the stopped status, but the process inside the container has been stopped and the metadata for the container has been removed.
 
 ```shell
-$ docker ps --all
+docker ps --all
+```
+
+Output:
+
+```shell
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS                    NAMES
 ce02b3179f0f        python-docker         "docker-entrypoint.s…"   19 minutes ago      Up 8 seconds                0.0.0.0:8000->8000/tcp   wonderful_kalam
 ec45285c456d        python-docker         "docker-entrypoint.s…"   31 minutes ago      Exited (0) 23 minutes ago                            agitated_moser
@@ -169,7 +197,12 @@ fb7a41809e5d        python-docker         "docker-entrypoint.s…"   40 minutes 
 To remove a container, simple run the `docker rm` command passing the container name. You can pass multiple container names to the command using a single command. Again, replace the container names in the following command with the container names from your system.
 
 ```shell
-$ docker rm wonderful_kalam agitated_moser goofy_khayyam
+docker rm wonderful_kalam agitated_moser goofy_khayyam
+```
+
+Output:
+
+```shell
 wonderful_kalam
 agitated_moser
 goofy_khayyam
@@ -182,9 +215,15 @@ Now, let’s address the random naming issue. Standard practice is to name your 
 To name a container, we just need to pass the `--name` flag to the `docker run` command.
 
 ```shell
-$ docker run -d -p 8000:8000 --name rest-server python-docker
+docker run -d -p 8000:8000 --name rest-server python-docker
+docker ps
+
+```
+
+Output:
+
+```shell
 1aa5d46418a68705c81782a58456a4ccdb56a309cb5e6bd399478d01eaa5cdda
-$ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
 1aa5d46418a6        python-docker         "docker-entrypoint.s…"   3 seconds ago       Up 3 seconds        0.0.0.0:8000->8000/tcp   rest-server
 ```

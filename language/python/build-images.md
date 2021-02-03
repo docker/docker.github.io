@@ -25,10 +25,19 @@ To complete this tutorial, you need the following:
 Let’s create a simple Python application using the Flask framework that we’ll use as our example. Create a directory in your local machine named `python-docker` and follow the steps below to create a simple web server.
 
 ```shell
-$ cd /path/to/python-docker
-$ pip3 install Flask
-$ pip3 freeze > requirements.txt
-$ touch app.py
+cd /path/to/python-docker
+pip3 install Flask
+pip3 freeze > requirements.txt
+touch app.py
+```
+
+If you are using PowerShell then use this command.
+
+```shell
+cd /path/to/python-docker
+pip3 install Flask
+pip3 freeze > requirements.txt
+echo $null >> app.py
 ```
 
 Now, let’s add some code to handle simple web requests. Open this working directory in your favorite IDE and enter the following code into the `app.py` file.
@@ -47,7 +56,7 @@ def hello_world():
 Let’s start our application and make sure it’s running properly. Open your terminal and navigate to the working directory you created.
 
 ```shell
-$ python3 -m flask run
+python3 -m flask run
 ```
 
 To test that the application is working properly, open a new browser and navigate to `http://localhost:5000`.
@@ -96,10 +105,10 @@ Before we can run `pip3 install`, we need to get our `requirements.txt` file int
 COPY requirements.txt requirements.txt
 ```
 
-Once we have our `requirements.txt` file inside the image, we can use the `RUN` command to execute the command `pip3 install`. This works exactly the same as if we were running `pip3 install` locally on our machine, but this time the modules are installed into the image.
+Once we have our `requirements.txt` file inside the image, we can use the `RUN` command to execute the command `python3 -m pip install`. This works exactly the same as if we were running `python3 -m pip install` locally on our machine, but this time the modules are installed into the image.
 
 ```dockerfile
-RUN pip3 install -r requirements.txt
+RUN python3 -m pip install -r requirements.txt
 ```
 
 At this point, we have an image that is based on Python version 3.8 and we have installed our dependencies. The next step is to add our source code into the image. We’ll use the `COPY` command just like we did with our `requirements.txt` file above.
@@ -111,7 +120,12 @@ COPY . .
 This `COPY` command takes all the files located in the current directory and copies them into the image. Now, all we have to do is to tell Docker what command we want to run when our image is executed inside a container. We do this using the `CMD` command.
 
 ```dockerfile
-CMD [ "python3", "app.py" ]
+CMD ["python3", "-m", "flask", "run", "-h", "0.0.0.0"]
+```
+
+Once we're done with running the container, `STOPSIGNAL` is called to stop the instance. `SIGINT` is the same as doing CTRL-C inside of the container.
+```dockerfile
+STOPSIGNAL SIGINT
 ```
 
 Here's the complete Dockerfile.
@@ -122,11 +136,12 @@ FROM python:3.8-slim-buster
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+RUN python3 -m pip install -r requirements.txt
 
 COPY . .
 
-CMD [ "python3", "app.py" ]
+CMD ["python3", "-m", "flask", "run", "-h", "0.0.0.0"]
+STOPSIGNAL SIGINT
 ```
 
 ### Directory structure
@@ -149,7 +164,12 @@ The build command optionally takes a `--tag` flag. The tag is used to set the na
 Let’s build our first Docker image.
 
 ```shell
-$ docker build --tag python-docker .
+docker build --tag python-docker .
+```
+
+Output:
+
+```shell
 [+] Building 2.7s (10/10) FINISHED
  => [internal] load build definition from Dockerfile
  => => transferring dockerfile: 203B
@@ -167,7 +187,7 @@ $ docker build --tag python-docker .
  => => exporting layers
  => => writing image sha256:8cae92a8fbd6d091ce687b71b31252056944b09760438905b726625831564c4c
  => => naming to docker.io/library/python-docker
-```
+ ```
 
 ## View local images
 
@@ -176,7 +196,12 @@ To see a list of images we have on our local machine, we have two options. One i
 To list images, simply run the `docker images` command.
 
 ```shell
-$ docker images
+docker images
+```
+
+Output:
+
+```shell
 REPOSITORY      TAG               IMAGE ID       CREATED         SIZE
 python-docker   latest            8cae92a8fbd6   3 minutes ago   123MB
 python          3.8-slim-buster   be5d294735c6   9 days ago      113MB
@@ -193,7 +218,7 @@ An image is made up of a manifest and a list of layers. Do not worry too much ab
 To create a new tag for the image we’ve built above, run the following command.
 
 ```shell
-$ docker tag python-docker:latest python-docker:v1.0.0
+docker tag python-docker:latest python-docker:v1.0.0
 ```
 
 The `docker tag` command creates a new tag for an image. It does not create a new image. The tag points to the same image and is just another way to reference the image.
@@ -201,7 +226,12 @@ The `docker tag` command creates a new tag for an image. It does not create a ne
 Now, run the `docker images` command to see a list of our local images.
 
 ```shell
-$ docker images
+docker images
+```
+
+Output:
+
+```shell
 REPOSITORY      TAG               IMAGE ID       CREATED         SIZE
 python-docker   latest            8cae92a8fbd6   4 minutes ago   123MB
 python-docker   v1.0.0            8cae92a8fbd6   4 minutes ago   123MB
@@ -213,14 +243,24 @@ You can see that we have two images that start with `python-docker`. We know the
 Let’s remove the tag that we just created. To do this, we’ll use the `rmi` command. The `rmi` command stands for remove image.
 
 ```shell
-$ docker rmi python-docker:v1.0.0
+docker rmi python-docker:v1.0.0
+```
+
+Output:
+
+```shell
 Untagged: python-docker:v1.0.0
 ```
 
 Note that the response from Docker tells us that the image has not been removed but only “untagged”. You can check this by running the `docker images` command.
 
 ```shell
-$ docker images
+docker images
+```
+
+Output:
+
+```shell
 REPOSITORY      TAG               IMAGE ID       CREATED         SIZE
 python-docker   latest            8cae92a8fbd6   6 minutes ago   123MB
 python          3.8-slim-buster   be5d294735c6   9 days ago      113MB
