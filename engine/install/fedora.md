@@ -77,7 +77,7 @@ Install the `dnf-plugins-core` package (which provides the commands to manage
 your DNF repositories) and set up the **stable** repository.
 
 ```bash
-$ sudo dnf -y install dnf-plugins-core
+$ sudo dnf install dnf-plugins-core
 
 $ sudo dnf config-manager \
     --add-repo \
@@ -155,7 +155,7 @@ $ sudo dnf config-manager \
        `docker-ce-3:18.09.1`.
 
     ```bash
-    $ sudo dnf -y install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> containerd.io
+    $ sudo dnf install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> containerd.io
     ```
 
     Docker is installed but not started. The `docker` group is created, but no users are added to the group.
@@ -204,7 +204,7 @@ a new file each time you want to upgrade Docker Engine.
     the Docker package.
 
     ```bash
-    $ sudo dnf -y install /path/to/package.rpm
+    $ sudo dnf install /path/to/package.rpm
     ```
 
     Docker is installed but not started. The `docker` group is created, but no
