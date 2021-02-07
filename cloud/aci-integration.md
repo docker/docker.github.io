@@ -26,16 +26,16 @@ To deploy Docker containers on Azure, you must meet the following requirements:
 
 1. Download and install Docker Desktop Stable version 2.3.0.5 or later, or Edge version 2.3.2.0 or later.
 
-    - [Download for Mac](https://desktop.docker.com/mac/edge/Docker.dmg){: target="_blank" rel="noopener" class="_"}
-    - [Download for Windows](https://desktop.docker.com/win/edge/Docker%20Desktop%20Installer.exe){: target="_blank" rel="noopener" class="_"}
+   - [Download for Mac](https://desktop.docker.com/mac/edge/Docker.dmg){: target="_blank" rel="noopener" class="_"}
+   - [Download for Windows](https://desktop.docker.com/win/edge/Docker%20Desktop%20Installer.exe){: target="_blank" rel="noopener" class="_"}
 
-    Alternatively, install the [Docker Compose CLI for Linux](#install-the-docker-compose-cli-on-linux).
+   Alternatively, install the [Docker Compose CLI for Linux](#install-the-docker-compose-cli-on-linux).
 
 2. Ensure you have an Azure subscription. You can get started with an [Azure free account](https://aka.ms/AA8r2pj){: target="_blank" rel="noopener" class="_"}.
 
 ## Run Docker containers on ACI
 
-Docker not only runs containers locally, but also enables developers to seamlessly deploy Docker containers on ACI using `docker run` or deploy multi-container applications defined in a Compose file using the `docker compose up` command.
+Docker not only runs containers locally, but also enables developers to seamlessly deploy Docker containers on ACI using `docker run` or deploy multi-container applications defined in a Compose file using the `docker-compose up` command.
 
 The following sections contain instructions on how to deploy your Docker containers on ACI.
 Also see the [full list of container features supported by ACI](aci-container-features.md).
@@ -56,12 +56,12 @@ Alternatively, you can log in without interaction (typically in
 scripts or continuous integration scenarios), using an Azure Service
 Principal, with `docker login azure --client-id xx --client-secret yy --tenant-id zz`
 
->**Note**
+> **Note**
 >
 > Logging in through the Azure Service Provider obtains an access token valid
-for a short period (typically 1h), but it does not allow you to automatically
-and transparently refresh this token. You must manually re-login
-when the access token has expired when logging in with a Service Provider.
+> for a short period (typically 1h), but it does not allow you to automatically
+> and transparently refresh this token. You must manually re-login
+> when the access token has expired when logging in with a Service Provider.
 
 You can also use the `--tenant-id` option alone to specify a tenant, if
 you have several ones available in Azure.
@@ -137,23 +137,23 @@ You can remove containers using `docker rm`. To remove a running container, you 
 
 ## Running Compose applications
 
-You can also deploy and manage multi-container applications defined in Compose files to ACI using the `docker compose` command.
+You can also deploy and manage multi-container applications defined in Compose files to ACI using the `docker-compose` command.
 All containers in the same Compose application are started in the same container group. Service discovery between the containers works using the service name specified in the Compose file.
 Name resolution between containers is achieved by writing service names in the `/etc/hosts` file that is shared automatically by all containers in the container group.
 
 Also see the [full list of compose features supported by ACI](aci-compose-features.md).
 
-1. Ensure you are using your ACI context. You can do this either by specifying the `--context myacicontext` flag or by setting the default context using the command  `docker context use myacicontext`.
+1. Ensure you are using your ACI context. You can do this either by specifying the `--context myacicontext` flag or by setting the default context using the command `docker context use myacicontext`.
 
-2. Run `docker compose up` and `docker compose down` to start and then stop a full Compose application.
+2. Run `docker-compose up` and `docker-compose down` to start and then stop a full Compose application.
 
-  By default, `docker compose up` uses the `docker-compose.yaml` file in the current folder. You can specify the working directory using the  --workdir  flag or specify the Compose file directly using the `--file` flag.
+By default, `docker-compose up` uses the `docker-compose.yaml` file in the current folder. You can specify the working directory using the --workdir flag or specify the Compose file directly using the `--file` flag.
 
-  You can also specify a name for the Compose application using the `--project-name` flag during deployment. If no name is specified, a name will be derived from the working directory.
+You can also specify a name for the Compose application using the `--project-name` flag during deployment. If no name is specified, a name will be derived from the working directory.
 
-  Containers started as part of Compose applications will be displayed along with single containers when using `docker ps`. Their container ID will be of the format: `<COMPOSE-PROJECT>_<SERVICE>`.
-  These containers cannot be stopped, started, or removed independently since they are all part of the same ACI container group.
-  You can view each container's logs with `docker logs`. You can list deployed Compose applications with `docker compose ls`. This will list only compose applications, not single containers started with `docker run`. You can remove a Compose application with `docker compose down`.
+Containers started as part of Compose applications will be displayed along with single containers when using `docker ps`. Their container ID will be of the format: `<COMPOSE-PROJECT>_<SERVICE>`.
+These containers cannot be stopped, started, or removed independently since they are all part of the same ACI container group.
+You can view each container's logs with `docker logs`. You can list deployed Compose applications with `docker-compose ls`. This will list only compose applications, not single containers started with `docker run`. You can remove a Compose application with `docker-compose down`.
 
 > **Note**
 >
@@ -161,11 +161,11 @@ Also see the [full list of compose features supported by ACI](aci-compose-featur
 
 ## Updating applications
 
-From a deployed Compose application, you can update the application by re-deploying it with the same project name: `docker compose up --project-name PROJECT`.
+From a deployed Compose application, you can update the application by re-deploying it with the same project name: `docker-compose up --project-name PROJECT`.
 
 Updating an application means the ACI node will be reused, and the application will keep the same IP address that was previously allocated to expose ports, if any. ACI has some limitations on what can be updated in an existing application (you will not be able to change CPU/memory reservation for example), in these cases, you need to deploy a new application from scratch.
 
-Updating is the default behavior if you invoke `docker compose up` on an already deployed Compose file, as the Compose project name is derived from the directory where the Compose file is located by default. You need to explicitly execute `docker compose down` before running `docker compose up` again in order to totally reset a Compose application.
+Updating is the default behavior if you invoke `docker-compose up` on an already deployed Compose file, as the Compose project name is derived from the directory where the Compose file is located by default. You need to explicitly execute `docker-compose down` before running `docker-compose up` again in order to totally reset a Compose application.
 
 ## Releasing resources
 
@@ -197,7 +197,6 @@ services:
       - "80:80"
 ```
 
-
 > **Note**
 >
 > ACI does not allow port mapping (that is, changing port number while exposing port). Therefore, the source and target ports must be the same when deploying to ACI.
@@ -211,7 +210,7 @@ This IP address can be obtained when listing containers with `docker ps` or usin
 
 In addition to exposing ports on a random IP address, you can specify a DNS label name to expose your application on an FQDN of the form: `<NAME>.region.azurecontainer.io`.
 
-You can set this name with the `--domainname` flag when performing a `docker run`, or by using the `domainname` field in the Compose file when performing a `docker compose up`:
+You can set this name with the `--domainname` flag when performing a `docker run`, or by using the `domainname` field in the Compose file when performing a `docker-compose up`:
 
 ```yaml
 services:
@@ -221,7 +220,6 @@ services:
     ports:
       - "80:80"
 ```
-
 
 > **Note**
 >
@@ -363,7 +361,7 @@ services:
 
 ## Private Docker Hub images and using the Azure Container Registry
 
-You can deploy private images to ACI that are hosted by any container registry. You need to log into the relevant registry using `docker login` before running `docker run` or `docker compose up`. The Docker CLI will fetch your registry login for the deployed images and send the credentials along with the image deployment information to ACI.
+You can deploy private images to ACI that are hosted by any container registry. You need to log into the relevant registry using `docker login` before running `docker run` or `docker-compose up`. The Docker CLI will fetch your registry login for the deployed images and send the credentials along with the image deployment information to ACI.
 In the case of the Azure Container Registry, the command line will try to automatically log you into ACR from your Azure login. You don't need to manually login to the ACR registry first, if your Azure login has access to the ACR.
 
 ## Using ACI resource groups as namespaces
