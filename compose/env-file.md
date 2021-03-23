@@ -15,6 +15,7 @@ named `.env` placed in the project directory. The project directory is specified
 These syntax rules apply to the `.env` file:
 
 * Compose expects each line in an `env` file to be in `VAR=VAL` format.
+* Lines not conforming to the above syntax **will be ignored**.
 * Lines beginning with `#` are processed as comments and ignored.
 * Blank lines are ignored.
 * There is no special handling of quotation marks. This means that
