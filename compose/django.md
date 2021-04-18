@@ -106,7 +106,7 @@ In this step, you create a Django starter project by building the image from the
    command as follows.
 
    ```console
-   $ sudo docker-compose run web django-admin startproject composeexample .
+   $ sudo docker-compose run web django-admin startproject compose example .
    ```
 
    This instructs Compose to run `django-admin startproject composeexample`
