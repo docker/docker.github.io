@@ -19,8 +19,9 @@ the container on start up. For example, if your project name is `myapp` and it
 includes two services `db` and `web`, then Compose starts containers named
 `myapp_db_1` and `myapp_web_1` respectively.
 
-Setting this is optional. If you do not set this, the `COMPOSE_PROJECT_NAME`
-defaults to the `basename` of the project directory. See also the `-p`
+Setting this is optional. If you do not set this, then Compose will 
+default to using the `basename` of the project directory, and `COMPOSE_PROJECT_NAME`
+defaults to an empty string. See also the `-p`
 [command-line option](overview.md).
 
 ## COMPOSE\_FILE
