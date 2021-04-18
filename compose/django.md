@@ -93,6 +93,7 @@ and a `docker-compose.yml` file. (You can use either a `.yml` or `.yaml` extensi
    > This uses the build in development server to run your application
    > on port 8000. Do not use this in a production environment. For more
    > information, see [Django documentation](https://docs.djangoproject.com/en/3.1/intro/tutorial01/#the-development-server){: target="_blank" rel="noopener" class="_”}.
+   > Be careful, because runserver by default works in reload mode. A lot of application may took all your CPU. For stop idle CPU using switch off reload mode by add --noreload: `python manage.py runserver --noreload 0.0.0.0:8000`
 
 10. Save and close the `docker-compose.yml` file.
 
