@@ -31,10 +31,10 @@ to use for production, which only contained your application and exactly what
 was needed to run it. This has been referred to as the "builder
 pattern". Maintaining two Dockerfiles is not ideal.
 
-Here's an example of a `Dockerfile.build` and `Dockerfile` which adhere to the
+Here's an example of a `build.Dockerfile` and `Dockerfile` which adhere to the
 builder pattern above:
 
-**`Dockerfile.build`**:
+**`build.Dockerfile`**:
 
 ```dockerfile
 FROM golang:1.7.3
@@ -65,8 +65,8 @@ CMD ["./app"]
 #!/bin/sh
 echo Building alexellis2/href-counter:build
 
-docker build --build-arg https_proxy=$https_proxy --build-arg http_proxy=$http_proxy \  
-    -t alexellis2/href-counter:build . -f Dockerfile.build
+docker build --build-arg https_proxy=$https_proxy --build-arg http_proxy=$http_proxy \
+    -t alexellis2/href-counter:build . -f build.Dockerfile
 
 docker container create --name extract alexellis2/href-counter:build  
 docker container cp extract:/go/src/github.com/alexellis/href-counter/app ./app  

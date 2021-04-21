@@ -201,7 +201,7 @@ layers are the same.
     ```
 
 3.  Copy the contents of the first Dockerfile above into a new file called
-    `Dockerfile.base`.
+    `base.Dockerfile`.
 
 4.  Copy the contents of the second Dockerfile above into a new file called
     `Dockerfile`.
@@ -211,7 +211,7 @@ layers are the same.
     Docker where to look for any files that need to be added to the image.
 
     ```bash
-    $ docker build -t acme/my-base-image:1.0 -f Dockerfile.base .
+    $ docker build -t acme/my-base-image:1.0 -f base.Dockerfile .
     Sending build context to Docker daemon  812.4MB
     Step 1/2 : FROM ubuntu:18.04
      ---> d131e0fa2585

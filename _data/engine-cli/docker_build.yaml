@@ -593,10 +593,10 @@ examples: |-
   ### Specify a Dockerfile (-f)
 
   ```bash
-  $ docker build -f Dockerfile.debug .
+  $ docker build -f debug.Dockerfile .
   ```
 
-  This will use a file called `Dockerfile.debug` for the build instructions
+  This will use a file called `debug.Dockerfile` for the build instructions
   instead of `Dockerfile`.
 
   ```bash
@@ -607,8 +607,8 @@ examples: |-
   a Dockerfile from stdin.
 
   ```bash
-  $ docker build -f dockerfiles/Dockerfile.debug -t myapp_debug .
-  $ docker build -f dockerfiles/Dockerfile.prod  -t myapp_prod .
+  $ docker build -f dockerfiles/debug.Dockerfile -t myapp_debug .
+  $ docker build -f dockerfiles/prod.Dockerfile  -t myapp_prod .
   ```
 
   The above commands will build the current build context (as specified by the
