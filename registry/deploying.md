@@ -402,23 +402,24 @@ secrets.
 > authentication to work.
 {:.warning}
 
-1.  Create a password file with one entry for the user `testuser`, with password
+1.  Create a temporary container and install `apache2-utils` (which provides `htpasswd`), then generate a password for the user `testuser`, with password
     `testpassword`:
 
-    ```bash
-    $ mkdir auth
-    $ docker run \
-      --entrypoint htpasswd \
-      registry:2 -Bbn testuser testpassword > auth/htpasswd
+    ```
+    $ docker run --rm -it alpine:latest sh
+    / # apk add apache2-utils
+    / # htpasswd -Bbn testuser testpassword
     ```
 
-2.  Stop the registry.
+2. Exit the container. Copy the output of the `htpasswd` command to `auth/htpasswd` on the host.
+
+3.  Stop the registry.
 
     ```bash
     $ docker container stop registry
     ```
 
-3.  Start the registry with basic authentication.
+4.  Start the registry with basic authentication.
 
     ```bash
     $ docker run -d \
@@ -435,10 +436,10 @@ secrets.
       registry:2
       ```
 
-4.  Try to pull an image from the registry, or push an image to the registry.
+5.  Try to pull an image from the registry, or push an image to the registry.
     These commands fail.
 
-5.  Log in to the registry.
+6.  Log in to the registry.
 
     ```bash
     $ docker login myregistrydomain.com:5000
