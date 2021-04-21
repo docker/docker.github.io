@@ -117,8 +117,7 @@ connection is established. Defaults to `false`.
 
 ### fluentd-buffer-limit
 
-The amount of data to buffer before flushing to disk. Defaults to the amount of RAM
-available to the container.
+The amount of data to buffer before flushing to disk. Defaults to 1MiB.
 
 ### fluentd-retry-wait
 
