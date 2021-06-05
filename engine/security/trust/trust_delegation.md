@@ -121,6 +121,19 @@ Repeat passphrase for new jeff key with ID 9deed25:
 Successfully generated and loaded private key. Corresponding public key available: /home/ubuntu/Documents/mytrustdir/jeff.pub
 ```
 
+To use the key for signing on another machine, it must be exported and imported to the signing machine.
+
+```bash
+$ notary key export --key 9deed25 -o jeff-private-key.pem
+```
+copy the exported private key to the signing machine and execute the command:
+
+```bash
+$ docker trust key load --name jeff jeff-private-key.pem
+Loading key from "jeff-private-key.pem"...
+Successfully imported key from jeff-private-key.pem
+```
+
 ### Manually Generating Keys
 
 If you need to manually generate a private key (either RSA or ECDSA) and a x509 

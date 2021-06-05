@@ -94,6 +94,22 @@ it is possible for the notary server to manage the snapshot key, if the snapshot
 key is rotated from the notary client to server, as described in the following
 subsection.
 
+### Export Keys to Other Machines
+
+To use a key for signing from a different machine, it must be exported and imported
+to the signing machine.
+
+```bash
+$ notary key export --key 729c7094a8210fd1e780e7b17b7bb55c9a28a48b871b07f65d97baf93898523a -o delegation-private-key.pem
+```
+copy the exported private key to the destination machine and execute the command:
+
+```bash
+$ docker trust key load --name my-delegate delegation-private-key.pem
+Loading key from "delegation-private-key.pem"...
+Successfully imported key from delegation-private-key.pem
+```
+
 ### Rotate keys
 
 In case of potential compromise, notary provides a CLI command for rotating keys.
