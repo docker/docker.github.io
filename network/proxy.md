@@ -26,7 +26,7 @@ configure it in different ways:
 
     You can optionally exclude hosts or ranges from going through the proxy
     server by setting a `noProxy` key to one or more comma-separated IP
-    addresses or hosts. Using the `*` character as a wildcard for hosts and using CIDR notation for IP addresses is supported as
+    addresses or hosts. Prefixing domain with a dot `.` character, will act as a wildcard for hosts and using CIDR notation for IP addresses is supported as
     shown in this example.
 
     ```json
@@ -37,7 +37,7 @@ configure it in different ways:
        {
          "httpProxy": "http://127.0.0.1:3001",
          "httpsProxy": "http://127.0.0.1:3001",
-         "noProxy": "*.test.example.com,.example2.com,127.0.0.0/8"
+         "noProxy": ".test.example.com,.example2.com,127.0.0.0/8"
        }
      }
     }
@@ -64,5 +64,5 @@ instead.
 | `HTTP_PROXY`  | `ENV HTTP_PROXY="http://127.0.0.1:3001"`          | `--env HTTP_PROXY="http://127.0.0.1:3001"`          |
 | `HTTPS_PROXY` | `ENV HTTPS_PROXY="https://127.0.0.1:3001"`        | `--env HTTPS_PROXY="https://127.0.0.1:3001"`        |
 | `FTP_PROXY`   | `ENV FTP_PROXY="ftp://127.0.0.1:3001"`            | `--env FTP_PROXY="ftp://127.0.0.1:3001"`            |
-| `NO_PROXY`    | `ENV NO_PROXY="*.test.example.com,.example2.com"` | `--env NO_PROXY="*.test.example.com,.example2.com"` |
+| `NO_PROXY`    | `ENV NO_PROXY=".test.example.com,.example2.com"`  | `--env NO_PROXY=".test.example.com,.example2.com"` |
 
