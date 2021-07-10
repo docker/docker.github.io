@@ -69,16 +69,10 @@ body.night {
         border: 1px solid #192837;
     }
     blockquote {
-        color: $note-color-night;
         background: $note-bg-color-night;
-        &.warning, &.warning p:first-child {
-            color: $warning-color-night !important;
-        }
-        &.important {
-            border-left-color: #f5ac45 !important;
-        }
-        &.important, &.important p:first-child {
-            color: $important-color-night !important;
+
+        &::before {
+          color: $note-icon-color-night;
         }
     }
     table {

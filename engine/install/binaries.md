@@ -9,9 +9,6 @@ redirect_from:
 - /installation/binaries/
 ---
 
-> **Note**: You may have been redirected to this page because there is no longer
-> a dynamically-linked Docker package for your Linux distribution.
-
 If you want to try Docker or use it in a testing environment, but you're not on
 a supported platform, you can try installing from static binaries. If possible,
 you should use packages built for your operating system, and use your operating

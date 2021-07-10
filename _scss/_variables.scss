@@ -30,8 +30,9 @@ $bg-component:            hsl(240,  14%,  99%);
 $bg-card:                 hsl(  0,   0%, 100%);
 
 // notes, warnings
-$note-color:              hsl(206,  82%,  43%);
 $note-bg-color:           hsl(206,  83%,  98%);
+$note-icon-color:         hsl(206,   0%, 100%);
+$note-color:              hsl(206,  82%,  43%);
 $important-color:         hsl( 35,  91%,  35%);
 $warning-color:           hsl(  2,  58%,  54%);
 
@@ -59,8 +60,9 @@ $bg-component-night:      hsl(203,  44%,  10%);
 $bg-card-night:           hsl(203,  33%,   8%);
 
 // notes, warnings
-$note-color-night:        hsl(180,   1%,  83%);
 $note-bg-color-night:     hsl(203,  35%,  19%);
+$note-icon-color-night:   hsl(203,   0%, 100%);
+$note-color-night:        hsl(180,   1%,  83%);
 $important-color-night:   hsl( 35,  90%,  62%);
 $warning-color-night:     hsl(  2, 100%,  74%);
 

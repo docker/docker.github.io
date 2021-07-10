@@ -93,8 +93,9 @@ it only connects to servers with a certificate signed by that CA.
 
 ### Create a CA, server and client keys with OpenSSL
 
-> **Note**: Replace all instances of `$HOST` in the following example with the
+> Replace all instances of `$HOST` in the following example with the
 > DNS name of your Docker daemon's host.
+{:.tip}
 
 First, on the **Docker daemon's host machine**, generate CA private and public keys:
 
@@ -129,8 +130,9 @@ Now that you have a CA, you can create a server key and certificate
 signing request (CSR). Make sure that "Common Name" matches the hostname you use
 to connect to Docker:
 
-> **Note**: Replace all instances of `$HOST` in the following example with the
+> Replace all instances of `$HOST` in the following example with the
 > DNS name of your Docker daemon's host.
+{:.tip}
 
 ```console
 $ openssl genrsa -out server-key.pem 4096
@@ -177,8 +179,9 @@ Docker clients.
 For client authentication, create a client key and certificate signing
 request:
 
-> **Note**: For simplicity of the next couple of steps, you may perform this
+> For simplicity of the next couple of steps, you may perform this
 > step on the Docker daemon's host machine as well.
+{:.info}
 
 ```console
 $ openssl genrsa -out key.pem 4096
@@ -250,9 +253,11 @@ certificates and trusted CA:
 > This step should be run on your Docker client machine. As such, you
 > need to copy your CA certificate, your server certificate, and your client
 > certificate to that machine.
+{:.info}
 
-> **Note**: Replace all instances of `$HOST` in the following example with the
+> Replace all instances of `$HOST` in the following example with the
 > DNS name of your Docker daemon's host.
+{:.tip}
 
 ```console
 $ docker --tlsverify \
@@ -262,10 +267,12 @@ $ docker --tlsverify \
     -H=$HOST:2376 version
 ```
 
-> **Note**:
-> Docker over TLS should run on TCP port 2376.
+> While you can configure the Docker Engine API on any port, Docker over TLS
+> should run on TCP port 2376, which is [registered for this purpose](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=docker){: target="_blank" rel="noopener" class="_"}.
+{:.check}
 
-> **Warning**:
+> **Warning**
+>
 > As shown in the example above, you don't need to run the `docker` client
 > with `sudo` or the `docker` group when you use certificate authentication.
 > That means anyone with the keys can give any instructions to your Docker

@@ -64,6 +64,7 @@ As the message indicates, non-root users cannot run Docker commands by default.
 > Docker can also be installed without `root` privileges, or configured to run
 > in rootless mode. For instructions on running Docker in rootless mode, refer to
 > [run the Docker daemon as a non-root user (rootless mode)](/engine/security/rootless/).
+{:.tip}
 
 #### Install pre-releases
 

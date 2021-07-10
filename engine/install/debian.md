@@ -71,6 +71,7 @@ from the repository.
 >
 > For Raspbian, installing using the repository is not yet supported. You must
 > instead use the [convenience script](#install-using-the-convenience-script).
+{:.important}
 
 #### Set up the repository
 
@@ -100,12 +101,16 @@ from the repository.
     **nightly** or **test** repository, add the word `nightly` or `test` (or both)
     after the word `stable` in the commands below. [Learn about **nightly** and **test** channels](index.md).
 
-    > **Note**: The `lsb_release -cs` sub-command below returns the name of your
-    > Debian distribution, such as `helium`. Sometimes, in a distribution
+    > **Other distributions**
+    >
+    > The `lsb_release -cs` sub-command below returns the name of your
+    > Debian distribution, such as `stretch`. Sometimes, in a distribution
     > like BunsenLabs Linux, you might need to change `$(lsb_release -cs)`
     > to your parent Debian distribution. For example, if you are using
-    >  `BunsenLabs Linux Helium`, you could use `stretch`. Docker does not offer any guarantees on untested
-    > and unsupported Debian distributions.
+    >  `BunsenLabs Linux Helium`, you could use `stretch`.
+    > Docker does not offer any guarantees on untested and unsupported Debian
+    > derivatives.
+    {:.important}
 
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" data-target="#x86_64_repo">x86_64 / amd64</a></li>
@@ -144,7 +149,8 @@ from the repository.
 
 #### Install Docker Engine
 
-This procedure works for Debian on `x86_64` / `amd64`, `armhf`, `arm64`, and Raspbian.
+> This procedure works for Debian on `x86_64` / `amd64`, `armhf`, `arm64`, and Raspbian.
+{:.note}
 
 1. Update the `apt` package index, and install the _latest version_ of Docker
    Engine and containerd, or go to the next step to install a specific version:
@@ -154,12 +160,13 @@ This procedure works for Debian on `x86_64` / `amd64`, `armhf`, `arm64`, and Ras
     $ sudo apt-get install docker-ce docker-ce-cli containerd.io
     ```
 
-    > Got multiple Docker repositories?
+    > Got multiple Docker repositories enabled?
     >
     > If you have multiple Docker repositories enabled, installing
     > or updating without specifying a version in the `apt-get install` or
     > `apt-get update` command always installs the highest possible version,
     > which may not be appropriate for your stability needs.
+    {:.tip}
 
 2.  To install a _specific version_ of Docker Engine, list the available versions
     in the repo, then select and install:
@@ -214,9 +221,12 @@ a new file each time you want to upgrade Docker.
     `armhf`, or `arm64`, and download the `.deb` file for the Docker Engine
     version you want to install.
 
-    > **Note**: To install a **nightly** or **test** (pre-release) package,
-    > change the word `stable` in the above URL to `nightly` or `test`.
-    > [Learn about **nightly** and **test** channels](index.md).
+    > Feeling adventurous?
+    >
+    > To install a **test** (pre-release) or **nightly** package,
+    > change the word `stable` in the above URL to `test` or `nightly`.
+    > [Learn about **test** and **nightly** channels](index.md).
+    {:.tip}
 
 2.  Install Docker Engine, changing the path below to the path where you downloaded
     the Docker package.

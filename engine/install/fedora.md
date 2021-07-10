@@ -122,12 +122,13 @@ $ sudo dnf config-manager \
     If prompted to accept the GPG key, verify that the fingerprint matches
     `060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35`, and if so, accept it.
 
-    > Got multiple Docker repositories?
+    > Got multiple Docker repositories enabled?
     >
     > If you have multiple Docker repositories enabled, installing
     > or updating without specifying a version in the `dnf install` or
     > `dnf update` command always installs the highest possible version,
     > which may not be appropriate for your stability needs.
+    {:.tip}
 
     Docker is installed but not started. The `docker` group is created, but no users are added to the group.
 

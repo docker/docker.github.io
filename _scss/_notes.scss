@@ -1,53 +1,59 @@
 //noinspection CssNoGenericFontName
 blockquote {
-  background-color:  $note-bg-color;
-  border-left-color: $note-color;
-  font-size:         unset; // override bootstrap font-size for blockquotes
+  background-color: $note-bg-color;
+  border-left:      5px solid $note-color;
+  font-size:        unset; // override bootstrap font-size for blockquotes
 
-  > p:first-child {
-    color:       $note-color;
-    font-weight: 700;
-    margin-top:  0;
+  // Use relative position to allow the optional icon (::before) to be positioned.
+  // Also set a min-height to reserve height for the icon to fit.
+  position:         relative;
+  min-height:       50px;
 
-    &::before {
-      font-family: FontAwesome;
-      content:     "\f058 \00a0";
-    }
+  // The ::before is used for the icon in admonitions. By default, no icon is
+  // present (content: none), and these rules do not have an effect.
+  &::before {
+    font-family: FontAwesome;
+    font-size:   24px;
+    line-height: 50px;
+    text-align:  center;
+    color:       $note-icon-color;
+    display:     inline-block;
+    position:    absolute;
+    top:         0;
+    bottom:      0;
+    content:     none; // default note has no icon
   }
 
-  // Maintain backwards compatibility with old note style
+  // Vertically align first line with icon (if present) and make first line bold
+  > p:first-child {
+    font-weight: 700;
+    margin-top:  0;
+    line-height: 30px;
+  }
+
+  // Maintain backwards compatibility with old, single-line, note style
   > p:only-child {
     color:       inherit;
     font-weight: inherit;
+  }
+
+  &.info, &.check, &.tip, &.important, &.warning {
+    border-radius: 5px 0 0 5px;
+    border-style:  solid;
+    border-width:  1px 1px 1px 50px;
 
     &::before {
-      content: none;
+      width: 50px;
+      left: -50px;
     }
   }
 
-  &.important {
-    border-left-color: $important-color;
 
-    > p:first-child {
-      color: $important-color;
-
-      &::before {
-        content: "\f06a  \00a0";
-      }
-    }
-  }
-
-  &.warning {
-    border-left-color: $warning-color;
-
-    > p:first-child {
-      color: $warning-color;
-
-      &::before {
-        content: "\f057  \00a0";
-      }
-    }
-  }
+  &.info      { border-color: $note-color;         &::before{ content: "\f129"; }} // fa-info
+  &.check     { border-color: hsl(130, 100%, 32%); &::before{ content: "\f00c"; }} // fa-check
+  &.tip       { border-color: hsl( 44, 100%, 45%); &::before{ content: "\f0eb"; }} // fa-lightbulb
+  &.important { border-color: $important-color;    &::before{ content: "\f12a"; }} // fa-exclamation
+  &.warning   { border-color: $warning-color;      &::before{ content: "\f071"; }} // fa-exclamation-triangle
 }
 
 /* For Bootstrap badges */
@@ -64,16 +70,8 @@ span {
     vertical-align: baseline;
     white-space:    nowrap;
 
-    &.badge-info {
-      background-color: $note-color;
-    }
-
-    &.badge-danger {
-      background-color: $warning-color;
-    }
-
-    &.badge-warning {
-      background-color: $important-color;
-    }
+    &.badge-info    { background-color: $note-color; }
+    &.badge-danger  { background-color: $warning-color; }
+    &.badge-warning { background-color: $important-color; }
   }
 }
