@@ -36,7 +36,7 @@ If the file is currently empty, paste the following:
 
 ```json
 {
-  "metrics-addr" : "127.0.0.1:9323",
+  "metrics-addr" : "0.0.0.0:9323",
   "experimental" : true
 }
 ```
@@ -111,7 +111,7 @@ scrape_configs:
          # scheme defaults to 'http'.
 
     static_configs:
-      - targets: ['localhost:9323']
+      - targets: ['<docker0 inet address>:9323']
 ```
 
 </div><!-- linux -->
@@ -240,7 +240,7 @@ PS C:\> docker service create --replicas 1 --name my-prometheus
 </div><!-- windows -->
 </div><!-- tabs -->
 
-Verify that the Docker target is listed at http://localhost:9090/targets/.
+Verify that the Docker target is listed at http://127.0.0.1:9090/targets/.
 
 ![Prometheus targets page](images/prometheus-targets.png)
 
