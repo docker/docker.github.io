@@ -309,6 +309,8 @@ guides:
         title: Manage nodes in a swarm
       - path: /engine/swarm/services/
         title: Deploy services to a swarm
+      - path: /engine/swarm/swarm-jobs/
+        title: Deploy jobs to a swarm
       - path: /engine/swarm/configs/
         title: Store service configuration data
       - path: /engine/swarm/secrets/
