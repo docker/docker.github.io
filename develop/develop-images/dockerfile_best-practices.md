@@ -111,44 +111,43 @@ afterwards.
 > The examples in this section use [here documents](https://tldp.org/LDP/abs/html/here-docs.html)
 > for convenience, but any method to provide the `Dockerfile` on `stdin` can be
 > used.
-> 
-> For example, the following commands are equivalent: 
-> 
+>
+> For example, the following commands are equivalent:
+>
 > ```bash
 > echo -e 'FROM busybox\nRUN echo "hello world"' | docker build -
 > ```
-> 
+>
 > ```bash
 > docker build -<<EOF
 > FROM busybox
 > RUN echo "hello world"
 > EOF
 > ```
-> 
+> <br/>
+>
+> With Powershell, you can run:
+>
+> ```powershell
+> @"
+> FROM busybox
+> RUN echo "hello world"
+> "@ | docker build -
+> ```
+>
+> or
+>
+> ```powershell
+> Get-Content MyDockerFile | docker build -
+> ```
+>
 > You can substitute the examples with your preferred approach, or the approach
 > that best fits your use-case.
-
-
-#### Build an image using a Dockerfile from stdin, without sending build context
 
 Use this syntax to build an image using a `Dockerfile` from `stdin`, without
 sending additional files as build context. The hyphen (`-`) takes the position
 of the `PATH`, and instructs Docker to read the build context (which only
-contains a `Dockerfile`) from `stdin` instead of a directory:
-
-```bash
-docker build [OPTIONS] -
-```
-
-The following example builds an image using a `Dockerfile` that is passed through
-`stdin`. No files are sent as build context to the daemon.
-
-```bash
-docker build -t myimage:latest -<<EOF
-FROM busybox
-RUN echo "hello world"
-EOF
-```
+contains a `Dockerfile`) from `stdin` instead of a directory.
 
 Omitting the build context can be useful in situations where your `Dockerfile`
 does not require files to be copied into the image, and improves the build-speed,
@@ -157,23 +156,24 @@ as no files are sent to the daemon.
 If you want to improve the build-speed by excluding _some_ files from the build-
 context, refer to [exclude with .dockerignore](#exclude-with-dockerignore).
 
-> **Note**: Attempting to build a Dockerfile that uses `COPY` or `ADD` will fail
-> if this syntax is used. The following example illustrates this:
-> 
+> **Note**: Since no build context is provided, attempting to build a Dockerfile
+> that uses `COPY` or `ADD` will fail when this syntax is used, due to lack of files.
+> The following example illustrates this:
+>
 > ```bash
 > # create a directory to work in
 > mkdir example
 > cd example
-> 
+>
 > # create an example file
 > touch somefile.txt
-> 
+>
 > docker build -t myimage:latest -<<EOF
 > FROM busybox
 > COPY somefile.txt .
 > RUN cat /somefile.txt
 > EOF
-> 
+>
 > # observe that the build fails
 > ...
 > Step 2/3 : COPY somefile.txt .
@@ -211,9 +211,27 @@ RUN cat /somefile.txt
 EOF
 ```
 
+With Powershell, you can run:
+
+```powershell
+# create a directory to work in
+md Example
+cd Example
+
+# create an example file
+$Null | Out-File SomeFile.txt
+
+# build an image using the current directory as context, and a Dockerfile passed through stdin
+@"
+FROM scratch
+COPY SomeFile.txt .
+RUN cat /SomeFile.txt
+"@ | docker build -t myimage:latest -f- .
+```
+
 #### Build from a remote build context, using a Dockerfile from stdin
 
-Use this syntax to build an image using files from a remote `git` repository, 
+Use this syntax to build an image using files from a remote `git` repository,
 using a `Dockerfile` from `stdin`. The syntax uses the `-f` (or `--file`) option to
 specify the `Dockerfile` to use, using a hyphen (`-`) as filename to instruct
 Docker to read the `Dockerfile` from `stdin`:
@@ -236,9 +254,20 @@ COPY hello.c .
 EOF
 ```
 
+With Powershell, you can run:
+
+```powershell
+@"
+FROM scratch
+COPY SomeFile.txt .
+RUN cat /SomeFile.txt
+"@ | docker build -t myimage:latest -f- 'https://github.com/docker-library/hello-world.git'
+```
+
+
 > **Under the hood**
 >
-> When building an image using a remote Git repository as build context, Docker 
+> When building an image using a remote Git repository as build context, Docker
 > performs a `git clone` of the repository on the local machine, and sends
 > those files as build context to the daemon. This feature requires `git` to be
 > installed on the host where you run the `docker build` command.

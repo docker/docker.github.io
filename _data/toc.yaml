@@ -383,6 +383,8 @@ guides:
       title: Volumes
     - path: /storage/bind-mounts/
       title: Bind mounts
+    - path: /docker-for-windows/mounts-on-windows/
+      title: Mounting Volumes on Windows
     - path: /storage/tmpfs/
       title: tmpfs mounts
     - path: /storage/troubleshooting_volume_errors/

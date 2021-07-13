@@ -6,6 +6,8 @@ redirect_from:
 - /engine/admin/volumes/bind-mounts/
 ---
 
+For information on Bind mounts in **Docker for Windows** [see here](../docker-for-windows/mounts-on-windows.md).
+
 Bind mounts have been around since the early days of Docker. Bind mounts have
 limited functionality compared to [volumes](volumes.md). When you use a bind
 mount, a file or directory on the _host machine_ is mounted into a container.
