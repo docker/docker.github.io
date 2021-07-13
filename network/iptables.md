@@ -98,10 +98,13 @@ _default_, it does not _restrict_ services to that IP.
 
 If you are running Docker version 20.10.0 or higher with [firewalld](https://firewalld.org){: target="blank" rel="noopener" class=“”} on your system with `--iptables` enabled, Docker automatically creates a `firewalld` zone called `docker` and inserts all the network interfaces it creates (for example, `docker0`) into the `docker` zone to allow seamless networking.
 
-Consider running the following `firewalld` command to remove the docker interface from the zone.
+If you manually added the `docker0` network interface to a zone other than `trusted`,
+you need to remove the interface from this zone. Follow the steps below fo to remove
+the interface from other zones:
 
 ```bash
 # Please substitute the appropriate zone and docker interface
+$ firewall-cmd --get-zone-of-interface=docker0
 $ firewall-cmd --zone=trusted --remove-interface=docker0 --permanent
 $ firewall-cmd --reload
 ```
