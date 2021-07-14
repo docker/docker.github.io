@@ -19,8 +19,7 @@ To get started with Docker Engine on Debian, make sure you
 
 ### OS requirements
 
-To install Docker Engine, you need the 64-bit version of one of these Debian or
-Raspbian versions:
+To install Docker Engine, you need one of these Debian or Raspbian versions:
 
 - Debian Bullseye 11 (testing)
 - Debian Buster 10 (stable)
@@ -50,7 +49,7 @@ You can install Docker Engine in different ways, depending on your needs:
 - Most users
   [set up Docker's repositories](#install-using-the-repository) and install
   from them, for ease of installation and upgrade tasks. This is the
-  recommended approach, except for Raspbian.
+  recommended approach.
 
 - Some users download the DEB package and
   [install it manually](#install-from-a-package) and manage
@@ -59,7 +58,6 @@ You can install Docker Engine in different ways, depending on your needs:
 
 - In testing and development environments, some users choose to use automated
   [convenience scripts](#install-using-the-convenience-script) to install Docker.
-  This is currently the only approach for Raspbian.
 
 ### Install using the repository
 
@@ -67,14 +65,9 @@ Before you install Docker Engine for the first time on a new host machine, you n
 to set up the Docker repository. Afterward, you can install and update Docker
 from the repository.
 
-> **Raspbian users cannot use this method!**
->
-> For Raspbian, installing using the repository is not yet supported. You must
-> instead use the [convenience script](#install-using-the-convenience-script).
-
 #### Set up the repository
 
-{% assign download-url-base = "https://download.docker.com/linux/debian" %}
+{% assign download-url-base = "https://download.docker.com/linux" %}
 
 1.  Update the `apt` package index and install packages to allow `apt` to use a
     repository over HTTPS:
@@ -93,7 +86,7 @@ from the repository.
 2.  Add Docker's official GPG key:
 
     ```console
-    $ curl -fsSL {{ download-url-base }}/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    $ curl -fsSL {{ download-url-base }}/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     ```
 
 3.  Use the following command to set up the **stable** repository. To add the
@@ -104,47 +97,41 @@ from the repository.
     > Debian distribution, such as `helium`. Sometimes, in a distribution
     > like BunsenLabs Linux, you might need to change `$(lsb_release -cs)`
     > to your parent Debian distribution. For example, if you are using
-    >  `BunsenLabs Linux Helium`, you could use `stretch`. Docker does not offer any guarantees on untested
+    > `BunsenLabs Linux Helium`, you could use `stretch`. Docker does not offer any guarantees on untested
     > and unsupported Debian distributions.
 
+    > **Note**: The `dpkg --print-architecture` sub-command below returns the native
+    > package architecture of your Debian distribution, such as `arm64`. If you want to install
+    > Docker for a foreign package architecture, replace `$(dpkg --print-architecture)`
+    > with e.g. `armhf` or `arm64`.
+
     <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" data-target="#x86_64_repo">x86_64 / amd64</a></li>
-      <li><a data-toggle="tab" data-target="#armhf_repo">armhf</a></li>
-      <li><a data-toggle="tab" data-target="#arm64_repo">arm64</a></li>
+      <li class="active"><a data-toggle="tab" data-target="#debian_repo">Debian</a></li>
+      <li><a data-toggle="tab" data-target="#raspbian_repo">Raspbian</a></li>
     </ul>
     <div class="tab-content">
-    <div id="x86_64_repo" class="tab-pane fade in active" markdown="1">
+    <div id="debian_repo" class="tab-pane fade in active" markdown="1">
 
     ```console
     $ echo \
-      "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] {{ download-url-base }} \
-      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+    {{ download-url-base }}/debian \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     ```
 
     </div>
-    <div id="armhf_repo" class="tab-pane fade" markdown="1">
+    <div id="raspbian_repo" class="tab-pane fade" markdown="1">
 
     ```console
     $ echo \
-      "deb [arch=armhf signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] {{ download-url-base }} \
-      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    ```
-
-    </div>
-    <div id="arm64_repo" class="tab-pane fade" markdown="1">
-
-    ```console
-    $ echo \
-      "deb [arch=arm64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] {{ download-url-base }} \
-      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] {{ download-url-base }}/raspbian \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     ```
 
     </div>
     </div> <!-- tab-content -->
 
 #### Install Docker Engine
-
-This procedure works for Debian on `x86_64` / `amd64`, `armhf`, `arm64`, and Raspbian.
 
 1. Update the `apt` package index, and install the _latest version_ of Docker
    Engine and containerd, or go to the next step to install a specific version:
@@ -169,14 +156,14 @@ This procedure works for Debian on `x86_64` / `amd64`, `armhf`, `arm64`, and Ras
     ```console
     $ apt-cache madison docker-ce
 
-      docker-ce | 5:18.09.1~3-0~debian-stretch | {{ download-url-base }} stretch/stable amd64 Packages
-      docker-ce | 5:18.09.0~3-0~debian-stretch | {{ download-url-base }} stretch/stable amd64 Packages
-      docker-ce | 18.06.1~ce~3-0~debian        | {{ download-url-base }} stretch/stable amd64 Packages
-      docker-ce | 18.06.0~ce~3-0~debian        | {{ download-url-base }} stretch/stable amd64 Packages
+      docker-ce | 5:20.10.3~3-0~debian-buster | {{ download-url-base }}/debian buster/stable amd64 Packages
+      docker-ce | 5:20.10.2~3-0~debian-buster | {{ download-url-base }}/debian buster/stable amd64 Packages
+      docker-ce | 18.06.3~ce~3-0~debian       | {{ download-url-base }}/debian buster/stable amd64 Packages
+      docker-ce | 18.06.2~ce~3-0~debian       | {{ download-url-base }}/debian buster/stable amd64 Packages
     ```
 
     b. Install a specific version using the version string from the second column,
-       for example, `5:18.09.1~3-0~debian-stretch `.
+       for example, `5:20.10.3~3-0~debian-buster`.
 
     ```console
     $ sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io
@@ -209,7 +196,7 @@ If you cannot use Docker's repository to install Docker Engine, you can download
 `.deb` file for your release and install it manually. You need to download
 a new file each time you want to upgrade Docker.
 
-1.  Go to [`{{ download-url-base }}/dists/`]({{ download-url-base }}/dists/){: target="_blank" rel="noopener" class="_" },
+1.  Go to [`{{ download-url-base }}/debian/dists/`]({{ download-url-base }}/debian/dists/){: target="_blank" rel="noopener" class="_" },
     choose your Debian version, then browse to `pool/stable/`, choose `amd64`,
     `armhf`, or `arm64`, and download the `.deb` file for the Docker Engine
     version you want to install.
