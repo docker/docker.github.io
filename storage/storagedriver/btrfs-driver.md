@@ -93,7 +93,13 @@ This procedure is essentially identical on SLES and Ubuntu.
     $ sudo cp -au /var/lib/docker.bk/* /var/lib/docker/
     ```
 
-6.  Configure Docker to use the `btrfs` storage driver. This is required even
+6.  Change the mode of `/var/lib/docker` to `711`.
+
+    ```bash
+    $ sudo chmod 711 /var/lib/docker
+    ```
+
+7.  Configure Docker to use the `btrfs` storage driver. This is required even
     though `/var/lib/docker/` is now using a Btrfs filesystem.
     Edit or create the file `/etc/docker/daemon.json`. If it is a new file, add
     the following contents. If it is an existing file, add the key and value
@@ -109,7 +115,7 @@ This procedure is essentially identical on SLES and Ubuntu.
     See all storage options for each storage driver in the
     [daemon reference documentation](/engine/reference/commandline/dockerd/#storage-driver-options)
 
-7.  Start Docker. After it is running, verify that `btrfs` is being used as the
+8.  Start Docker. After it is running, verify that `btrfs` is being used as the
     storage driver.
 
     ```bash
@@ -127,7 +133,7 @@ This procedure is essentially identical on SLES and Ubuntu.
     <...>
     ```
 
-8.  When you are ready, remove the `/var/lib/docker.bk` directory.
+9.  When you are ready, remove the `/var/lib/docker.bk` directory.
 
 ## Manage a Btrfs volume
 
