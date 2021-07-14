@@ -28,10 +28,12 @@ simply pull them manually and push them to a simple, local, private registry.
 Furthermore, if your images are all built in-house, not using the Hub at all and
 relying entirely on your local registry is the simplest scenario.
 
-### Gotcha
+### Gotchas
 
-It's currently not possible to mirror another private registry. Only the central
-Hub can be mirrored.
+* It's currently not possible to mirror another private registry. Only the central
+  Hub can be mirrored.
+* If a registry is configured as a registry mirror, you can no longer push images
+  to the registry.
 
 > **Note**
 >
