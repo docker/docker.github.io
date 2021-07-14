@@ -24,9 +24,10 @@ Docker supports some special template markup you can use when specifying a tag's
 | `{{.FullID}}`      | The full container ID.                               |
 | `{{.Name}}`        | The container name.                                  |
 | `{{.ImageID}}`     | The first 12 characters of the container's image ID. |
-| `{{.ImageFullID}}` | The container's full image ID.               |
+| `{{.ImageFullID}}` | The container's full image ID.                       |
 | `{{.ImageName}}`   | The name of the image used by the container.         |
 | `{{.DaemonName}}`  | The name of the docker program (`docker`).           |
+| `{{.Hostname}}`    | Hostname from the underlying OS                      |
 
 {% endraw %}
 
