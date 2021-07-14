@@ -92,7 +92,7 @@ on Microsoft Windows Server and want to install Docker Compose.
     Compose (v{{site.compose_version}}):
 
     ```powershell
-    Invoke-WebRequest "https://github.com/docker/compose/releases/download/{{site.compose_version}}/docker-compose-Windows-x86_64.exe" -UseBasicParsing -OutFile $Env:ProgramFiles\Docker\docker-compose.exe
+    Invoke-WebRequest "https://github.com/docker/compose/releases/latest/download/docker-compose-Windows-x86_64.exe" -UseBasicParsing -OutFile $Env:ProgramFiles\Docker\docker-compose.exe
     ```
 
 **Note**: On Windows Server 2019, you can add the Compose executable to `$Env:ProgramFiles\Docker`. Because this directory is  registered in the system `PATH`, you can run the `docker-compose --version` command on the subsequent step with no additional configuration.
@@ -126,7 +126,7 @@ also included below.
 1.  Run this command to download the current stable release of Docker Compose:
 
     ```bash
-    sudo curl -L "https://github.com/docker/compose/releases/download/{{site.compose_version}}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     ```
 
     > To install a different version of Compose, substitute `{{site.compose_version}}`
@@ -199,7 +199,7 @@ Compose can also be run inside a container, from a small bash script wrapper. To
 install compose as a container run this command:
 
 ```bash
-sudo curl -L --fail https://github.com/docker/compose/releases/download/{{site.compose_version}}/run.sh -o /usr/local/bin/docker-compose
+sudo curl -L --fail https://github.com/docker/compose/releases/latest/download/run.sh -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
