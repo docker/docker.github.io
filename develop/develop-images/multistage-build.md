@@ -18,7 +18,7 @@ while keeping them easy to read and maintain.
 ## Before multi-stage builds
 
 One of the most challenging things about building images is keeping the image
-size down. Each instruction in the Dockerfile adds a layer to the image, and you
+size down. Each `RUN`, `COPY`, and `ADD` instruction in the Dockerfile adds a layer to the image, and you
 need to remember to clean up any artifacts you don't need before moving on to
 the next layer. To write a really efficient Dockerfile, you have traditionally
 needed to employ shell tricks and other logic to keep the layers as small as
