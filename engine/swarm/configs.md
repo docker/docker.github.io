@@ -263,7 +263,7 @@ This example assumes that you have PowerShell installed.
         --name my-iis
         --publish published=8000,target=8000
         --config src=homepage,target="\inetpub\wwwroot\index.html"
-        microsoft/iis:nanoserver
+        mcr.microsoft.com/windows/servercore/iis:nanoserver
     ```
 
 5.  Access the IIS service at `http://localhost:8000/`. It should serve
