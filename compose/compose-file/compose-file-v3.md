@@ -1221,15 +1221,30 @@ external_links:
 
 ### extra_hosts
 
-Add hostname mappings. Use the same values as the docker client `--add-host` parameter.
+This property uses the same values as the docker client `--add-host` parameter.
+
+Add runtime hostname mappings (available at container lifetime).
 
 ```yaml
-extra_hosts:
-  - "somehost:162.242.195.82"
-  - "otherhost:50.31.209.229"
+services:
+  custom_service:
+    extra_hosts:
+      - somehost:162.242.195.82
+      - otherhost:50.31.209.229
 ```
 
-An entry with the ip address and hostname is created in `/etc/hosts` inside containers for this service, e.g:
+Add buildtime hostname mappings (available at docker image build).
+
+```yaml
+services:
+  custom_service:
+    build:
+      extra_hosts:
+        - somehost:162.242.195.82
+        - otherhost:50.31.209.229
+```
+
+An entry with the IP address and hostname is created in `/etc/hosts` inside containers for this service (buildtime or runtime), e.g:
 
 ```console
 162.242.195.82  somehost
