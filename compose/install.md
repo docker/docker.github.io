@@ -203,6 +203,10 @@ sudo curl -L --fail https://github.com/docker/compose/releases/download/{{site.c
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
+Warning: when docker-compose runs inside a container, variable expansion in your 
+`docker-compose.yml` will not work as expected. A tilde expands to `/root`, not
+to your own home directory, for instance.
+
 </div>
 
 <div id="pre-release" class="tab-pane fade" markdown="1">
