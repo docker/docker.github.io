@@ -25,6 +25,7 @@ If you have multiple environment variables, you can substitute them by adding
 them to a default environment variable file named `.env` or by providing a
 path to your environment variables file using the `--env-file` command line option.
 
+{% include content/compose-var-sub.md %}
 
 ### The “.env” file
 
