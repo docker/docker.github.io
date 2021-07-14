@@ -16,11 +16,20 @@ shows a few examples of how to customize Docker's settings.
 ### Start manually
 
 Once Docker is installed, you need to start the Docker daemon.
-Most Linux distributions use `systemctl` to start services.
+Most Linux distributions use `systemctl` to start services. If you
+do not have `systemctl`, use the `service` command.
 
-```console
-$ sudo systemctl start docker
-```
+- **`systemctl`**:
+
+  ```bash
+  $ sudo systemctl start docker
+  ```
+
+- **`service`**:
+
+  ```bash
+  $ sudo service docker start
+  ```
 
 ### Start automatically at system boot
 
