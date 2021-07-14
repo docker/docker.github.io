@@ -24,6 +24,8 @@ installed and coexist together.
 
 ```bash
 go get github.com/docker/docker/client
+# OR, with go modules:
+go get github.com/docker/docker/client@v19.03.7
 ```
 
 The client requires a recent version of Go. Run `go version` and ensure that you 
