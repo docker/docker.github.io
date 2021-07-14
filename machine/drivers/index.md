@@ -6,6 +6,7 @@ title: Machine drivers
 
 -   [Amazon Web Services](aws.md)
 -   [Microsoft Azure](azure.md)
+-   [CloudSigma](https://github.com/cloudsigma/docker-machine-driver-cloudsigma) (unofficial plugin, not supported by Docker)
 -   [DigitalOcean](digital-ocean.md)
 -   [Exoscale](exoscale.md)
 -   [Generic](generic.md)
