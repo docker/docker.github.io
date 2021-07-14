@@ -30,7 +30,8 @@ script:
 
 - Use a tool such as [wait-for-it](https://github.com/vishnubob/wait-for-it),
   [dockerize](https://github.com/jwilder/dockerize), sh-compatible
-  [wait-for](https://github.com/Eficode/wait-for), or [RelayAndContainers](https://github.com/jasonsychau/RelayAndContainers) template. These are small
+  [wait-for](https://github.com/Eficode/wait-for), [holdup](https://github.com/ionelmc/python-holdup),
+  or [RelayAndContainers](https://github.com/jasonsychau/RelayAndContainers) template. These are small
   wrapper scripts which you can include in your application's image to
   poll a given host and port until it's accepting TCP connections.
 
@@ -85,6 +86,14 @@ script:
   command: ["./wait-for-postgres.sh", "db", "python", "app.py"]
   ```
 
+- Another alternative is to use [holdup](https://github.com/ionelmc/python-holdup):
+
+  ```yaml
+  command: ["holdup", "tcp://memcached:11211", "pg://user:password@db:5432/dbname", "--", "python", "app.py"]
+  ```
+
+  The tradeoff is that you need to install said Python package, and some extras for
+  the PostgreSQL support.
 
 ## Compose documentation
 
