@@ -14,6 +14,16 @@ jobs:
       - uses: actions/checkout@v2
       - name: build image
         run: docker build --target=current -t documentation:latest .
+      - name: copy files to host
+        # https://forums.docker.com/t/is-there-a-way-to-copy-a-file-from-an-image-to-the-local-filesystem-without-running-a-container/2841
+        run: |
+          docker run --name docs documentation:latest /bin/true
+          docker cp docs:/usr/share/nginx/html _site
+      - name: check for broken links
+        uses: chabad360/htmlproofer@master
+        with:
+          directory: ./_site
+          arguments: --disable-external
       # Disabled netlify-deploy due to flakey 502 http errors
       # - name: copy static files
       #   if: github.event.pull_request.head.repo.fork == false
