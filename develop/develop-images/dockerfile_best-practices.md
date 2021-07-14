@@ -60,12 +60,12 @@ stateless fashion.
 
 ### Understand build context
 
-When you issue a `docker build` command, the current working directory is called
-the _build context_. By default, the Dockerfile is assumed to be located here,
-but you can specify a different location with the file flag (`-f`). Regardless
-of where the `Dockerfile` actually lives, all recursive contents of files and
-directories in the current directory are sent to the Docker daemon as the build
-context.
+When you issue a `docker image build` command, the current working directory is
+called the _build context_. By default, the Dockerfile is assumed to be located
+here, but you can specify a different location with the file flag (`-f`).
+Regardless of where the `Dockerfile` actually lives, all recursive contents of
+files and directories in the current directory are sent to the Docker daemon as
+the build context.
 
 > Build context example
 >
@@ -241,7 +241,7 @@ EOF
 > When building an image using a remote Git repository as build context, Docker 
 > performs a `git clone` of the repository on the local machine, and sends
 > those files as build context to the daemon. This feature requires `git` to be
-> installed on the host where you run the `docker build` command.
+> installed on the host where you run the `docker image build` command.
 
 ### Exclude with .dockerignore
 
@@ -276,7 +276,7 @@ A Dockerfile for a Go application could look like:
 FROM golang:1.16-alpine AS build
 
 # Install tools required for project
-# Run `docker build --no-cache .` to update dependencies
+# Run `docker image build --no-cache .` to update dependencies
 RUN apk add --no-cache git
 RUN go get github.com/golang/dep/cmd/dep
 
@@ -366,7 +366,7 @@ examined, Docker looks for an existing image in its cache that it can reuse,
 rather than creating a new (duplicate) image.
 
 If you do not want to use the cache at all, you can use the `--no-cache=true`
-option on the `docker build` command. However, if you do let Docker use its
+option on the `docker image build` command. However, if you do let Docker use its
 cache, it is important to understand when it can, and cannot, find a matching
 image. The basic rules that Docker follows are outlined below:
 
@@ -603,11 +603,11 @@ for any service-based image.
 In most other cases, `CMD` should be given an interactive shell, such as bash,
 python and perl. For example, `CMD ["perl", "-de0"]`, `CMD ["python"]`, or `CMD
 ["php", "-a"]`. Using this form means that when you execute something like
-`docker run -it python`, you’ll get dropped into a usable shell, ready to go.
-`CMD` should rarely be used in the manner of `CMD ["param", "param"]` in
-conjunction with [`ENTRYPOINT`](../../engine/reference/builder.md#entrypoint), unless
-you and your expected users are already quite familiar with how `ENTRYPOINT`
-works.
+`docker container run -it python`, you’ll get dropped into a usable shell, ready
+to go. `CMD` should rarely be used in the manner of `CMD ["param", "param"]` in
+conjunction with [`ENTRYPOINT`](../../engine/reference/builder.md#entrypoint),
+unless you and your expected users are already quite familiar with how
+`ENTRYPOINT` works.
 
 ### EXPOSE
 
@@ -619,8 +619,8 @@ your application. For example, an image containing the Apache web server would
 use `EXPOSE 80`, while an image containing MongoDB would use `EXPOSE 27017` and
 so on.
 
-For external access, your users can execute `docker run` with a flag indicating
-how to map the specified port to the port of their choice.
+For external access, your users can execute `docker container run` with a flag
+indicating how to map the specified port to the port of their choice.
 For container linking, Docker provides environment variables for the path from
 the recipient container back to the source (ie, `MYSQL_PORT_3306_TCP`).
 
@@ -673,10 +673,10 @@ mark
 To prevent this, and really unset the environment variable, use a `RUN` command
 with shell commands, to set, use, and unset the variable all in a single layer.
 You can separate your commands with `;` or `&&`. If you use the second method,
-and one of the commands fails, the `docker build` also fails. This is usually a
-good idea. Using `\` as a line continuation character for Linux Dockerfiles
-improves readability. You could also put all of the commands into a shell script
-and have the `RUN` command just run that shell script.
+and one of the commands fails, the `docker image build` also fails. This is
+usually a good idea. Using `\` as a line continuation character for Linux
+Dockerfiles improves readability. You could also put all of the commands into a
+shell script and have the `RUN` command just run that shell script.
 
 ```dockerfile
 # syntax=docker/dockerfile:1
@@ -922,4 +922,3 @@ These Official Images have exemplary `Dockerfile`s:
 * [More about Base Images](baseimages.md)
 * [More about Automated Builds](../../docker-hub/builds/index.md)
 * [Guidelines for Creating Official Images](../../docker-hub/official_images.md)
-
