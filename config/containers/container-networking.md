@@ -76,6 +76,8 @@ a per-container basis.
 | `--dns-opt`    | A key-value pair representing a DNS option and its value. See your operating system's documentation for `resolv.conf` for valid options.                                                                                                                            |
 | `--hostname`   | The hostname a container uses for itself. Defaults to the container's ID if not specified.                                                                                                                                                                          |
 
+> **Note**: The DNS server is always at `127.0.0.11`.
+
 ## Proxy server
 
 If your container needs to use a proxy server, see
