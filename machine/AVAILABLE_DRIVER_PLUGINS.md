@@ -464,5 +464,18 @@ with Docker Inc.  Use 3rd party plugins at your own risk.
         <a href="mailto:zchee.io@gmail.com">zchee.io@gmail.com</a>
       </td>
     </tr>
+    <tr>
+      <td>Yandex.Cloud</td>
+      <td>
+        <a href=
+        "https://github.com/yandex-cloud/docker-machine-driver-yandex">https://github.com/yandex-cloud/docker-machine-driver-yandex</a>
+      </td>
+      <td>
+        <a href="https://github.com/yandex-cloud">Yandex.Cloud</a>
+      </td>
+      <td>
+        <a href="mailto:support@cloud.yandex.com">support@cloud.yandex.com</a>
+      </td>
+    </tr>
   </tbody>
 </table>
