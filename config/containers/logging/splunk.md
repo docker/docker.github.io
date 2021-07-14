@@ -18,7 +18,7 @@ per-container basis.
 
 To use the `splunk` driver as the default logging driver, set the keys
 `log-driver` and `log-opts` to appropriate values in the `daemon.json`
-configuration file and restart Docker. For example:
+configuration file and restart Docker. New containers scheduled will have Splunk as the logging driver, but the existing ones need to be recreated for the change to take effect. For example:
 
 ```json
 {
