@@ -464,5 +464,18 @@ with Docker Inc.  Use 3rd party plugins at your own risk.
         <a href="mailto:zchee.io@gmail.com">zchee.io@gmail.com</a>
       </td>
     </tr>
+    <tr>
+      <td>AWS Lightsail</td>
+      <td>
+        <a href=
+        "https://github.com/vleedev/docker-machine-driver-lightsail.git">https://github.com/vleedev/docker-machine-driver-lightsail</a>
+      </td>
+      <td>
+        <a href="https://github.com/vleedev">Tuan Lee</a>
+      </td>
+      <td>
+        <a href="mailto:me@vlee.dev">me@vlee.dev</a>
+      </td>
+    </tr>
   </tbody>
 </table>
