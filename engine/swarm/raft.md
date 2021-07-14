@@ -22,7 +22,7 @@ do require special care. They ensure that the cluster state stays consistent
 in the presence of failures by requiring a majority of nodes to agree on values.
 
 Raft tolerates up to `(N-1)/2` failures and requires a majority or quorum of
-`(N/2)+1` members to agree on values proposed to the cluster. This means that in
+`(N+1)/2` members to agree on values proposed to the cluster. This means that in
 a cluster of 5 Managers running Raft, if 3 nodes are unavailable, the system
 cannot process any more requests to schedule additional tasks. The existing
 tasks keep running but the scheduler cannot rebalance tasks to
