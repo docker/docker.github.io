@@ -15,7 +15,7 @@ You need an Azure Subscription to use this Docker Machine driver.
 [azure]: https://azure.microsoft.com/
 [trial]: https://azure.microsoft.com/free/
 
-## Authentication
+## Authentication (browser-based)
 
 The first time you try to create a machine, Azure driver asks you to
 authenticate:
@@ -26,6 +26,8 @@ authenticate:
     Enter the code [...] to authenticate.
 
 After authenticating, the driver remembers your credentials up to two weeks.
+Once your credentials expire, you will be prompted to log in again.
+This is practical for daily use; but not recommended for headless applications.
 
 > **KNOWN ISSUE:** There is a known issue with Azure Active Directory causing stored
 > credentials to expire within hours rather than 14 days when the user logs in with
@@ -34,6 +36,29 @@ After authenticating, the driver remembers your credentials up to two weeks.
 > [create an AAD account][aad-docs] and login with that as a workaround.
 
 [aad-docs]: https://azure.microsoft.com/documentation/articles/virtual-machines-windows-create-aad-work-id/
+
+## Authentication (service principal account)
+1. Create an Azure Service Principal account ([described here][sp-1] or [here][sp-2]) to get a
+   `client_id` and `client_secret`
+2. Use `azure role assignment create` command to give your service account
+   `Owner` or `Contributor` roles on your subscription (see article above).
+3. Pass `--azure-client-id` and `--azure-client-secret` arguments (or environment variables) to `docker-machine create`.
+
+```
+$ docker-machine create --driver azure --azure-subscription-id <subs-id> \
+    --azure-client-id <client-id> --azure-client-secret <client-secret> \
+    <machine-name>
+```
+
+Azure Service Principal Account credentials are recommended for headless
+applications (such as CI/CD systems).
+
+The Service Principal Account password created through the `azure ad app create`
+command is valid for 1 year by default, you can use `--end-date` argument to
+specify accounts that last longer.
+
+[sp-1]: https://azure.microsoft.com/documentation/articles/resource-group-authenticate-service-principal-cli/
+[sp-2]: https://www.packer.io/docs/builders/azure-setup.html
 
 ## Options
 
@@ -47,6 +72,8 @@ Required:
 Optional:
 
 - `--azure-availability-set`: Azure Availability Set to place the virtual machine into. [[?][av-set]]
+- `--azure-client-id`: Azure Service Principal Account ID (browser auth is used if not specified)
+- `--azure-client-secret`: Azure Service Principal Account password (browser auth is used if not specified)
 - `--azure-docker-port`: Port number for Docker engine.
 - `--azure-environment`: Azure environment. For example, `AzurePublicCloud` or`AzureChinaCloud`.
 - `--azure-image`: Azure virtual machine image in the format of Publisher:Offer:Sku:Version [[?][vm-image]]
@@ -75,6 +102,8 @@ Optional:
 | CLI option                      | Environment variable          | Default            |
 | ------------------------------- | ----------------------------- | ------------------ |
 | `--azure-availability-set`      | `AZURE_AVAILABILITY_SET`      | `docker-machine`   |
+| `--azure-client-id`             | `AZURE_CLIENT_ID`             |                    |
+| `--azure-client-secret`         | `AZURE_CLIENT_SECRET`         |                    |
 | `--azure-docker-port`           | `AZURE_DOCKER_PORT`           | `2376`             |
 | `--azure-environment`           | `AZURE_ENVIRONMENT`           | `AzurePublicCloud` |
 | `--azure-image`                 | `AZURE_IMAGE`                 | `canonical:UbuntuServer:16.04.0-LTS:latest` |
