@@ -372,8 +372,9 @@ image. The basic rules that Docker follows are outlined below:
 
 - Starting with a parent image that is already in the cache, the next
   instruction is compared against all child images derived from that base
-  image to see if one of them was built using the exact same instruction. If
-  not, the cache is invalidated.
+  image to see if one of them was built using the exact same instruction. 
+  If not, there is a cache miss and the cache is not used for this build step 
+  and any following build step of this stage of the Dockerfile.
 
 - In most cases, simply comparing the instruction in the `Dockerfile` with one
   of the child images is sufficient. However, certain instructions require more
@@ -483,7 +484,7 @@ RUN apt-get update && apt-get install -y \
 ```
 
 Using `apt-get update` alone in a `RUN` statement causes caching issues and
-subsequent `apt-get install` instructions fail. For example, say you have a
+subsequent `apt-get install` instructions may fail to achieve expected result. For example, say you have a
 Dockerfile:
 
 ```dockerfile
