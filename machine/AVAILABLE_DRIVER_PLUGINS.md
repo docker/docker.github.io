@@ -311,10 +311,10 @@ with Docker Inc.  Use 3rd party plugins at your own risk.
         "https://github.com/packethost/docker-machine-driver-packet">https://github.com/packethost/docker-machine-driver-packet</a>
       </td>
       <td>
-        <a href="https://github.com/crunchywelch">crunchywelch</a>
+        <a href="https://github.com/packethost">Packet, an Equinix Company</a>
       </td>
       <td>
-        <a href="mailto:welch@packet.net">welch@packet.net</a>
+        <a href="mailto:support@packet.com">support@packet.com</a>
       </td>
     </tr>
     <tr>
