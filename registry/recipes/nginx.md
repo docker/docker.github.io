@@ -170,23 +170,24 @@ Review the [requirements](index.md#requirements), then follow these steps.
 5.  Create the compose file. Paste the following YAML into a new file called `docker-compose.yml`.
 
     ```yaml
-    nginx:
-      # Note : Only nginx:alpine supports bcrypt.
-      # If you don't need to use bcrypt, you can use a different tag.
-      # Ref. https://github.com/nginxinc/docker-nginx/issues/29
-      image: "nginx:alpine"
-      ports:
-        - 5043:443
-      links:
-        - registry:registry
-      volumes:
-        - ./auth:/etc/nginx/conf.d
-        - ./auth/nginx.conf:/etc/nginx/nginx.conf:ro
+    version: "3"
+    
+    services:
+        nginx:
+          # Note : Only nginx:alpine supports bcrypt.
+          # If you don't need to use bcrypt, you can use a different tag.
+          # Ref. https://github.com/nginxinc/docker-nginx/issues/29
+          image: "nginx:alpine"
+          ports:
+            - 5043:443
+          volumes:
+            - ./auth:/etc/nginx/conf.d
+            - ./auth/nginx.conf:/etc/nginx/nginx.conf:ro
 
-    registry:
-      image: registry:2
-      volumes:
-        - ./data:/var/lib/registry
+        registry:
+          image: registry:2
+          volumes:
+            - ./data:/var/lib/registry
     ```
 
 ## Starting and stopping
