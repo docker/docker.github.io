@@ -6,7 +6,7 @@ redirect_from:
 - /engine/userguide/eng-image/multistage-build/
 ---
 
-Multistage builds are useful to anyone who has struggled to optimize Dockerfiles
+Multi-stage builds are useful to anyone who has struggled to optimize Dockerfiles
 while keeping them easy to read and maintain.
 
 > **Acknowledgment**:
@@ -204,4 +204,4 @@ RUN g++ -o /binary source.cpp
 
 ## Version compatibility
 
-Multistage build syntax was introduced in Docker Engine 17.05.
+Multi-stage build syntax was introduced in Docker Engine 17.05.
