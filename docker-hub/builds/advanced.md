@@ -14,8 +14,12 @@ Several utility environment variables are set by the build process, and are
 available during automated builds, automated tests, and while executing
 hooks.
 
-> **Note**: These environment variables are only available to the build and test
-processes and do not affect your service's run environment.
+> **Note**: These environment variables are only available to the
+[build and test hooks](#override-build-test-or-push-commands) and will not be
+available in your Dockerfile (unless you write a
+[custom build phase hook](#custom-build-phase-hooks) that passes them through,
+e.g. with `--build-arg DOCKER_TAG=$DOCKER_TAG` in `hooks/build`), nor do they
+affect your [service](/engine/swarm/how-swarm-mode-works/services.md)'s run environment.
 
 * `SOURCE_BRANCH`: the name of the branch or the tag that is currently being tested.
 * `SOURCE_COMMIT`: the SHA1 hash of the commit being tested.
