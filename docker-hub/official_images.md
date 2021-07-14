@@ -70,7 +70,7 @@ All Official Images contain a **User Feedback** section in their
 documentation which covers the details for that specific repository. In most
 cases, the GitHub repository which contains the Dockerfiles for an Official
 Repository also has an active issue tracker. General feedback and support
-questions should be directed to `#docker-library` on Freenode IRC.
+questions should be directed to `#docker-library` on [Libera.Chat IRC](https://libera.chat) IRC.
 
 ## Creating an Official Image
 
