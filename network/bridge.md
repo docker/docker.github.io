@@ -133,7 +133,7 @@ $ docker network rm my-net
 
 ## Connect a container to a user-defined bridge
 
-When you create a new container, you can specify one or more `--network` flags.
+When you create a new container, you can specify only one `--network` flag.
 This example connects a Nginx container to the `my-net` network. It also
 publishes port 80 in the container to port 8080 on the Docker host, so external
 clients can access that port. Any other container connected to the `my-net`
