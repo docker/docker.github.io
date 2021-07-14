@@ -23,7 +23,7 @@ Create machines on [Rackspace cloud](https://www.rackspace.com/cloud)
 -   `--rackspace-ssh-user`: SSH user for the newly booted machine.
 -   `--rackspace-username`: **required** Rackspace account username.
 
-The Rackspace driver uses `821ba5f4-712d-4ec8-9c65-a3fa4bc500f9` (Ubuntu 16.04 LTS) by default.
+The Rackspace driver uses `498bfa38-d288-4e37-b975-a4acb77f8557` (Ubuntu 18.04 LTS) by default.
 
 #### Environment variables and default values
 
@@ -34,7 +34,7 @@ The Rackspace driver uses `821ba5f4-712d-4ec8-9c65-a3fa4bc500f9` (Ubuntu 16.04 L
 | `--rackspace-docker-install` | -                    | `true`                                 |
 | `--rackspace-endpoint-type`  | `OS_ENDPOINT_TYPE`   | `publicURL`                            |
 | `--rackspace-flavor-id`      | `OS_FLAVOR_ID`       | `general1-1`                           |
-| `--rackspace-image-id`       | `OS_IMAGE_ID`        | `821ba5f4-712d-4ec8-9c65-a3fa4bc500f9` |
+| `--rackspace-image-id`       | `OS_IMAGE_ID`        | `498bfa38-d288-4e37-b975-a4acb77f8557` |
 | **`--rackspace-region`**     | `OS_REGION_NAME`     | `IAD` (Northern Virginia)              |
 | `--rackspace-ssh-port`       | `OS_SSH_PORT`        | `22`                                   |
 | `--rackspace-ssh-user`       | `OS_SSH_USER`        | `root`                                 |
