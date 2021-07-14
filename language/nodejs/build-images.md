@@ -3,7 +3,7 @@ title: "Build your Node image"
 keywords: containers, images, node.js, node, dockerfiles, node, coding, build, push, run
 description: Learn how to build your first Docker image by writing a Dockerfile
 redirect_from:
-- /get-started/nodejs/build-images/
+  - /get-started/nodejs/build-images/
 ---
 
 {% include_relative nav.html selected="1" %}
@@ -38,12 +38,12 @@ Now, let’s add some code to handle our REST requests. We’ll use a mock serve
 Open this working directory in your IDE and add the following code into the `server.js` file.
 
 ```js
-const ronin     = require( 'ronin-server' )
-const mocks     = require( 'ronin-mocks' )
+const ronin = require('ronin-server')
+const mocks = require('ronin-mocks')
 
 const server = ronin.server()
 
-server.use( '/', mocks.server( server.Router(), false, true ) )
+server.use('/', mocks.server(server.Router(), false, true))
 server.start()
 ```
 
@@ -137,13 +137,14 @@ WORKDIR /app
 
 Usually the very first thing you do once you’ve downloaded a project written in Node.js is to install npm packages. This ensures that your application has all its dependencies installed into the `node_modules` directory where the Node runtime will be able to find them.
 
-Before we can run `npm install`, we need to get our `package.json` and `package-lock.json` files into our images. We use the `COPY` command to do this. The  `COPY` command takes two parameters. The first parameter tells Docker what file(s) you would like to copy into the image. The second parameter tells Docker where you want that file(s) to be copied to. We’ll copy the `package.json` and `package-lock.json` file into our working directory `/app`.
+Before we can run `npm install`, we need to get our `package.json` and `package-lock.json` files into our images. We use the `COPY` command to do this. The `COPY` command takes two parameters. The first parameter tells Docker what file(s) you would like to copy into the image. The second parameter tells Docker where you want that file(s) to be copied to. We’ll copy the `package.json` and `package-lock.json` file into our working directory `/app`.
 
 ```dockerfile
 COPY ["package.json", "package-lock.json*", "./"]
 ```
 
-Once we have our `package.json` files inside the image, we can use the `RUN` command to execute the command npm install. This works exactly the same as if we were running npm install locally on our machine, but this time these Node modules will be installed into the `node_modules` directory inside our image.
+Note that, rather than copying the entire working directory, we are only copying the package.json file. This allows us to take advantage of cached Docker layers.
+Once we have our files inside the image, we can use the `RUN` command to execute the command npm install. This works exactly the same as if we were running npm install locally on our machine, but this time these Node modules will be installed into the `node_modules` directory inside our image.
 
 ```dockerfile
 RUN npm install --production
