@@ -139,6 +139,19 @@ with Docker Inc.  Use 3rd party plugins at your own risk.
       </td>
     </tr>
     <tr>
+      <td>cloudscale.ch</td>
+      <td>
+        <a href=
+        "https://github.com/cloudscale-ch/docker-machine-driver-cloudscale">https://github.com/cloudscale-ch/docker-machine-driver-cloudscale</a>
+      </td>
+      <td>
+        <a href="https://github.com/cloudscale-ch/">cloudscale-ch</a>
+      </td>
+      <td>
+        <a href="mailto:hello@cloudscale.ch">hello@cloudscale.ch</a>
+      </td>
+    </tr>
+    <tr>
       <td>CloudSigma</td>
       <td>
         <a href=
