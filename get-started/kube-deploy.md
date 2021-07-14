@@ -44,7 +44,7 @@ All containers in Kubernetes are scheduled as _pods_, which are groups of co-loc
         spec:
           containers:
           - name: bb-site
-            image: bulletinboard:1.0
+            image: bulletinboard/bulletinboard:1.0
     ---
     apiVersion: v1
     kind: Service
