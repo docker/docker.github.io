@@ -98,7 +98,7 @@ If you have [configured the Docker daemon to allow IPv6](../config/daemon/ipv6.m
 you can use dual-stack IPv4/IPv6 `macvlan` networks.
 
 ```bash
-$ docker network create -d macvlan \
+$ docker network create --ipv6 -d macvlan \
     --subnet=192.168.216.0/24 --subnet=192.168.218.0/24 \
     --gateway=192.168.216.1 --gateway=192.168.218.1 \
     --subnet=2001:db8:abc8::/64 --gateway=2001:db8:abc8::10 \
