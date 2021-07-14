@@ -196,9 +196,9 @@ bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  s
 
 The second-lowest layer, and each higher layer, contain a file called `lower`,
 which denotes its parent, and a directory called `diff` which contains its
-contents. It also contains a `merged` directory, which contains the unified
-contents of its parent layer and itself, and a `work` directory which is used
-internally by OverlayFS.
+contents. It also contains a `work` directory which is used internally by OverlayFS.
+In addition to this, the highest layer of a running container contains a
+`merged` directory, which contains the unified contents of all its lower layers.
 
 ```bash
 $ ls /var/lib/docker/overlay2/223c2864175491657d238e2664251df13b63adb8d050924fd1bfcdb278b866f7
