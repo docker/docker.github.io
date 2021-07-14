@@ -197,6 +197,8 @@ services:
   - 5000:5000
   volumes:
   - ./:/app
+  networks: 
+  - mysqlnet
 
  mysqldb:
   image: mysql
@@ -207,10 +209,15 @@ services:
   volumes:
   - mysql:/var/lib/mysql
   - mysql_config:/etc/mysql
+  networks: 
+  - mysqlnet
 
 volumes:
   mysql:
   mysql_config:
+
+networks: 
+  mysqlnet:
 ```
 
 This Compose file is super convenient as we do not have to type all the parameters to pass to the `docker run` command. We can declaratively do that using a Compose file.
