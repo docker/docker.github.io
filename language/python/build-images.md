@@ -91,7 +91,7 @@ we would like to use for our application.
 ```dockerfile
 # syntax=docker/dockerfile:1
 
-FROM python:3.8-slim-buster
+FROM python:3.8
 ```
 
 Docker images can be inherited from other images. Therefore, instead of creating our own base image, we’ll use the official Python image that already has all the tools and packages that we need to run a Python application.
@@ -137,7 +137,7 @@ Here's the complete Dockerfile.
 ```dockerfile
 # syntax=docker/dockerfile:1
 
-FROM python:3.8-slim-buster
+FROM python:3.8
 
 WORKDIR /app
 
@@ -200,10 +200,10 @@ To list images, simply run the `docker images` command.
 $ docker images
 REPOSITORY      TAG               IMAGE ID       CREATED         SIZE
 python-docker   latest            8cae92a8fbd6   3 minutes ago   123MB
-python          3.8-slim-buster   be5d294735c6   9 days ago      113MB
+python          3.8   be5d294735c6   9 days ago      113MB
 ```
 
-You should see at least two images listed. One for the base image `3.8-slim-buster` and the other for the image we just built `python-docker:latest`.
+You should see at least two images listed. One for the base image `3.8` and the other for the image we just built `python-docker:latest`.
 
 ## Tag images
 
@@ -226,7 +226,7 @@ $ docker images
 REPOSITORY      TAG               IMAGE ID       CREATED         SIZE
 python-docker   latest            8cae92a8fbd6   4 minutes ago   123MB
 python-docker   v1.0.0            8cae92a8fbd6   4 minutes ago   123MB
-python          3.8-slim-buster   be5d294735c6   9 days ago      113MB
+python          3.8   be5d294735c6   9 days ago      113MB
 ```
 
 You can see that we have two images that start with `python-docker`. We know they are the same image because if you take a look at the `IMAGE ID` column, you can see that the values are the same for the two images.
@@ -244,7 +244,7 @@ Note that the response from Docker tells us that the image has not been removed 
 $ docker images
 REPOSITORY      TAG               IMAGE ID       CREATED         SIZE
 python-docker   latest            8cae92a8fbd6   6 minutes ago   123MB
-python          3.8-slim-buster   be5d294735c6   9 days ago      113MB
+python          3.8   be5d294735c6   9 days ago      113MB
 ```
 
 Our image that was tagged with `:v1.0.0` has been removed, but we still have the `python-docker:latest` tag available on our machine.
