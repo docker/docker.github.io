@@ -315,8 +315,17 @@ each shell session, you can embed `eval $(docker-machine env default)` in your
 shell profiles, by adding it to the `~/.bash_profile` file or the equivalent
 configuration file for your shell. However, this fails if a machine called
 `default` is not running. You can configure your system to start the `default`
-machine automatically. The following example shows how to do this in macOS.
+machine automatically. The following examples show how to do this in macOS.
 
+### If you are using Homebrew
+
+`brew services` is available by default in any [Homebrew installation](https://brew.sh/). It is a convenience wrapper around `launchd`.
+
+`brew services start docker-machine`
+
+### Using launchd
+
+`launchd` comes with macOS by default, so it is not necessary to install anything.
 
 Create a file called `com.docker.machine.default.plist` in the
 `~/Library/LaunchAgents/` directory, with the following content:
