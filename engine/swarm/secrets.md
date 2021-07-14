@@ -296,7 +296,7 @@ This example assumes that you have PowerShell installed.
         --name my-iis
         --publish published=8000,target=8000
         --secret src=homepage,target="\inetpub\wwwroot\index.html"
-        microsoft/iis:nanoserver  
+        mcr.microsoft.com/windows/servercore/iis:nanoserver  
     ```
 
     > **Note**: There is technically no reason to use secrets for this
