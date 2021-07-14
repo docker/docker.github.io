@@ -141,7 +141,7 @@ if __name__ == "__main__":
   app.run(host ='0.0.0.0')
 ```
 
-We’ve added the MySQL module and updated the code to connect to the database server, created a database and table. We also created a couple of routes to save widgets and fetch widgets. We now need to rebuild our image so it contains our changes.
+We’ve added the MySQL module and updated the code to connect to the database server, create a database and table. We also created a couple of routes to save widgets and fetch widgets. We now need to rebuild our image so it contains our changes.
 
 First, let’s add the `mysql-connector-python` module to our application using pip.
 
@@ -225,7 +225,7 @@ Now, to start our application and to confirm that it is running properly, run th
 $ docker-compose -f docker-compose.dev.yml up --build
 ```
 
-We pass the `--build` flag so Docker will compile our image and then starts the containers.
+We pass the `--build` flag so Docker will compile our image and then start the containers.
 
 Now let’s test our API endpoint. Open a new terminal then make a GET request to the server using the curl commands:
 
