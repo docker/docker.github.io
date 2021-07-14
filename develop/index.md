@@ -16,6 +16,7 @@ If you're just getting started developing a brand new app on Docker, check out
 these resources to understand some of the most common patterns for getting the
 most benefits from Docker.
 
+- Learn how to [build an app on Docker](https://docs.docker.com/engine/reference/builder/){: target="_blank" rel="noopener" class="_"} using a Dockerfile
 - Use [multi-stage builds](develop-images/multistage-build.md){: target="_blank" rel="noopener" class="_"} to keep your images lean
 - Manage application data using [volumes](../storage/volumes.md) and [bind mounts](../storage/bind-mounts.md){: target="_blank" rel="noopener" class="_"}
 - [Scale your app with Kubernetes](../get-started/kube-deploy.md){: target="_blank" rel="noopener" class="_"} 
