@@ -40,8 +40,9 @@ and `max-file` options to enable automatic log-rotation.
 {
   "log-driver": "json-file",
   "log-opts": {
-    "max-size": "10m",
-    "max-file": "3" 
+    "max-size": "30m",
+    "max-file": "4",
+    "compress": "true"
   }
 }
 ```
