@@ -822,12 +822,17 @@ during an update before the update as a whole is considered to have failed. For
 example, with `--update-max-failure-ratio 0.1 --update-failure-action pause`,
 after 10% of the tasks being updated fail, the update is paused.
 
-An individual task update is considered to have failed if the task doesn't
-start up, or if it stops running within the monitoring period specified with
-the `--update-monitor` flag. The default value for `--update-monitor` is 30
-seconds, which means that a task failing in the first 30 seconds after its
-started counts towards the service update failure threshold, and a failure
-after that is not counted.
+An individual task update is considered to have failed:
+
+* if the task has a health check and fails to become healthy within the
+  allotted `--health-start-period`, or
+* if the task starts and then exits exits within the monitoring period
+  specified by the `--update-monitor` flag.  The default value for
+  `--update-monitor` is 5 seconds.
+
+Both tasks that fail to become healthy and those that start and then exit
+within the `--update-monitor` time period count towards the service update
+failure threshold.
 
 ### Roll back to the previous version of a service
 
