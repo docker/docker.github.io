@@ -80,7 +80,7 @@ This is more secure than the insecure registry solution.
     depends on your OS.
 
     - **Linux**: Copy the `domain.crt` file to
-      `/etc/docker/certs.d/myregistrydomain.com:5000/ca.crt` on every Docker
+      `/etc/docker/certs.d/myregistrydomain.com/ca.crt` on every Docker
       host. You do not need to restart Docker.
 
     - **Windows Server**:
