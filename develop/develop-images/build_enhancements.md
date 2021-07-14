@@ -195,19 +195,24 @@ $ docker build --no-cache --progress=plain --secret id=mysecret,src=mysecret.txt
 > Please see [Build secrets and SSH forwarding in Docker 18.09](https://medium.com/@tonistiigi/build-secrets-and-ssh-forwarding-in-docker-18-09-ae8161d066)
 > for more information and examples.
 
-The `docker build` has a `--ssh` option to allow the Docker Engine to forward
-SSH agent connections. For more information on SSH agent, see the
-[OpenSSH man page](https://man.openbsd.org/ssh-agent).
+Some commands in a `Dockerfile` may need specific SSH authentication - for example, to clone a private repository.
+Rather than copying private keys into the image, which runs the risk of exposing them publicly, `docker build` provides a way to use the host system's ssh access while building the image.
 
-Only the commands in the `Dockerfile` that have explicitly requested the SSH
-access by defining `type=ssh` mount have access to SSH agent connections. The
-other commands have no knowledge of any SSH agent being available.
+There are three steps to this process.
 
-To request SSH access for a `RUN` command in the `Dockerfile`, define a mount
-with type `ssh`. This will set up the `SSH_AUTH_SOCK` environment variable to
-make programs relying on SSH automatically use that socket.
+First, run `ssh-add` to add private key identities to the authentication agent.
+If you have more than one SSH key and your default `id_rsa` is not the one you use for accessing the resources in question, you'll need to add that key by path: `ssh-add ~/.ssh/<some other key>`.
+(For more information on SSH agent, see the [OpenSSH man page](https://man.openbsd.org/ssh-agent).)
 
-Here is an example Dockerfile using SSH in the container:
+Second, when running `docker build`, use the `--ssh` option to pass in an existing SSH agent connection socket.
+For example, `--ssh default=$SSH_AUTH_SOCK`, or the shorter equivalent, `--ssh default`.
+
+Third, to make use of that SSH access in a `RUN` command in the `Dockerfile`, define a mount with type `ssh`.
+This will set the `SSH_AUTH_SOCK` environment variable for that command to the value provided by the host to `docker build`, which will cause any programs in the `RUN` command which rely on SSH to automatically use that socket.
+Only the commands in the `Dockerfile` that have explicitly requested SSH access by defining `type=ssh` mount will have access to SSH agent connections.
+The other commands have will no knowledge of any SSH agent being available.
+
+Here is an example `Dockerfile` using SSH in the container:
 
 ```dockerfile
 # syntax=docker/dockerfile:1
@@ -223,14 +228,16 @@ RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
 RUN --mount=type=ssh git clone git@github.com:myorg/myproject.git myproject
 ```
 
-Once the `Dockerfile` is created, use the `--ssh` option for connectivity with
-the SSH agent.
+The image could be built as follows:
 
 ```bash
 $ docker build --ssh default .
 ```
 
-You may need to run `ssh-add` to add private key identities to the authentication agent first for this to work.
+As with `--mount=type=secret`, you can specify an `id` to differentiate sockets.
+For example, you could run `docker build --ssh main=$SSH_AUTH_SOCK --ssh other=$OTHER_SSH_AUTH_SOCK`.
+In your `Dockerfile`, you could then have a `RUN --mount=type=ssh,id=main` and a `RUN --mount=type=ssh,id=other` to use those two sockets.
+If a `--mount=type=ssh` doesn't specify an `id`, `default` is assumed.
 
 ## Troubleshooting : issues with private registries
 
