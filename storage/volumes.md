@@ -530,7 +530,10 @@ Then in the next command, we:
 
 - Launch a new container and mount the volume from the `dbstore` container
 - Mount a local host directory as `/backup`
+- Use the `ubuntu` image which contains the tar utility
+- Mount your `Present working directory` (pwd) to the `/backup` folder in the container
 - Pass a command that tars the contents of the `dbdata` volume to a `backup.tar` file inside our `/backup` directory.
+- The `/backup` folder now receives the tar backup, which happens to be your `Present working directory`
 
 ```
 $ docker run --rm --volumes-from dbstore -v $(pwd):/backup ubuntu tar cvf /backup/backup.tar /dbdata
