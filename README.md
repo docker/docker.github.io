@@ -1,5 +1,5 @@
-# Docs @ Docker
-Welcome to the repo for our documentation. This is the source for
+# Docs @ Docker For some reason the instuctions got hard cause i am slightly worn out and got confused
+Welcome to the repo for ns  documentation. This is the source for
 [https://docs.docker.com/](https://docs.docker.com/).
 
 Feel free to send us pull requests and file issues. Our docs are completely	
