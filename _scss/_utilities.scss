@@ -189,6 +189,8 @@ input[type=text] {
 }
 
 @media print {
+    #announcement-bar,
+    .reading-time,
     .col-nav,
     .col-toc,
     .footer,

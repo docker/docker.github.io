@@ -82,10 +82,21 @@ body.night {
         color: #f3f3f3;
         background-color: #0a121b !important;
         border: 1px solid $black;
+
+        @media print {
+            color: #444;
+            background-color: #f5f8fa !important;
+            border-width: 0;
+        }
     }
     code {
         color: #c1f1f0 !important;
         background: #0a121b !important;
+
+        @media print {
+            color: darkcyan !important;
+            background: #f5f8fa !important;
+        }
     }
     .nav-secondary .dropdown-btn {
         color: #d0e8ff;
@@ -171,7 +182,7 @@ body.night {
         color: #e8a0e8;
       }
       .k {
-        color: #da5ada;
+        color: #da5ada !important;
       }
     }
 
