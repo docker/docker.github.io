@@ -90,22 +90,15 @@ culpa qui officia deserunt mollit anim id est laborum.
 
 ### Links
 
-- [a markdown link](https://docker.com/)
-https://github.com/docker/docker.github.io/tree/master/docker-cloud/images
-- [a markdown link that opens in a new window](https://docker.com/){: target="_blank" rel="noopener" class="_" }
-  (the `class="_"` trick prevents Atom from italicizing the whole rest of the file until it encounters another underscore.)
+- [A link to an external page that opens in a new window](https://docker.com/){:target="_blank" rel="noopener" class="_"}
 
-- [a markdown link to a custom target ID](#custom-target-id)
+  The `class="_"` trick prevents Atom from italicizing the whole rest of the file until it encounters another underscore.
 
-- <a href="https://docker.com/">an HTML link</a>
+- [A link to another markdown page](/docker-for-mac/install.md)
 
-- <a href="https://docker.com/" target="_blank" rel="noopener" class="_">an HTML link that opens in a new window</a>
+- [A link to a specific section in another page](/engine/install/index.md#server)
 
-- A link to a Github PR in `docker/docker`: {% include github-pr.md pr=28199 %}
-
-- A link to a Github PR in `docker/docker.github.io`: {% include github-pr.md repo=docker.github.io pr=9999 %}
-
-  - You can specify `org=foo` to use a Github organization other than Docker
+- [A link to a specific section within the same page](#tables)
 
 - A link to an auto-generated reference page that we pull in during docs builds:
 [/engine/reference/builder/#env](/engine/reference/builder/#env).
@@ -119,12 +112,17 @@ https://github.com/docker/docker.github.io/tree/master/docker-cloud/images
   - Go to the file in a web browser, grab everything after the domain name
   from the URL, and use that as the link in your docs file.
 
+  - When adding a link to an auto-generated topic that doesn't contain a stub file in the docs repo, make sure to add a trailing slash at the end.
+
   - Keep in mind that this link doesn't resolve until you merge the PR and
   your docs are published on [docs.docker.com](/).
+
+  - You can find a list of files that are maintained in other repositories in the `_config_production.yml` file.
 
 {: id="custom-target-id"}
 
 #### Using a custom target ID
+
 This topic has a custom target ID above its heading that can be used to link to
 it, in addition to, or instead of, the default concatenated heading style. The
 format of this ID is `{: id="custom-target-id"}`.
@@ -160,16 +158,17 @@ might be interesting. You can use them with Markdown or HTML images.
 
 ## Videos
 
-You can add a link to a YouTube video like this:
+To add a video as a link:
 
-[Docker 101: Introduction to Docker](https://www.youtube.com/watch?v=V9IJj4MzZBc "Docker 101: Introduction to Docker"){:target="_blank" rel="noopener" class="_"}
+```markdown
+[Get started with Docker](https://www.youtube.com/watch?v=iqqDU2crIEQ "Get started with Docker"){:target="_blank" rel="noopener" class="_"}
+```
 
-To make the `.png` shown above, first take a screen snap of the YouTube video
-you want to use, then use a graphics app to overlay a play button onto the
-image.
+You can also embedded a YouTube video using the **Share** > **Embed** option in YouTube:
 
-For the overlay, you can use the play button at
-[/docker-cloud/images/](https://github.com/docker/docker.github.io/tree/master/docker-cloud/images).
+```markdown
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/iqqDU2crIEQ?start=30" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+```
 
 ## Lists
 
@@ -204,7 +203,6 @@ For the overlay, you can use the play button at
           |---------|----------|
           | Thing 1 | Thing 2  |
           | Thing 3 | Thing 4  |
-
 
 ## Tables
 
@@ -356,6 +354,7 @@ as an attribute in the HTML for the `<div>` so that Kramdown renders it.
 </ul>
 <div class="tab-content">
 <div id="tab3" class="tab-pane fade in active" markdown="1">
+
 #### A Markdown header
 
 - list item 1
@@ -363,6 +362,7 @@ as an attribute in the HTML for the `<div>` so that Kramdown renders it.
 <hr>
 </div>
 <div id="tab4" class="tab-pane fade" markdown="1">
+
 #### Another Markdown header
 
 - list item 3
@@ -586,7 +586,7 @@ Current styles for admonitions in
 [`_scss/_notes.scss`](https://github.com/docker/docker.github.io/blob/master/_scss/_notes.scss)
 support these broad categories of admonitions:
 
-- Notes (no Liquid tag required) (deprecated)
+- Notes (no Liquid tag required)
 - Important, which use the `{: .important}` tag
 - Warning , which use the `{: .warning}` tag
 
@@ -597,13 +597,13 @@ notes in your published documents are not adversely affected.
 
 Examples are shown in the following sections.
 
-### Note (Deprecated)
+### Note
 
-Notes are deprecated and should not longer be used. Use important or warning instead.
+Consider whether to use note or add the statement as part of the content. Use notes sparingly and only to bring things to the reader's attention that are critical or otherwise deserving of being called out from the body text.
 
 A standard note is formatted like this:
 
-```
+```markdown
 > Handling transient errors
 >
 > Note the way the `get_hit_count` function is written. This basic retry
@@ -621,7 +621,7 @@ It renders like this with a colored sidebar and icon:
 
 Notes were previously formatted like this:
 
-```
+```markdown
 > **Note**: This is a note using the old note style.
 ```
 
@@ -631,7 +631,7 @@ These will still render as a note with a colored sidebar to the left but no icon
 
 Add the `important` class to your blockquotes if you want to tell users to be careful about something:
 
-```
+```markdown
 > Pssst, wanna know something?
 >
 > You include a small description here telling users to be on the lookout
@@ -646,7 +646,7 @@ It renders like this  with a colored sidebar and icon:
 
 Use the `warning` class to let people know this is dangerous or they should pay close attention to this part of the road before moving on:
 
-```
+```markdown
 > Ouch, don't do that!
 >
 > Sticking your finger in an electrical outlet can result in an electric shock.
