@@ -147,6 +147,10 @@ A security group is created and associated to the host. This security group has 
 If you specify a security group yourself using the `--amazonec2-security-group` flag, the above ports are checked and opened and the security group is modified.
 If you want more ports to be opened such as application-specific ports, use the AWS console and modify the configuration manually.
 
+Port ranges will not be checked. Only SG rules having single ports are taken in account.
+
+If the security needs to be modified, `0.0.0.0/0` will be used as source by default.
+
 ## VPC ID
 
 Your default VPC ID is determined at the start of a command. In some cases, either because your account does not have a default VPC, or you do not want to use the default one, you can specify a VPC with the `--amazonec2-vpc-id` flag.
