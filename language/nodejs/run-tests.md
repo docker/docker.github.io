@@ -222,7 +222,7 @@ Successfully tagged node-docker:latest
 
 I’ve truncated the output again for simplicity but you can see that our tests are run and passed. Let’s break one of the tests and observe the output when our tests fail.
 
-Open the test/test.js fiole and change line 5 as follows.
+Open the test/test.js file and change line 5 as follows.
 
 ```shell
      1	var assert = require('assert');
