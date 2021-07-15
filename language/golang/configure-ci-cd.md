@@ -110,7 +110,7 @@ The following sequence of `steps` achieves the goals we just set.
 ```
 {% endraw %}
 
-As is usual with YAML files, be aware of indentation. The complete workflow file for reference is available in the project's repo, under the name of `.github/workflow/ci.yml`.
+As is usual with YAML files, be aware of indentation. The complete workflow file for reference is available in the project's repo, under the name of `.github/workflows/ci.yml`.
 
 This should be enough to test our approach to CI. Change the workflow file name from `main.yml` to `ci.yml` and press **Start commit** button. Fill out the commit details in your preferred style and press **Commit new file**. GitHub Actions are saved as YAML files in `.github/workflows` directory and GitHub web interface would do that for us.
 
