@@ -15,6 +15,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 api-logo {
   background-color: $bg-header;
   height: 60px;
@@ -30,22 +31,38 @@ redoc {
   h1 {
     font-size: 32px !important;
   }
+
   h1,h2,h3,h4,h5,h6 {
     font-family: $headings !important;
     color: inherit !important;
   }
+
   p, a, .menu-item-title {
     font-family: $font !important;
   }
+
   a, .menu-item-title {
     color: $primary-links !important;
   }
+
   .menu-item-title {
     text-transform: none;
   }
+
   // Disable request-type badges, see https://github.com/Rebilly/ReDoc/issues/61
   .operation-type {
     display: none !important;
   }
 }
 
+// Hub API docs uses tag groups.
+redoc.hub-api {
+  // tag group name
+  .menu-item-depth-0 > .menu-item-header:first-child .menu-item-title {
+    color: $body-text !important;
+  }
+
+  .menu-item-for-operation .menu-item-header .menu-item-title {
+    padding-left: 1em !important;
+  }
+}

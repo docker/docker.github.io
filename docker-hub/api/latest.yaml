@@ -1,11 +1,12 @@
 swagger: '2.0'
+
+host: hub.docker.com
+basePath: '/'
 schemes:
   - https
-host: hub.docker.com
-basePath: "/"
-produces:
-  - application/json
 consumes:
+  - application/json
+produces:
   - application/json
 info:
   title: Docker HUB API
@@ -18,37 +19,93 @@ info:
     In addition to the [Docker Hub UI](https://docs.docker.com/docker-hub/) and [Docker Hub CLI tool](https://github.com/docker/hub-tool#readme) (currently experimental),
     Docker provides an API that allows you to interact with Docker Hub.
     Browse through the Docker Hub API documentation to explore the supported endpoints.
+
 tags:
-  # Primary objects
-  - name: Authentication
+  - name: rate-limiting
+    x-displayName: Rate Limiting
+    description: |
+      The Docker Hub API is limited on the amount of requests you can perform
+      per minute against it.
+
+      If you haven't hit the limit, each request to the API will return the
+      following headers in the response.
+      - `X-RateLimit-Limit` - The limit of requests per minute.
+      - `X-RateLimit-Remaining` - The remaining amount of calls within the limit
+      period.
+      - `X-RateLimit-Reset` - The unix timestamp of when the remaining resets.
+
+      If you have hit the limit, you will receive a response status of `429` and
+      the `X-Retry-After` header in the response.
+
+      The `X-Retry-After` header is a unix timestamp of when you can call the
+      API again.
+
+      *Note: These rate limits are separate from anti-abuse and Docker Hub
+      download, or pull rate limiting. To learn more about Docker Hub pull rate
+      limiting, see [Docker Hub download rate limit](https://docs.docker.com/docker-hub/download-rate-limit/).*
+  - name: authentication
     x-displayName: Authentication
     description: |
-      Most Docker Hub API endpoints require you to authenticate using your Docker credentials.
-      
+      Most Docker Hub API endpoints require you to authenticate using your Docker credentials before using them.
+
       Additionally, similar to the Docker Hub UI features, API endpoint responses may vary depending on your plan (Free, Pro, or Team) and your account's permissions.
       To learn more about the features available in each plan and to upgrade your existing plan, see [Docker Pricing](https://www.docker.com/pricing).
-  - name: Images
-    x-displayName: Advanced image management
+  - name: access-tokens
+    x-displayName: Personal Access Tokens
+    description: |
+      The Personal Access Token endpoints lets you manage personal access
+      tokens. For more information, see
+      [Access Tokens](https://docs.docker.com/docker-hub/access-tokens/).
+
+      You can use a personal access token in place of a password in the
+      [Docker CLI](https://docs.docker.com/engine/reference/commandline/cli/) or
+      in the [Create an authentication token](#operation/PostUsersLogin) route
+      to obtain a bearer token.
+
+      ### Scopes
+
+      For each scope grouping (in this case "repo"), you only need to define 1
+      scope as any lower scopes are assumed. For example: If you define
+      `repo:write`, the API assumes the scope of both `repo:read` *and*
+      `repo:public_read` as well. If you were to define both `repo:write` *and*
+      `repo:read`, then `repo:read` is assumed by `repo:write` and ignored.
+
+      ***Reminder: Personal access tokens should be kept secret like a password
+      and cannot be retrieved after generation.***
+  - name: images
+    x-displayName: Advanced Image Management
     description: |
       The Advanced Image Management API endpoints allow you to manage Docker images across all repositories.
       For more information, see [Advanced Image Management dashboard](https://docs.docker.com/docker-hub/image-management/).
-  - name: Audit Logs
+  - name: audit-logs
     x-displayName: Audit Logs
     description: |
       The Audit Logs API endpoints allow you to query audit log events across a namespace.
       For more information, see [Audit Log](https://docs.docker.com/docker-hub/audit-log/)
+
+x-tagGroups:
+  - name: General
+    tags:
+      - rate-limiting
+  - name: API
+    tags:
+      - authentication
+      - access-tokens
+      - images
+      - audit-logs
+
 definitions:
   UsersLoginRequest:
     description: User login details
     type: object
     required: [username, password]
     properties:
-      username: 
+      username:
         description: The username of the Docker Hub account to authenticate with.
         type: string
         example: myusername
       password:
-        description: The password of the Docker Hub account to authenticate with.
+        description: The password or personal access token (PAT) of the Docker Hub account to authenticate with.
         type: string
         example: hunter2
   PostUsersLoginSuccessResponse:
@@ -229,15 +286,15 @@ definitions:
     description: Delete images request.
     type: object
     properties:
-      dry_run: 
+      dry_run:
         description: If `true` then will check and return errors and unignored warnings for the deletion request but will not delete any images.
         type: boolean
         example: false
       active_from:
-        description: | 
-            Sets the time from which an image must have been pushed or pulled to be counted as active.
+        description: |
+          Sets the time from which an image must have been pushed or pulled to be counted as active.
 
-            Defaults to 1 month before the current time.
+          Defaults to 1 month before the current time.
         type: string
         example: '2020-12-01T12:00:00Z'
       manifests:
@@ -262,7 +319,7 @@ definitions:
           These warnings include:
 
           * is_active: warning when attempting to delete an image that is marked as active.
-          
+
           * current_tag: warning when attempting to delete an image that has one or more current tags in the repository.
 
           Warnings can be copied from the response to the request.
@@ -349,7 +406,7 @@ definitions:
                           description: Name of the repository of the image that caused the error.
                           type: string
                           example: myrepo
-                        digest: 
+                        digest:
                           description: Digest of the image that caused the error.
                           type: string
                           example: sha256:1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqr
@@ -365,7 +422,7 @@ definitions:
                       These warnings include:
 
                       * is_active: warning when attempting to delete an image that is marked as active.
-                      
+
                       * current_tag: warning when attempting to delete an image that has one or more current tags in the repository.
 
                       Warnings can be copied from the response to the request.
@@ -475,16 +532,130 @@ definitions:
       action_description:
         type: string
     description: Audit log event.
+  ValueError:
+    type: object
+    description: Used to error if input validation fails.
+    properties:
+      fields:
+        type: object
+        items:
+          type: string
+      text:
+        type: string
+  Error:
+    type: object
+    properties:
+      detail:
+        type: string
+      message:
+        type: string
+  # Access Tokens
+  accessToken:
+    type: object
+    properties:
+      uuid:
+        type: string
+        example: b30bbf97-506c-4ecd-aabc-842f3cb484fb
+      client_id:
+        type: string
+        example: HUB
+      creator_ip:
+        type: string
+        example: 127.0.0.1
+      creator_ua:
+        type: string
+        example: some user agent
+      created_at:
+        type: string
+        example: 2021-07-20T12:00:00.000000Z
+      last_used:
+        type: string
+        x-nullable: true
+        example: null
+      generated_by:
+        type: string
+        example: manual
+      is_active:
+        type: boolean
+        example: true
+      token:
+        type: string
+        example: a7a5ef25-8889-43a0-8cc7-f2a94268e861
+      token_label:
+        type: string
+        example: My read only token
+      scopes:
+        type: array
+        example: ['repo:read']
+        items:
+          type: string
+  createAccessTokenRequest:
+    type: object
+    required:
+      - token_label
+      - scopes
+    properties:
+      token_label:
+        type: string
+        description: Friendly name for you to identify the token.
+        example: My read only token
+      scopes:
+        type: array
+        description: 'Valid scopes: "repo:admin", "repo:write", "repo:read", "repo:public_read"'
+        example: ['repo:read']
+        items:
+          type: string
+  createAccessTokensResponse:
+    type: object
+    $ref: '#/definitions/accessToken'
+  getAccessTokensResponse:
+    type: object
+    properties:
+      count:
+        type: number
+        example: 1
+      next:
+        type: string
+        example: null
+      previous:
+        type: string
+        example: null
+      active_count:
+        type: number
+        example: 1
+      results:
+        type: array
+        items:
+          allOf:
+            - $ref: '#/definitions/accessToken'
+            - type: object
+              properties:
+                token:
+                  type: string
+                  example: ''
+  patchAccessTokenRequest:
+    type: object
+    properties:
+      token_label:
+        type: string
+        example: My read only token
+      is_active:
+        type: boolean
+        example: false
+  patchAccessTokenResponse:
+    type: object
+    $ref: '#/definitions/accessToken'
+
 paths:
   /v2/users/login:
     post:
-      tags: [Authentication]
-      summary: Create authentication token
+      tags: [authentication]
+      summary: Create an authentication token
       operationId: PostUsersLogin
       description: |
-        Creates an authentication token that can be used to authenticate with the Docker Hub APIs.
+        Creates and returns a bearer token in JWT format that you can use to authenticate with Docker Hub APIs.
 
-        The returned token is used in the HTTP Authorization header like `Authorization: JWT {TOKEN}`.
+        The returned token is used in the HTTP Authorization header like `Authorization: Bearer {TOKEN}`.
 
         Most Docker Hub APIs require this token either to consume or to get detailed information. For example, to list images in a private repository.
       parameters:
@@ -503,9 +674,113 @@ paths:
           description: Authentication failed
           schema:
             $ref: '#/definitions/PostUsersLoginErrorResponse'
+  /v2/access-tokens:
+    post:
+      summary: Create a personal access token
+      description: Creates and returns a personal access token.
+      tags: [access-tokens]
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/createAccessTokenRequest'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/createAccessTokensResponse'
+        '400':
+          $ref: '#/responses/BadRequest'
+        '401':
+          $ref: '#/responses/Unauthorized'
+    get:
+      summary: Get a list of personal access tokens
+      description: Returns a paginated list of personal access tokens.
+      tags: [access-tokens]
+      parameters:
+        - in: query
+          name: page
+          type: number
+          default: 1
+        - in: query
+          name: page_size
+          type: number
+          default: 10
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/getAccessTokensResponse'
+        '400':
+          $ref: '#/responses/BadRequest'
+        '401':
+          $ref: '#/responses/Unauthorized'
+  /v2/access-tokens/{uuid}:
+    patch:
+      summary: Update a personal access token
+      description: |
+        Updates a personal access token partially. You can either update the
+        token's label or enable/disable it.
+      tags: [access-tokens]
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          type: string
+        - in: body
+          name: request body
+          required: true
+          schema:
+            $ref: '#/definitions/patchAccessTokenRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/patchAccessTokenResponse'
+        '400':
+          $ref: '#/responses/BadRequest'
+        '401':
+          $ref: '#/responses/Unauthorized'
+    get:
+      summary: Get a personal access token
+      description: Returns a personal access token by UUID.
+      tags: [access-tokens]
+      responses:
+        '200':
+          description: OK
+          schema:
+            allOf:
+              - $ref: '#/definitions/accessToken'
+              - type: object
+                properties:
+                  token:
+                    type: string
+                    example: ''
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
+    delete:
+      summary: Delete a personal access token
+      description: |
+        Deletes a personal access token permanently. This cannot be undone.
+      tags: [access-tokens]
+      parameters:
+        - in: path
+          name: uuid
+          required: true
+          type: string
+      responses:
+        '204':
+          description: A successful response.
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '404':
+          $ref: '#/responses/NotFound'
   /v2/namespaces/{namespace}/repositories/{repository}/images-summary:
     get:
-      tags: [Images]
+      tags: [images]
       summary: Get summary of repository's images
       description: |
         Gets the number of images in a repository and the number of images counted as active and inactive.
@@ -526,7 +801,7 @@ paths:
         - name: active_from
           in: query
           required: false
-          description: | 
+          description: |
             Sets the time from which an image must have been pushed or pulled to be counted as active.
 
             Defaults to 1 month before the current time.
@@ -534,7 +809,7 @@ paths:
       responses:
         200:
           description: Success
-          schema: 
+          schema:
             $ref: '#/definitions/GetNamespaceRepositoryImagesSummaryResponse'
         401:
           description: Unauthorized - user does not have read access to the namespace
@@ -542,7 +817,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
   /v2/namespaces/{namespace}/repositories/{repository}/images:
     get:
-      tags: [Images]
+      tags: [images]
       summary: Get details of repository's images
       description: Gets details on the images in a repository.
       operationId: GetNamespacesRepositoriesImages
@@ -569,7 +844,7 @@ paths:
           in: query
           required: false
           type: boolean
-          description: | 
+          description: |
             Filters to only show images with:
             * `true`: at least 1 current tag.
             * `false`: no current tags.
@@ -585,7 +860,7 @@ paths:
         - name: active_from
           in: query
           required: false
-          description: | 
+          description: |
             Sets the time from which an image must have been pushed or pulled to be counted as active.
 
             Defaults to 1 month before the current time.
@@ -603,7 +878,7 @@ paths:
       responses:
         200:
           description: Success
-          schema: 
+          schema:
             $ref: '#/definitions/GetNamespaceRepositoryImagesResponse'
         401:
           description: Unauthorized - user does not have read access to the namespace.
@@ -615,7 +890,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
   /v2/namespaces/{namespace}/repositories/{repository}/images/{digest}/tags:
     get:
-      tags: [Images]
+      tags: [images]
       summary: Get image's tags
       description: Gets current and historical tags for an image.
       operationId: GetNamespacesRepositoriesImagesTags
@@ -650,7 +925,7 @@ paths:
       responses:
         200:
           description: Success
-          schema: 
+          schema:
             $ref: '#/definitions/GetNamespaceRepositoryImagesTagsResponse'
         401:
           description: Unauthorized - user does not have read access to the namespace
@@ -662,7 +937,7 @@ paths:
             $ref: '#/definitions/ErrorResponse'
   /v2/namespaces/{namespace}/delete-images:
     post:
-      tags: [Images]
+      tags: [images]
       summary: Delete images
       operationId: PostNamespacesDeleteImages
       description: |
@@ -782,8 +1057,7 @@ paths:
           type: integer
           format: int32
           default: 25
-      tags:
-        - "Audit Logs"
+      tags: [audit-logs]
   /v2/auditlogs/{account}/actions:
     get:
       summary: Returns list of audit log actions.
@@ -859,5 +1133,18 @@ paths:
           in: path
           required: true
           type: string
-      tags:
-        - "Audit Logs"
+      tags: [audit-logs]
+
+responses:
+  BadRequest:
+    description: Bad Request
+    schema:
+      $ref: '#/definitions/ValueError'
+  Unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/Error'
+  NotFound:
+    description: Not Found
+    schema:
+      $ref: '#/definitions/Error'
