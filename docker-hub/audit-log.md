@@ -4,7 +4,11 @@ keywords: Team, organization, activity, log, audit, activities
 title: Audit log
 ---
 
-> The Audit log feature is available for users subscribed to a Team plan. [Upgrade](https://www.docker.com/pricing){: target="_blank" rel="noopener" class="_"} your existing account to a Team account to start using the Audit log feature.
+{% include upgrade-cta.html
+  body="The Audit log feature is available for users subscribed to a Team plan. Upgrade your existing account to start using the Audit log feature."
+  header-text="This feature requires a Team plan"
+  target-url="https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade_audit_log"
+%}
 
 Audit log displays a chronological list of activities that occur at organization and repository levels. It provides owners of Docker Team accounts a report of all their team member activities. This allows the team owners to view and track what changes were made, the date when a change was made, and who initiated the change. For example, the Audit log displays activities such as the date when a repository was created or deleted, the team member who created the repository, the name of the repository, and when there was a change to the privacy settings.
 

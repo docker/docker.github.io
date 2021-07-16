@@ -10,6 +10,11 @@ redirect_from:
 title: Set up Automated Builds
 ---
 
+{% include upgrade-cta.html
+  body="The Automated Builds feature is available for Pro or Team plans only. Upgrade your existing account to a Pro or a Team plan to start using Automated Builds."
+  header-text="This feature requires a Pro or a Team plan"
+  target-url="https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade_auto_builds"
+%}
 
 ## How Automated Builds work
 
@@ -19,9 +24,7 @@ repositories.
 
 > **Note**
 >
-> The Automated Builds feature is available for Pro or Team plans only. [Upgrade](https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade){: target="_blank" rel="noopener" class="_"} 
-> your existing account to a Pro or a Team plan to start using Automated Builds.
-If you are using automated builds for an open-source project, you can join our [Open Source Community](https://www.docker.com/community/open-source/application){: target="_blank" rel="noopener" class="_"} program to learn how Docker can support your project on Docker Hub.
+> If you are using automated builds for an open-source project, you can join our [Open Source Community](https://www.docker.com/community/open-source/application){: target="_blank" rel="noopener" class="_"} program to learn how Docker can support your project on Docker Hub.
 
 When you set up automated builds (also called autobuilds), you create a list of
 branches and tags that you want to build into Docker images. When you push code

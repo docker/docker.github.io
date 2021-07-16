@@ -229,7 +229,11 @@ To interact with remote repositories:
 
 The **Volumes** view in Docker Dashboard enables you to easily create and delete [volumes](../storage/volumes/index.md) and see which ones are being used. If you are a developer subscribed to a Pro or a Team plan, you can also see which container is using a specific volume and explore the files and folders in your volumes.
 
-> [Upgrade](https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade){: target="_blank" rel="noopener" class="_"} your existing account to a Pro or a Team plan to start exploring the details in your volume.
+{% include upgrade-cta.html
+  body="Upgrade your existing account to a Pro or a Team plan to start exploring the details in your volume."
+  header-text="This feature requires a Pro or a Team plan"
+  target-url="https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade_volumes"
+%}
 
 ### Manage volumes
 

@@ -8,7 +8,10 @@ title: Logs and troubleshooting
 toc_max: 2
 ---
 
-> Did you know that Docker Desktop now offers support for developers subscribed to a Pro or a Team plan? Click [here](#support) to learn more.
+{% include upgrade-cta.html
+  body="Did you know that Docker Desktop now offers support for developers subscribed to a Pro or a Team plan? Upgrade your existing plan to benefit from Docker Support. Click [here](#support) to learn more."
+  target-url="https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade_desktop_support"
+%}
 
 This page contains information on how to diagnose and troubleshoot Docker Desktop issues, request Docker Desktop support (Pro and Team plan users only), send logs and communicate with the Docker Desktop team, use our forums and Success Center, browse and log issues on GitHub, and find workarounds for known problems.
 
@@ -325,9 +328,13 @@ explore other workarounds suggested on Docker Desktop forums.
 
 ## Support
 
-Docker Desktop offers support for developers subscribed to a Pro or a Team plan. Click [here](https://www.docker.com/pricing){: target="_blank" rel="noopener" class="_"} to upgrade your existing account.
-
 This section contains instructions on how to get support, and covers the scope of Docker Desktop support.
+
+{% include upgrade-cta.html
+  body="Docker Desktop offers support for developers subscribed to a Pro or a Team plan. Upgrade your existing plan to benefit from Docker Support."
+  header-text="This feature requires a Pro or a Team plan"
+  target-url="https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade_desktop_support"
+%}
 
 ### How do I get Docker Desktop support?
 

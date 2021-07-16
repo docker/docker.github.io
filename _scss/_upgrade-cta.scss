@@ -2,7 +2,7 @@
   body.night & {
     background-color: change-color($orange-10, $alpha: 0.3);
     border: 1px solid $orange-10;
-    p, .docker-upgrade-cta__heading { color: $orange-10; }
+    p, .docker-upgrade-cta__heading { color: $white-0; }
   }
 
   body:not(.night) & {
