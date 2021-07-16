@@ -20,7 +20,7 @@ The Docker ECS Integration enables developers to use native Docker commands in D
 
 The integration between Docker and Amazon ECS allows developers to use the Docker Compose CLI to set up an AWS context in one Docker command, allowing you to switch from a local context to a cloud context and run applications quickly and easily simplify multi-container application development on Amazon ECS using Compose files.
 
-For detailed instructions, see [Deploying Docker containers on ECS](/cloud/ecs-integration.md).
+For detailed instructions, see [Deploying Docker containers on ECS](/cloud/ecs-integration/).
 
 ## Feedback
 
