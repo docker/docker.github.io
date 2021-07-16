@@ -8,7 +8,7 @@ Docker and the broader community of Docker experts have put together many differ
 
 ## Hosted labs
 
-These self-paced and hands-on workshops use free, hosted environments ([Play with Docker](https://labs.play-with-docker.com/){:target="_blank" rel="noopener" class="_"} and [Play with Kubernetes](https://labs.play-with-k8s.com/){:target="_blank" rel="noopener" class="_"}) that do not require anything to be installed. Follow along and learn more about Docker and Kubernetes.
+These self-paced and hands-on workshops use a free, hosted environment ([Play with Kubernetes](https://labs.play-with-k8s.com/){:target="_blank" rel="noopener" class="_"}) that does not require any installation. Follow along and learn more about Docker and Kubernetes.
 
 * [Kubernetes Workshop](https://training.play-with-kubernetes.com/kubernetes-workshop/){:target="_blank" rel="noopener" class="_"}
 * [Microservice containerization and orchestration](https://training.play-with-docker.com/microservice-orchestration/){:target="_blank" rel="noopener" class="_"}
