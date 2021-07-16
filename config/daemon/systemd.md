@@ -110,6 +110,13 @@ you need to add this configuration in the Docker systemd service file.
     Environment="HTTP_PROXY=http://proxy.example.com:80"
     Environment="HTTPS_PROXY=https://proxy.example.com:443"
     ```
+        
+    If you have to use special characters in the proxy value they must be both URL encoded and escape the % signs with double %%.
+    
+    ```conf
+    [Service]
+    Environment="HTTP_PROXY=http://domain%%5Cuser:complex%%23pass@proxy.example.com:8080/"
+    ```
      
 3.  If you have internal Docker registries that you need to contact without
     proxying you can specify them via the `NO_PROXY` environment variable.
@@ -185,6 +192,13 @@ you need to add this configuration in the Docker systemd service file.
     [Service]
     Environment="HTTP_PROXY=http://proxy.example.com:80"
     Environment="HTTPS_PROXY=https://proxy.example.com:443"
+    ```
+    
+    If you have to use special characters in the proxy value they must be both URL encoded and escape the % signs with double %%.
+    
+    ```conf
+    [Service]
+    Environment="HTTP_PROXY=http://domain%%5Cuser:complex%%23pass@proxy.example.com:8080/"
     ```
      
 3.  If you have internal Docker registries that you need to contact without
