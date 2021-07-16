@@ -24,3 +24,4 @@ title: Machine drivers
 -   [Scaleway](https://github.com/scaleway/docker-machine-driver-scaleway) (unofficial plugin, not supported by Docker)
 -   [Hetzner Cloud](https://github.com/JonasProgrammer/docker-machine-driver-hetzner) (unofficial plugin, not supported by Docker)
 -   [ArvanCloud](https://github.com/satrobit/docker-machine-driver-arvan) (unofficial plugin, not supported by Docker)
+-   [Yandex.Cloud](https://github.com/yandex-cloud/docker-machine-driver-yandex) (unofficial plugin, not supported by Docker)
