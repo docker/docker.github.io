@@ -38,7 +38,7 @@ $ curl --request POST \
 curl: (7) Failed to connect to localhost port 8000: Connection refused
 ```
 
-Our curl command failed because the connection to our server was refused. Meaning that we were not able to connect to localhost on port 8000. This is expected because our container is run in isolation which includes networking. Let’s stop the container and restart with port 8000 published on our local network.
+Our curl command failed because the connection to our server was refused. Meaning that we were not able to connect to localhost on port 8000. This is expected because our container is running in isolation which includes networking. Let’s stop the container and restart with port 8000 published on our local network.
 
 To stop the container, press ctrl-c. This will return you to the terminal prompt.
 
